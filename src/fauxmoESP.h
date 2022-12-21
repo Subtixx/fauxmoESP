@@ -33,7 +33,7 @@ THE SOFTWARE.
 #define FAUXMO_TCP_MAX_CLIENTS      10
 #define FAUXMO_TCP_PORT             1901
 #define FAUXMO_RX_TIMEOUT           3
-#define FAUXMO_DEVICE_UNIQUE_ID_LENGTH  12
+#define FAUXMO_DEVICE_UNIQUE_ID_LENGTH  27
 
 //#define DEBUG_FAUXMO                Serial
 #ifdef DEBUG_FAUXMO
@@ -82,7 +82,7 @@ typedef struct {
     unsigned char value;
     unsigned char hue;
     unsigned char sat;
-    char uniqueid[28];
+    char uniqueid[FAUXMO_DEVICE_UNIQUE_ID_LENGTH];
 } fauxmoesp_device_t;
 
 class fauxmoESP {
