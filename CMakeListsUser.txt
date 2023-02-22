@@ -1,0 +1,7 @@
+SET_SOURCE_FILES_PROPERTIES(./examples/Basic/Basic.ino PROPERTIES LANGUAGE CXX)
+SET_SOURCE_FILES_PROPERTIES(./examples/External_Server/External_Server.ino PROPERTIES LANGUAGE CXX)
+
+LIST(APPEND SRC_LIST ./examples/Basic/Basic.ino)
+LIST(APPEND SRC_LIST ./examples/External_Server/External_Server.ino)
+
+add_definitions(-DDEBUG_FAUXMO=Serial)
