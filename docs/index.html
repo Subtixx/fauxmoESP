@@ -31,8 +31,9 @@
             <table cellspacing="0" cellpadding="0">
                 <tbody>
                 <tr id="projectrow">
+                    <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
                     <td id="projectalign">
-                        <div id="projectname">FauxmoESP<span id="projectnumber">&#160;1.0.0</span>
+                        <div id="projectname">FauxmoESP<span id="projectnumber">&#160;v1.1.2</span>
                         </div>
                     </td>
                 </tr>
@@ -98,10 +99,10 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title"><a class="el" href="class_fauxmo_e_s_p.html">FauxmoESP</a> </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__home_runner_work_fauxmoESP_fauxmoESP_README"></a> </p><center> <img src="./docs/include/logo.svg" alt="Logo" style="pointer-events: none;" height="256" class="inline"/> </center><p>Amazon Alexa support for ESP8266, ESP32 and Raspberry Pi Pico W devices.</p>
+<div class="textblock"><p><a class="anchor" id="md__home_runner_work_fauxmoESP_fauxmoESP_README"></a> </p><center> <img src="https://github.com/Subtixx/fauxmoESP/raw/main/docs/include/logo.svg" alt="Logo" style="pointer-events: none;" height="256" class="inline"/> </center><p>Amazon Alexa support for ESP8266, ESP32 and Raspberry Pi Pico W devices.</p>
 <p>This is a library for ESP8266/ESP32-based/Raspberry Pi Pico W devices that emulates Philips Hue lights and thus allows you to control them using this protocol, in particular from Alexa-powered devices like the Amazon Echo or the Dot.</p>
-<p>This is a fork of <a class="el" href="class_fauxmo_e_s_p.html">FauxmoESP</a> with some changes! For more see CHANGELOG.md</p>
-<center></center><center><img src="https://img.shields.io/github/actions/workflow/status/subtixx/fauxmoesp/build.yml?color=%2350fa7b&amp;logo=github&amp;logoColor=%23f8f8f2&amp;style=flat-square" alt="GitHub Workflow Status" class="inline"/> <img src="https://img.shields.io/github/stars/subtixx/fauxmoesp.svg?color=ff79c6&amp;logo=github&amp;style=flat-square" alt="GitHub stars" style="pointer-events: none;" class="inline"/> <img src="https://img.shields.io/github/forks/subtixx/fauxmoesp.svg?color=ff79c6&amp;logo=github&amp;style=flat-square" alt="GitHub forks" style="pointer-events: none;" class="inline"/> ![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg?style=flat-square&amp;color=ff79c6) [<img src="https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square&amp;color=ffb86c" alt="license" style="pointer-events: none;" class="inline"/>](LICENSE) <a href="https://github.com/subtixx/fauxmoesp/issues"><img src="https://img.shields.io/github/issues/subtixx/fauxmoesp.svg?color=ff79c6&amp;logo=github&amp;style=flat-square" alt="GitHub issues" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/sponsors/Subtixx"><img src="https://img.shields.io/badge/GitHub-%E2%9D%A4%EF%B8%8F%20Sponsor-%23886EB4?logo=github&amp;style=flat-square" alt="GitHub Sponsor" class="inline"/></a></center><center></center><h2><a class="anchor" id="autotoc_md0"></a>
+<p>This is a fork of <a class="el" href="class_fauxmo_e_s_p.html">FauxmoESP</a> with some changes! For more see <a href="https://github.com/Subtixx/fauxmoESP/blob/main/CHANGELOG.md">CHANGELOG.md</a></p>
+<center></center><center><img src="https://img.shields.io/github/actions/workflow/status/subtixx/fauxmoesp/build.yml?color=%2350fa7b&amp;logo=github&amp;logoColor=%23f8f8f2&amp;style=flat-square" alt="GitHub Workflow Status" class="inline"/> <a href="https://registry.platformio.org/libraries/subtixx/FauxmoESP"><img src="https://badges.registry.platformio.org/packages/subtixx/library/FauxmoESP.svg" alt="PlatformIO Registry" style="pointer-events: none;" class="inline"/></a> <img src="https://img.shields.io/github/stars/subtixx/fauxmoesp.svg?color=ff79c6&amp;logo=github&amp;style=flat-square" alt="GitHub stars" style="pointer-events: none;" class="inline"/> <img src="https://img.shields.io/github/forks/subtixx/fauxmoesp.svg?color=ff79c6&amp;logo=github&amp;style=flat-square" alt="GitHub forks" style="pointer-events: none;" class="inline"/> ![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg?style=flat-square&amp;color=ff79c6) <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square&amp;color=ffb86c" alt="license" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/subtixx/fauxmoesp/issues"><img src="https://img.shields.io/github/issues/subtixx/fauxmoesp.svg?color=ff79c6&amp;logo=github&amp;style=flat-square" alt="GitHub issues" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/sponsors/Subtixx"><img src="https://img.shields.io/badge/GitHub-%E2%9D%A4%EF%B8%8F%20Sponsor-%23886EB4?logo=github&amp;style=flat-square" alt="GitHub Sponsor" class="inline"/></a></center><center></center><h2><a class="anchor" id="autotoc_md0"></a>
 Dependencies</h2>
 <p>Besides the libraries already included with the Arduino Core for ESP8266 or ESP32, these libraries are also required to use fauxmoESP:</p>
 <p>ESP8266:</p>
@@ -210,7 +211,7 @@ License</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="footer">Generated on Wed Feb 22 2023 16:06:28 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+        <li class="footer">Generated on Wed Feb 22 2023 16:20:52 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
     </ul>
 </div>
 <!-- ... -->
