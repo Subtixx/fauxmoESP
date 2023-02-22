@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/subtixx/fauxmoESP"
     },
-    "version": "1.1.0",
+    "version": "1.1.2",
     "license": "MIT",
     "exclude": "tests",
     "frameworks": "arduino",

@@ -5,6 +5,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.2] - 2023-02-22
+
+- Fix minor issues with README
+- Fix minor issues with docs
+
+## [1.1.1] - 2023-02-22
+
+- Fix issues with build system
+
 ## [1.1.0] - 2023-02-22
 
 - Restructured the code to make it easier to maintain
