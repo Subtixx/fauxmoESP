@@ -11,10 +11,11 @@ This is a fork of FauxmoESP with some changes! For more see [CHANGELOG.md](CHANG
 <center>
 
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/subtixx/fauxmoesp/build.yml?color=%2350fa7b&logo=github&logoColor=%23f8f8f2&style=flat-square)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/subtixx/library/FauxmoESP.svg)](https://registry.platformio.org/libraries/subtixx/FauxmoESP)
 ![GitHub stars](https://img.shields.io/github/stars/subtixx/fauxmoesp.svg?color=ff79c6&logo=github&style=flat-square)
 ![GitHub forks](https://img.shields.io/github/forks/subtixx/fauxmoesp.svg?color=ff79c6&logo=github&style=flat-square)
-[![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg?style=flat-square&color=ff79c6)](CHANGELOG.md)
-[![license](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square&color=ffb86c)](LICENSE)
+[![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg?style=flat-square&color=ff79c6)](./CHANGELOG.md)
+[![license](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square&color=ffb86c)](./LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/subtixx/fauxmoesp.svg?color=ff79c6&logo=github&style=flat-square)](https://github.com/subtixx/fauxmoesp/issues)
 [![GitHub Sponsor](https://img.shields.io/badge/GitHub-%E2%9D%A4%EF%B8%8F%20Sponsor-%23886EB4?logo=github&style=flat-square)](https://github.com/sponsors/Subtixx)
 
