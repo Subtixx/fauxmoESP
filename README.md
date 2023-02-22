@@ -1,15 +1,24 @@
-# FauxmoESP (Fork)
+<center>
+    <img alt="Logo" src="./docs/include/logo.svg" height="256" />
+</center>
 
 Amazon Alexa support for ESP8266, ESP32 and Raspberry Pi Pico W devices.
 
 This is a library for ESP8266/ESP32-based/Raspberry Pi Pico W devices that emulates Philips Hue lights and thus allows you to control them using this protocol, in particular from Alexa-powered devices like the Amazon Echo or the Dot.
 
-[![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg)](CHANGELOG.md)
-[![codacy](https://img.shields.io/codacy/grade/44478ddd58fe4cc6a2bc5598232663b8/master.svg)](https://www.codacy.com/app/xoseperez/fauxmoesp/dashboard)
-[![license](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
+This is a fork of FauxmoESP with some changes! For more see [CHANGELOG.md](CHANGELOG.md)
 
-[![donate](https://img.shields.io/badge/donate-PayPal-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=xose%2eperez%40gmail%2ecom&lc=US&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest)
-[![twitter](https://img.shields.io/twitter/follow/xoseperez.svg?style=social)](https://twitter.com/intent/follow?screen_name=xoseperez)
+<center>
+
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/subtixx/fauxmoesp/build.yml?color=%2350fa7b&logo=github&logoColor=%23f8f8f2&style=flat-square)
+![GitHub stars](https://img.shields.io/github/stars/subtixx/fauxmoesp.svg?color=ff79c6&logo=github&style=flat-square)
+![GitHub forks](https://img.shields.io/github/forks/subtixx/fauxmoesp.svg?color=ff79c6&logo=github&style=flat-square)
+[![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg?style=flat-square&color=ff79c6)](CHANGELOG.md)
+[![license](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square&color=ffb86c)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/subtixx/fauxmoesp.svg?color=ff79c6&logo=github&style=flat-square)](https://github.com/subtixx/fauxmoesp/issues)
+[![GitHub Sponsor](https://img.shields.io/badge/GitHub-%E2%9D%A4%EF%B8%8F%20Sponsor-%23886EB4?logo=github&style=flat-square)](https://github.com/sponsors/Subtixx)
+
+</center>
 
 ## Dependencies
 
@@ -17,11 +26,11 @@ Besides the libraries already included with the Arduino Core for ESP8266 or ESP3
 
 ESP8266:
 
-* This library uses [ESPAsyncTCP][3] library by [me-no-dev][5]
+* This library uses [ESPAsyncTCP][3] library by [ottowinter][5]
 
 ESP32:
 
-* This library uses [AsyncTCP][4] library by [me-no-dev][5]
+* This library uses [AsyncTCP][4] library by [esphome][5]
 
 Raspberry Pi Pico
 
@@ -39,8 +48,8 @@ You can look for it manually but I have gathered the URL here for convenience:
 
 |Device|Library|Repository|ZIP|
 |-|-|-|-|
-|ESP8266|**ESPAsyncTCP** by Hristo Gochkov ESP8266|[GIT](https://github.com/me-no-dev/ESPAsyncTCP)|[ZIP](https://github.com/me-no-dev/ESPAsyncTCP/archive/master.zip)|
-|ESP32|**AsyncTCP** by Hristo Gochkov ESP32|[GIT](https://github.com/me-no-dev/AsyncTCP)|[ZIP](https://github.com/me-no-dev/AsyncTCP/archive/master.zip)|
+|ESP8266|**ESPAsyncTCP** by Hristo Gochkov ESP8266|[GIT](https://github.com/ottowinter/ESPAsyncTCP)|[ZIP](https://github.com/me-no-dev/ESPAsyncTCP/archive/master.zip)|
+|ESP32|**AsyncTCP** by Hristo Gochkov ESP32|[GIT](https://github.com/esphome/AsyncTCP)|[ZIP](https://github.com/me-no-dev/AsyncTCP/archive/master.zip)|
 |Raspberry Pi Pico W|**AsyncTCP_RP2040W** by Khoi Hoang |[GIT](https://github.com/khoih-prog/AsyncTCP_RP2040W)|[ZIP](https://github.com/khoih-prog/AsyncTCP_RP2040W/archive/master.zip)|
 
 ## Usage
@@ -91,14 +100,14 @@ Then run the "discover devices" option from your Alexa app or web (in the Smart 
 
 Current status of the library:
 
-|Platform|Gen1|Gen2|Gen3|
-|---|---|---|---|
-|ESP8266 Core 2.3.X|OK|OK?|OK (1)|
-|ESP8266 Core 2.4.0|OK (2)|OK? (2)|OK (1, 2)|
-|ESP8266 Core 2.4.1|OK (2)|OK? (2)|OK (1, 2)|
-|ESP8266 Core 2.4.2|OK (2)|OK? (2)|OK (1, 2)|
-|ESP32|OK|OK?|OK (1)|
-|Raspberry Pi Pico W Core 2.6.0|OK|OK|OK (1)|
+| Platform                       | Gen1   | Gen2    | Gen3      |
+|--------------------------------|--------|---------|-----------|
+| ESP8266 Core 2.3.X             | OK     | OK?     | OK (1)    |
+| ESP8266 Core 2.4.0             | OK (2) | OK? (2) | OK (1, 2) |
+| ESP8266 Core 2.4.1             | OK (2) | OK? (2) | OK (1, 2) |
+| ESP8266 Core 2.4.2             | OK (2) | OK? (2) | OK (1, 2) |
+| ESP32                          | OK     | OK?     | OK (1)    |
+| Raspberry Pi Pico W Core 2.6.0 | OK     | OK      | OK (1)    |
 
 (1) When using gen3 devices TCP port must be 80 always.
 (2) Arduino Core for ESP8266 requires LwIP set to "v1.4 Higher Bandwidth".
