@@ -68,12 +68,18 @@
         {
             "name": "Basic Example",
             "description": "Basic example of how to use FauxmoESP",
-            "base": "examples/Basic"
+            "base": "examples/Basic",
+            "files": [
+                "Basic.ino"
+            ]
         },
         {
             "name": "External Server",
             "description": "Example of how to use FauxmoESP with an external web server",
-            "base": "examples/External_Server"
+            "base": "examples/External_Server",
+            "files": [
+                "External_Server.ino"
+            ]
         }
     ],
     "headers": "FauxmoESP.h"
