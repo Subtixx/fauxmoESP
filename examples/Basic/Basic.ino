@@ -1,16 +1,15 @@
 #include <Arduino.h>
 #ifdef ESP32
     #include <WiFi.h>
-#else
+#elif defined(ESP8266)
     #include <ESP8266WiFi.h>
 #endif
-#include "fauxmoESP.h"
+#include "FauxmoESP.h"
 
-// Rename the credentials.sample.h file to credentials.h and 
-// edit it according to your router configuration
-#include "credentials.h"
+FauxmoESP fauxmo;
 
-fauxmoESP fauxmo;
+#define WIFI_SSID "your_ssid"
+#define WIFI_PASS "your_password"
 
 // -----------------------------------------------------------------------------
 
@@ -80,8 +79,8 @@ void setup() {
     // By default, fauxmoESP creates it's own webserver on the defined port
     // The TCP port must be 80 for gen3 devices (default is 1901)
     // This has to be done before the call to enable()
-    fauxmo.createServer(true); // not needed, this is the default value
-    fauxmo.setPort(80); // This is required for gen3 devices
+    fauxmo.setWebServerEnabled(true); // not needed, this is the default value
+    fauxmo.setWebServerPort(80); // This is required for gen3 devices
 
     // You have to call enable(true) once you have a WiFi connection
     // You can enable or disable the library at any moment
@@ -100,10 +99,9 @@ void setup() {
     fauxmo.addDevice(ID_PINK);
     fauxmo.addDevice(ID_WHITE);
 
-    fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state, unsigned char value) {
-        
+    fauxmo.onSetState([](unsigned int deviceId, fauxmoesp_device_t* device) {
         // Callback when a command from Alexa is received. 
-        // You can use device_id or device_name to choose the element to perform an action onto (relay, LED,...)
+        // You can use device_id or device->name to choose the element to perform an action onto (relay, LED,...)
         // State is a boolean (ON/OFF), value a number from 0 to 255 (if you say "set kitchen light to 50%" you will receive a 128 here),
         // hue a number from 0 to 255, and sat a number from 0 to 255. You will be responsible for converting hue, saturation, and value 
         // (HSV) to RGB. Here is a resource to get you started:
@@ -112,23 +110,22 @@ void setup() {
         // If you have to do something more involved here set a flag and process it in your main loop.
         
         Serial.printf("[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n", 
-            device_id, device_name, state ? "ON" : "OFF", value, hue, sat);
+            deviceId, device->name.c_str(), device->state ? "ON" : "OFF", device->value, device->hue, device->sat);
 
         // Checking for device_id is simpler if you are certain about the order they are loaded and it does not change.
-        // Otherwise comparing the device_name is safer.
+        // Otherwise comparing the device->name is safer.
 
-        if (strcmp(device_name, ID_YELLOW)==0) {
-            digitalWrite(LED_YELLOW, state ? HIGH : LOW);
-        } else if (strcmp(device_name, ID_GREEN)==0) {
-            digitalWrite(LED_GREEN, state ? HIGH : LOW);
-        } else if (strcmp(device_name, ID_BLUE)==0) {
-            digitalWrite(LED_BLUE, state ? HIGH : LOW);
-        } else if (strcmp(device_name, ID_PINK)==0) {
-            digitalWrite(LED_PINK, state ? HIGH : LOW);
-        } else if (strcmp(device_name, ID_WHITE)==0) {
-            digitalWrite(LED_WHITE, state ? HIGH : LOW);
+        if (device->name == ID_YELLOW) {
+            digitalWrite(LED_YELLOW, device->state ? HIGH : LOW);
+        } else if (device->name == ID_GREEN) {
+            digitalWrite(LED_GREEN, device->state ? HIGH : LOW);
+        } else if (device->name == ID_BLUE) {
+            digitalWrite(LED_BLUE, device->state ? HIGH : LOW);
+        } else if (device->name == ID_PINK) {
+            digitalWrite(LED_PINK, device->state ? HIGH : LOW);
+        } else if (device->name == ID_WHITE) {
+            digitalWrite(LED_WHITE, device->state ? HIGH : LOW);
         }
-
     });
 
 }

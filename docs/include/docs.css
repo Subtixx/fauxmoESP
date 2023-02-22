@@ -1,0 +1,3 @@
+.contents a#details + h2.groupheader {
+    display:none;
+}

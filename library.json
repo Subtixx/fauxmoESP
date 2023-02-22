@@ -1,12 +1,13 @@
 {
-    "name": "FauxmoESP (Fork)",
+    "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/schemas/platformio-package.json",
+    "name": "FauxmoESP",
     "keywords": "belkin,wemo,fauxmo,esp8266,esp32,RaspberryPiPicoW,alexa,amazon,echo,dot",
     "description": "Amazon Alexa support for ESP8266, ESP32 and Raspberry Pi Pico W (Amazon Echo & Dot)",
     "repository": {
         "type": "git",
         "url": "https://github.com/subtixx/fauxmoESP"
     },
-    "version": "1.0",
+    "version": "1.1.0",
     "license": "MIT",
     "exclude": "tests",
     "frameworks": "arduino",
@@ -15,6 +16,20 @@
         "espressif32",
         "rp2040"
     ],
+    "export": {
+        "exclude": [
+            "docs"
+        ]
+    },
+    "build": {
+        "srcFilter": [
+            "+<*.c>",
+            "+<*.cpp>",
+            "+<*.h>",
+            "+<platforms/esp/32/*.cpp>"
+        ],
+        "libArchive": false
+    },
     "authors": [
         {
             "name": "Dominic J. S. Hock",
@@ -31,20 +46,35 @@
     ],
     "dependencies": [
         {
-            "name": "ESPAsyncTCP",
-            "version": ">=1.2.0",
+            "name": "ESPAsyncTCP-esphome",
+            "author": "ottowinter",
+            "frameworks": "arduino",
             "platforms": "espressif8266"
         },
         {
-            "name": "AsyncTCP",
-            "version": ">=1.0.1",
+            "name": "AsyncTCP-esphome",
+            "author": "esphome",
+            "frameworks": "arduino",
             "platforms": "espressif32"
         },
         {
             "name": "AsyncTCP_RP2040W",
-            "version": ">=1.1.0",
+            "author": "khoih-prog",
+            "frameworks": "arduino",
             "platforms": "rp2040"
         }
     ],
-    "headers": "fauxmoESP.h"
+    "examples": [
+        {
+            "name": "Basic Example",
+            "description": "Basic example of how to use FauxmoESP",
+            "base": "examples/Basic"
+        },
+        {
+            "name": "External Server",
+            "description": "Example of how to use FauxmoESP with an external web server",
+            "base": "examples/External_Server"
+        }
+    ],
+    "headers": "FauxmoESP.h"
 }

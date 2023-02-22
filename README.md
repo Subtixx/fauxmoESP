@@ -1,37 +1,15 @@
-# FauxmoESP
+# FauxmoESP (Fork)
 
 Amazon Alexa support for ESP8266, ESP32 and Raspberry Pi Pico W devices.
 
 This is a library for ESP8266/ESP32-based/Raspberry Pi Pico W devices that emulates Philips Hue lights and thus allows you to control them using this protocol, in particular from Alexa-powered devices like the Amazon Echo or the Dot.
 
-[![version](https://img.shields.io/badge/version-3.1.2-brightgreen.svg)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg)](CHANGELOG.md)
 [![codacy](https://img.shields.io/codacy/grade/44478ddd58fe4cc6a2bc5598232663b8/master.svg)](https://www.codacy.com/app/xoseperez/fauxmoesp/dashboard)
 [![license](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
 [![donate](https://img.shields.io/badge/donate-PayPal-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=xose%2eperez%40gmail%2ecom&lc=US&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest)
 [![twitter](https://img.shields.io/twitter/follow/xoseperez.svg?style=social)](https://twitter.com/intent/follow?screen_name=xoseperez)
-
-## NEW! Discussions on Github
-We now have a place for general discussion, ideas, projects etc. - https://github.com/vintlabs/fauxmoESP/discussions/133
-
-## Notice
-
-**As of October 2020 https://github.com/vintlabs/fauxmoESP is the new home for fauxmoESP!!**
-
-**Many thanks for all of the work that Xose Perez has put into this project!**
-
-*I have migrated all of the issues from the old repo on Bitbucket here to GitHub, and I have closed many stale issues. If I have closed an issue that you feel should still be open, feel free to reopen it or submit a new one.*
-
-
-## History
-
-2020-12-22 Version 3.2 released. Devices now show properly in the Alexa App as a bulb.
-
-2020-12-08 Version 3.1.2 released. New version available in Arduino Library Manager or at https://github.com/vintlabs/fauxmoESP/releases/tag/3.1.2  PlatformIO is still pending update.
-
-Before version 3.0.0, the library used a different protocol (emulating Belkin Wemo devices). The library was a port of Maker Musings' [Fauxmo Python library][6] to the ESP8266 platform. Support for ESP32 and Gen2 devices was added by Frank Hellmann <frank at vfx dot to> and Bibi Blocksberg respectively.
-
-Since version 3.0.0 the library uses a different approach and emulates Philips Hue lights instead. This allows for a simpler code and also support for numeric values (you can now say "Alexa, set light to 50"). This version has been inspired by the [node-red-contrib-alexa-local](https://github.com/originallyus/node-red-contrib-alexa-local) plugin for NodeRED and the [ESPalexa](https://github.com/Aircoookie/Espalexa) library by Christian Schwinne.
 
 ## Dependencies
 
@@ -70,9 +48,9 @@ You can look for it manually but I have gathered the URL here for convenience:
 The library is very easy to use, basically instantiate an object, connect to the Wifi, add one or more virtual devices and bind the callback to get the messages. An schematic example could be:
 
 ```
-#include <fauxmoESP.h>
+#include <FauxmoESP.h>
 
-fauxmoESP fauxmo;
+FauxmoESP fauxmo;
 
 void setup() {
 
@@ -85,11 +63,11 @@ void setup() {
     fauxmo.addDevice("light three");
     fauxmo.addDevice("light four");
 
-    fauxmo.setPort(80); // required for gen3 devices
+    fauxmo.setWebServerPort(80); // required for gen3 devices
     fauxmo.enable(true);
 
-    fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state, unsigned char value) {
-        Serial.printf("[MAIN] Device #%d (%s) state: %s value: %d\n", device_id, device_name, state ? "ON" : "OFF", value);
+    fauxmo.onSetState([](unsigned char deviceId, fauxmoesp_device_t* device) {
+        Serial.printf("[MAIN] Device #%d (%s) state: %s value: %d\n", deviceId, device->name, device->state ? "ON" : "OFF", device->value);
     });
 
 }
@@ -125,7 +103,7 @@ Current status of the library:
 (1) When using gen3 devices TCP port must be 80 always.
 (2) Arduino Core for ESP8266 requires LwIP set to "v1.4 Higher Bandwidth".
 
-* fauxmoESP 3.1.X: When using with gen3 devices TCP port must be 80. You can define it with the `setPort` method.
+* fauxmoESP 3.1.X: When using with gen3 devices TCP port must be 80. You can define it with the `setWebServerPort` method.
 
 * fauxmoESP 3.1.X: If you application already uses port 80 you can prevent fauxmoESP from creating its own webserver and inject the values from your application handlers to the library. Check the fauxmoESP_External_Server example.
 
@@ -147,11 +125,9 @@ Current status of the library:
 [8]:https://github.com/khoih-prog/AsyncTCP_RP2040W
 [9]:https://github.com/khoih-prog
 
-## If you enjoy this, please consider supporting us by purchasing a module from us!
-http://www.vintlabs.com
-
 ## License
 
+Copyright (C) 2023 by Dominic J. S. Hock <d.hock@it-hock.de>
 Copyright (C) 2016-2020 by Xose Pérez <xose dot perez at gmail dot com>, 2020 by Paul Vint <pjvint at gmail dot com>
 
 The MIT License (MIT)

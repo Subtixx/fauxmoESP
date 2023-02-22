@@ -5,13 +5,12 @@
     #include <WiFi.h>
 #endif
 #include <ESPAsyncWebServer.h>
-#include "fauxmoESP.h"
+#include "FauxmoESP.h"
 
-// Rename the credentials.sample.h file to credentials.h and 
-// edit it according to your router configuration
-#include "credentials.h"
+#define WIFI_SSID "your_ssid"
+#define WIFI_PASS "your_password"
 
-fauxmoESP fauxmo;
+FauxmoESP fauxmo;
 AsyncWebServer server(80);
 
 // -----------------------------------------------------------------------------
@@ -87,8 +86,8 @@ void setup() {
     // Set fauxmoESP to not create an internal TCP server and redirect requests to the server on the defined port
     // The TCP port must be 80 for gen3 devices (default is 1901)
     // This has to be done before the call to enable()
-    fauxmo.createServer(false);
-    fauxmo.setPort(80); // This is required for gen3 devices
+    fauxmo.setWebServerEnabled(false);
+    fauxmo.setWebServerPort(80); // This is required for gen3 devices
 
     // You have to call enable(true) once you have a WiFi connection
     // You can enable or disable the library at any moment
@@ -112,7 +111,7 @@ void setup() {
     //fauxmo.addDevice("light 7");
     //fauxmo.addDevice("light 8");
 
-    fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state, unsigned char value) {
+    fauxmo.onSetState([](unsigned int deviceId, fauxmoesp_device_t* device) {
         
         // Callback when a command from Alexa is received. 
         // You can use device_id or device_name to choose the element to perform an action onto (relay, LED,...)
@@ -128,10 +127,10 @@ void setup() {
         // if (2 == device_id) analogWrite(LED1_PIN, value);
         
         Serial.printf("[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n", 
-            device_id, device_name, state ? "ON" : "OFF", value, hue, sat);
+            deviceId, device->name, device->state ? "ON" : "OFF", device->value, device->hue, device->sat);
 
         // For the example we are turning the same LED on and off regardless fo the device triggered or the value
-        digitalWrite(LED, !state); // we are nor-ing the state because our LED has inverse logic.
+        digitalWrite(LED, !device->state); // we are nor-ing the state because our LED has inverse logic.
 
     });
 

@@ -12,3 +12,5 @@ pio
 .gcc-flags.json
 .pioenvs
 .piolibdeps
+CMakeListsPrivate.txt
+cmake-build-*/
