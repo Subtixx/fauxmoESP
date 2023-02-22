@@ -46,6 +46,10 @@
     ],
     "dependencies": [
         {
+            "name": "ArduinoJson",
+            "author": "bblanchon"
+        },
+        {
             "name": "ESPAsyncTCP-esphome",
             "author": "ottowinter",
             "frameworks": "arduino",
