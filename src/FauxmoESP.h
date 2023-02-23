@@ -62,7 +62,7 @@ public:
         this->_webServerEnabled = enabled;
     }
 
-    void addLight(const String& name, const String& deviceId);
+    Light* addLight(const String& name);
     void removeLight(const String& deviceId);
 
     Light* getLightByDeviceId(const String& deviceId);

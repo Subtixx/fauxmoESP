@@ -184,23 +184,24 @@ void FauxmoESP::onLightStateRequest()
     webServer->send(200, "application/json", light->toJson());
 }
 
-void FauxmoESP::addLight(const String& name, const String& deviceId)
+Light* FauxmoESP::addLight(const String& name)
 {
-    if (getLightByName(name) != nullptr || getLightByDeviceId(deviceId) != nullptr)
+    if (getLightByName(name) != nullptr)
     {
         DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Device with name %s already exists\n", name.c_str())
-        return;
+        return nullptr;
     }
 
-    auto* light = new Light();
-    light->name = name;
-    if (deviceId.length() >= DEVICE_UNIQUE_ID_LENGTH)
+    if (lights.size() >= MAX_DEVICES)
     {
-        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Device ID too long: %s\n", deviceId.c_str())
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Maximum number of devices reached\n")
+        return nullptr;
     }
 
-    deviceId.toCharArray(light->uniqueId, DEVICE_UNIQUE_ID_LENGTH);
+    auto* light = new Light(name, lights.size() + 1);
     lights.push_back(light);
+
+    return light;
 }
 
 void FauxmoESP::removeLight(const String& deviceId)
