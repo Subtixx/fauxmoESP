@@ -26,5 +26,11 @@ struct Light
     LightState state = LightState();
     LightCapabilities capabilities = LightCapabilities();
 
+    String type = "Extended color light";
+    String modelid = "LCT015";
+    String manufacturername = "FauxmoESP";
+    String productname = "E4";
+    String swversion = "5.105.0.21169";
+
     [[nodiscard]] String toJson() const;
 };

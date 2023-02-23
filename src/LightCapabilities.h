@@ -69,5 +69,9 @@ struct LightCapabilities
      */
     uint16_t maxColorTemperature;
 
+    bool certified = false;
+    bool streamingRenderer = true;
+    bool streamingProxy = false;
+
     [[nodiscard]] String toJson() const;
 };

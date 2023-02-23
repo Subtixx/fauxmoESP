@@ -5,16 +5,16 @@
 #endif
 
 #include <utility>
+#include <ESP8266SSDP.h>
 
 #include "FauxmoESP.h"
 #include "LightState.h"
 #include "Light.h"
-#include "LightCapabilities.h"
-#include "FauxmoESP.h"
 #include "Definitions.h"
-#include "templates.h"
+#include "LightStateChange.h"
 
-FauxmoESP::FauxmoESP() : webServer(nullptr)
+FauxmoESP::FauxmoESP()
+        :webServer(nullptr)
 {
 }
 
@@ -28,46 +28,109 @@ void FauxmoESP::setup(OnStateChangeCallback onStateChangeCallback, OnGetStateCal
     this->_onStateChange = std::move(onStateChangeCallback);
     this->_onGetState = std::move(onGetStateCallback);
 
+    createSsdp();
+
     if (this->_webServerEnabled)
     {
         this->webServer = new ESP8266WebServer(_webServerPort);
 
-        // Gets a list of all lights that have been discovered by the bridge.
-        this->webServer->on("/api/" + _username + "/lights", HTTP_GET, [this]
+        // Allows the user to turn the light on and off, modify the hue and effects.
+        this->webServer->on(UriRegex("/api/([A-Za-z0-9]+)/lights/([0-9]+)/state"), HTTP_PUT, [this]
         {
-            onLightList();
+            String username = webServer->pathArg(0);
+            String lightId = webServer->pathArg(1);
+            if (!checkUsername(username))
+            {
+                return;
+            }
+
+            DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Received /api/%s/lights/%s/state request!\n", username.c_str(),
+                    lightId.c_str())
+            onLightStateChange();
         });
 
         // Gets the attributes and state of a given light.
-        this->webServer->on(UriRegex("/api/" + _username + "/lights/(\\d+)"), HTTP_GET, [this]
+        this->webServer->on(UriRegex("/api/([A-Za-z0-9]+)/lights/([0-9]+)"), HTTP_GET, [this]
         {
+            String username = webServer->pathArg(0);
+            String lightId = webServer->pathArg(1);
+            if (!checkUsername(username))
+            {
+                return;
+            }
+
+            DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Received /api/%s/lights/%s request!\n", username.c_str(), lightId.c_str())
             onLightStateRequest();
         });
 
-        // Allows the user to turn the light on and off, modify the hue and effects.
-        this->webServer->on(UriRegex("/api/" + _username + "/lights/(\\d+)/state"), HTTP_PUT, [this]
+        // Gets a list of all lights that have been discovered by the bridge.
+        this->webServer->on(UriRegex("/api/([A-Za-z0-9]+)/lights"), HTTP_GET, [this]
         {
-            onLightStateChange();
+            String username = webServer->pathArg(0);
+            if (!checkUsername(username))
+            {
+                return;
+            }
+
+            DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Received /api/%s/lights request!\n", username.c_str())
+            onLightList();
         });
 
         this->webServer->on("/description.xml", HTTP_GET, [this]
         {
-            IPAddress ip = WiFi.localIP();
-            String mac = WiFi.macAddress();
-            mac.replace(":", "");
-            mac.toLowerCase();
-
-            char response[strlen_P(FAUXMO_DESCRIPTION_TEMPLATE) + 64];
-            snprintf_P(
-                    response, sizeof(response),
-                    FAUXMO_DESCRIPTION_TEMPLATE,
-                    ip[0], ip[1], ip[2], ip[3], _webServerPort,
-                    ip[0], ip[1], ip[2], ip[3], _webServerPort,
-                    mac.c_str(), mac.c_str()
-            );
-            webServer->send(200, "text/xml", String(response));
+            SSDP.schema(webServer->client());
         });
+
+        this->webServer->on("/api", HTTP_POST, [this]
+        {
+            DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Received /api POST request!\n")
+            webServer->send(200, "text/plain", R"([{"success":{"username":")" + _username + "\"}}]");
+        });
+
+        this->webServer->onNotFound([this]
+        {
+            auto method = "GET";
+            if (webServer->method() == HTTP_POST)
+            {
+                method = "POST";
+            }
+            else if (webServer->method() == HTTP_PUT)
+            {
+                method = "PUT";
+            }
+            else if (webServer->method() == HTTP_DELETE)
+            {
+                method = "DELETE";
+            }
+            DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Received unknown request! %s %s\n", method, webServer->uri().c_str())
+            webServer->send(404, "text/plain", "Not found");
+        });
+
+        this->webServer->begin();
     }
+}
+void FauxmoESP::createSsdp() const
+{
+    String mac = WiFi.macAddress();
+    mac.replace(":", "");
+    mac.toLowerCase();
+
+    MDNS.addService("ssdp", "udp", 1900);
+    MDNS.addService("upnp", "tcp", 1900);
+
+    // Create SSDP philips hue device
+    SSDP.setSchemaURL("description.xml");
+    SSDP.setHTTPPort(_webServerPort);
+    SSDP.setName("Philips hue (" + mac + ")");
+    SSDP.setURL("/");
+    SSDP.setModelName("Philips hue bridge 2012");
+    SSDP.setModelNumber("929000226503");
+    SSDP.setModelURL("http://www.meethue.com");
+    SSDP.setManufacturer("Royal Philips Electronics");
+    SSDP.setManufacturerURL("http://www.philips.com");
+    SSDP.setDeviceType("urn:schemas-upnp-org:device:Basic:1");
+    SSDP.setSerialNumber(mac.c_str());
+    SSDP.begin();
 }
 
 void FauxmoESP::teardown()
@@ -85,6 +148,7 @@ void FauxmoESP::update()
     {
         webServer->handleClient();
     }
+
     delay(2);
 }
 
@@ -94,10 +158,27 @@ void FauxmoESP::update()
  */
 void FauxmoESP::onLightList()
 {
-    for (const auto& light : lights)
+    String response = "{";
+    auto i = 1;
+    for (auto& light : lights)
     {
-        Serial.println(light->toJson());
+        if (_onGetState != nullptr)
+        {
+            this->_onGetState(light);
+        }
+
+        response += "\"" + String(i) + "\": " + light->toJson();
+        if (light != lights.back())
+        {
+            response += ",";
+        }
+        i++;
     }
+
+    response += "}";
+
+    DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Sending light list!\n")
+    webServer->send(200, "application/json", response);
 }
 
 /**
@@ -113,12 +194,12 @@ void FauxmoESP::onLightList()
 void FauxmoESP::onLightStateChange()
 {
     String username = webServer->pathArg(0);
-    String lightId = webServer->pathArg(1);
+    ushort lightId = webServer->pathArg(1).toInt();
 
     auto* light = getLightByDeviceId(lightId);
     if (light == nullptr)
     {
-        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Light with id %s not found\n", lightId.c_str())
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Light with id %d not found\n", lightId)
         webServer->send(404);
         return;
     }
@@ -131,10 +212,11 @@ void FauxmoESP::onLightStateChange()
     }
 
     String body = webServer->arg("plain");
-    LightState state = LightState::fromJson(body);
+    auto stateChange = LightStateChange(body);
+    DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Received state change: %s (%s)\n", stateChange.getChanges(lightId).c_str(), body.c_str())
 
     // Modifying hue, saturation, brightness, effect, ct or xy when the light is off will return 201 error.
-    if (!light->state.isValidChange(state))
+    if (!light->state.isOn && (!stateChange.isOnSet() || !stateChange.getIsOn()))
     {
         DEBUG_MSG_FAUXMO(
                 FAUXMO_LOG_TAG "Modifying hue, saturation, brightness, effect, ct or xy when the light is off is not allowed\n")
@@ -142,14 +224,16 @@ void FauxmoESP::onLightStateChange()
         return;
     }
 
-    if (state.isLightReachable)
+    if (light->state.isLightReachable)
     {
-        light->state = state;
         if (_onStateChange != nullptr)
         {
-            this->_onStateChange(light);
+            this->_onStateChange(light, &stateChange);
         }
-        webServer->send(200);
+
+        const String& changesMade = stateChange.getChanges(lightId);
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Light %s State changed: %s!\n", light->name.c_str(), changesMade.c_str())
+        webServer->send(200, "application/json", changesMade);
         return;
     }
     else
@@ -169,12 +253,12 @@ void FauxmoESP::onLightStateChange()
 void FauxmoESP::onLightStateRequest()
 {
     String username = webServer->pathArg(0);
-    String lightId = webServer->pathArg(1);
+    ushort lightId = webServer->pathArg(1).toInt();
 
     auto* light = getLightByDeviceId(lightId);
     if (light == nullptr)
     {
-        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Light with id %s not found\n", lightId.c_str())
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Light with id %d not found\n", lightId)
         webServer->send(404);
         return;
     }
@@ -184,6 +268,7 @@ void FauxmoESP::onLightStateRequest()
         this->_onGetState(light);
     }
 
+    DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Sending state for light %s\n", light->name.c_str())
     webServer->send(200, "application/json", light->toJson());
 }
 
@@ -239,11 +324,11 @@ Light* FauxmoESP::getLightByName(const String& name)
     return *result;
 }
 
-Light* FauxmoESP::getLightByDeviceId(const String& deviceId)
+Light* FauxmoESP::getLightByDeviceId(const ushort deviceId)
 {
     const auto result = std::find_if(lights.begin(), lights.end(), [&deviceId](const auto* light)
     {
-        return light->uniqueId == deviceId.c_str();
+        return light->deviceId == deviceId;
     });
 
     if (result == lights.end())
@@ -252,4 +337,29 @@ Light* FauxmoESP::getLightByDeviceId(const String& deviceId)
     }
 
     return *result;
+}
+
+bool FauxmoESP::checkUsername(const String& username)
+{
+    if (this->_checkUsername && username != this->_username)
+    {
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Unauthorized user %s\n", username.c_str())
+        webServer->send(403, "application/json",
+                R"({"error":{"type":1,"address":"","description":"unauthorized user"}})");
+        return false;
+    }
+
+    return true;
+}
+Light* FauxmoESP::addLight(const String& name, const LightState& initialState)
+{
+    auto* light = addLight(name);
+    if (light == nullptr)
+    {
+        return nullptr;
+    }
+
+    light->state = initialState;
+
+    return light;
 }
