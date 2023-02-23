@@ -20,7 +20,7 @@ struct LightState
      *
      * json key: on
      */
-    bool state;
+    bool isOn;
 
     /**
      * Brightness of the light.
@@ -121,4 +121,10 @@ struct LightState
     [[nodiscard]] String getDynamicLightEffectString() const;
 
     [[nodiscard]] String getAlertEffectString() const;
+
+    bool operator==(const LightState& other) const;
+    bool operator!=(const LightState& other) const;
+    [[nodiscard]] bool isValidChange(const LightState& oldState) const;
+
+    static LightState fromJson(const String& json);
 };

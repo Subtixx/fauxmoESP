@@ -44,7 +44,7 @@ void FauxmoESP::setup(OnStateChangeCallback onStateChangeCallback, OnGetStateCal
         // Allows the user to turn the light on and off, modify the hue and effects.
         this->webServer->on(UriRegex("/api/" + _username + "/lights/(\\d+)/state"), HTTP_PUT, [this]
         {
-            onLightStateRequest();
+            onLightStateChange();
         });
 
         this->webServer->on("/description.xml", HTTP_GET, [this]
@@ -62,7 +62,7 @@ void FauxmoESP::setup(OnStateChangeCallback onStateChangeCallback, OnGetStateCal
                     ip[0], ip[1], ip[2], ip[3], _webServerPort,
                     mac.c_str(), mac.c_str()
             );
-            webServer->send(200, "text/xml", response);
+            webServer->send(200, "text/xml", String(response));
         });
     }
 }
@@ -100,9 +100,63 @@ void FauxmoESP::onLightList()
 /**
  * Gets the name, type and state of a given light.
  * PUT /api/{username}/lights/{id}/state
+ *
+ * @note A light cannot have its hue, saturation, brightness, effect, ct or xy modified when it is turned off.
+ *       Doing so will return 201 error.
+ *       There are 3 methods available to set the color of the light – hue and saturation (hs), xy or color temperature (ct).
+ *       If multiple methods are used then a priority is used: xy > ct > hs. All included parameters will be updated
+ *       but the ‘colormode’ will be set using the priority system.
  */
 void FauxmoESP::onLightStateChange()
 {
+    String username = webServer->pathArg(0);
+    String lightId = webServer->pathArg(1);
+
+    auto* light = getLightByDeviceId(lightId);
+    if (light == nullptr)
+    {
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Light with id %s not found\n", lightId.c_str())
+        webServer->send(404);
+        return;
+    }
+
+    if (!webServer->hasArg("plain"))
+    {
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "No body\n")
+        webServer->send(400);
+        return;
+    }
+
+    String body = webServer->arg("plain");
+    LightState state = LightState::fromJson(body);
+
+    // Modifying hue, saturation, brightness, effect, ct or xy when the light is off will return 201 error.
+    if (!light->state.isValidChange(state))
+    {
+        DEBUG_MSG_FAUXMO(
+                FAUXMO_LOG_TAG "Modifying hue, saturation, brightness, effect, ct or xy when the light is off is not allowed\n")
+        webServer->send(201);
+        return;
+    }
+
+    if (state.isLightReachable)
+    {
+        light->state = state;
+        if (_onStateChange != nullptr)
+        {
+            this->_onStateChange(light);
+        }
+        webServer->send(200);
+        return;
+    }
+    else
+    {
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "State is not valid\n")
+        webServer->send(400);
+        return;
+    }
+
+    assert(false && "Should not be possible to reach this point");
 }
 
 /**
@@ -111,6 +165,23 @@ void FauxmoESP::onLightStateChange()
  */
 void FauxmoESP::onLightStateRequest()
 {
+    String username = webServer->pathArg(0);
+    String lightId = webServer->pathArg(1);
+
+    auto* light = getLightByDeviceId(lightId);
+    if (light == nullptr)
+    {
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "Light with id %s not found\n", lightId.c_str())
+        webServer->send(404);
+        return;
+    }
+
+    if (_onGetState != nullptr)
+    {
+        this->_onGetState(light);
+    }
+
+    webServer->send(200, "application/json", light->toJson());
 }
 
 void FauxmoESP::addLight(const String& name, const String& deviceId)
