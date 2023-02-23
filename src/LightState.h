@@ -10,9 +10,11 @@ struct LightState
 {
     LightState();
 
-    LightState(bool state, uint8_t brightness, uint16_t hue, uint8_t saturation, const XYPoint& xy,
-            uint16_t colorTemperature, AlertEffect alertEffect, LightEffect dynamicLightEffect, ColorMode colorMode,
-            bool isLightReachable);
+    explicit LightState(bool state, uint8_t brightness = 254, uint16_t hue = 41462, uint8_t saturation = 77,
+            const XYPoint& xy = XYPoint(),
+            uint16_t colorTemperature = 155, AlertEffect alertEffect = ALERT_EFFECT_NONE,
+            LightEffect dynamicLightEffect = LIGHT_EFFECT_NONE, ColorMode colorMode = COLOR_MODE_CT,
+            bool isLightReachable = true);
 
     /**
      * On/Off state of the light.
@@ -111,6 +113,8 @@ struct LightState
      */
     bool isLightReachable;
 
+    String mode = "homeautomation";
+
     /**
      * Returns the current state of the light as a JSON string.
      */
@@ -126,5 +130,5 @@ struct LightState
     bool operator!=(const LightState& other) const;
     [[nodiscard]] bool isValidChange(const LightState& oldState) const;
 
-    static LightState fromJson(const String& json);
+    String updateFrom(const String& json);
 };

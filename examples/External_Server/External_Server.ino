@@ -127,10 +127,10 @@ void setup() {
         // if (2 == device_id) analogWrite(LED1_PIN, value);
         
         Serial.printf("[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n", 
-            deviceId, device->name, device->isOn ? "ON" : "OFF", device->value, device->hue, device->sat);
+            deviceId, device->name, device->_isOn ? "ON" : "OFF", device->value, device->hue, device->saturation);
 
         // For the example we are turning the same LED on and off regardless fo the device triggered or the value
-        digitalWrite(LED, !device->isOn); // we are nor-ing the state because our LED has inverse logic.
+        digitalWrite(LED, !device->_isOn); // we are nor-ing the state because our LED has inverse logic.
 
     });
 

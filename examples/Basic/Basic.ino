@@ -89,7 +89,7 @@ void setup()
     // You have to call enable(true) once you have a WiFi connection
     // You can enable or disable the library at any moment
     // Disabling it will prevent the devices from being discovered and switched
-    fauxmo.setup([](Light* light)
+    fauxmo.setup([](Light* light, LightStateChange* change)
     {
         // Callback when a command from Alexa is received.
         // You can use device_id or device->name to choose the element to perform an action onto (relay, LED,...)
@@ -101,35 +101,72 @@ void setup()
         // If you have to do something more involved here set a flag and process it in your main loop.
 
 
-        Serial.printf("[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n",
-                light->deviceId, light->name.c_str(), light->state.isOn ? "ON" : "OFF", light->state.brightness,
+        Serial.printf("[MAIN] Light #%d (%s/%s) state: %s brightness: %d | hue: %d | saturation: %d \n",
+                light->deviceId, light->uniqueId, light->name.c_str(), light->state.isOn ? "ON" : "OFF", light->state.brightness,
                 light->state.hue, light->state.saturation);
-
-        // Checking for device_id is simpler if you are certain about the order they are loaded and it does not change.
-        // Otherwise comparing the light->name is safer.
-
         if (light->name == ID_YELLOW)
         {
-            digitalWrite(LED_YELLOW, light->state.isOn ? HIGH : LOW);
+            if (change->isOnSet())
+            {
+                digitalWrite(LED_YELLOW, change->getIsOn() ? HIGH : LOW);
+                change->setOnSuccess(true);
+            }
         }
         else if (light->name == ID_GREEN)
         {
-            digitalWrite(LED_GREEN, light->state.isOn ? HIGH : LOW);
+            if (change->isOnSet())
+            {
+                digitalWrite(LED_GREEN, change->getIsOn() ? HIGH : LOW);
+                change->setOnSuccess(true);
+            }
         }
         else if (light->name == ID_BLUE)
         {
-            digitalWrite(LED_BLUE, light->state.isOn ? HIGH : LOW);
+            if (change->isOnSet())
+            {
+                digitalWrite(LED_BLUE, change->getIsOn() ? HIGH : LOW);
+                change->setOnSuccess(true);
+            }
         }
         else if (light->name == ID_PINK)
         {
-            digitalWrite(LED_PINK, light->state.isOn ? HIGH : LOW);
+            if (change->isOnSet())
+            {
+                digitalWrite(LED_PINK, change->getIsOn() ? HIGH : LOW);
+                change->setOnSuccess(true);
+            }
         }
         else if (light->name == ID_WHITE)
         {
-            digitalWrite(LED_WHITE, light->state.isOn ? HIGH : LOW);
+            if (change->isOnSet())
+            {
+                digitalWrite(LED_WHITE, change->getIsOn() ? HIGH : LOW);
+                change->setOnSuccess(true);
+            }
         }
     }, [](Light* light)
     {
+        Serial.printf("[MAIN] Light #%d (%s/%s) state requested\n", light->deviceId, light->uniqueId, light->name.c_str());
+        if (light->name == ID_YELLOW)
+        {
+            light->state.isOn = digitalRead(LED_YELLOW) == HIGH;
+        }
+        else if (light->name == ID_GREEN)
+        {
+            light->state.isOn = digitalRead(LED_GREEN) == HIGH;
+        }
+        else if (light->name == ID_BLUE)
+        {
+            light->state.isOn = digitalRead(LED_BLUE) == HIGH;
+        }
+        else if (light->name == ID_PINK)
+        {
+            light->state.isOn = digitalRead(LED_PINK) == HIGH;
+        }
+        else if (light->name == ID_WHITE)
+        {
+            light->state.isOn = digitalRead(LED_WHITE) == HIGH;
+        }
     });
 
     // You can use different ways to invoke alexa to modify the devices state:
@@ -147,7 +184,6 @@ void setup()
 
 void loop()
 {
-
     // fauxmoESP uses an async TCP server but a sync UDP server
     // Therefore, we have to manually poll for UDP packets
     fauxmo.update();
@@ -158,11 +194,10 @@ void loop()
     if (millis() - last > 5000)
     {
         last = millis();
-        Serial.printf("[MAIN] Free heap: %d bytes\n", ESP.getFreeHeap());
+        Serial.printf("[MAIN] Free heap: %d bytes\n", EspClass::getFreeHeap());
     }
 
     // If your device state is changed by any other means (MQTT, physical button,...)
     // you can instruct the library to report the new state to Alexa on next request:
     // fauxmo.setState(ID_YELLOW, true, 255);
-
 }

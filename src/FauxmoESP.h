@@ -35,6 +35,7 @@ private:
 
     String _username = "2WLEDHardQrI3WHYTHoMcXHgEspsM8ZZRpSKtBQr";
     bool _webServerEnabled = true;
+    bool _checkUsername = true;
 public:
     FauxmoESP();
     ~FauxmoESP();
@@ -62,9 +63,17 @@ public:
         this->_webServerEnabled = enabled;
     }
 
+    void setCheckUsername(bool checkUsername)
+    {
+        this->_checkUsername = checkUsername;
+    }
+
     Light* addLight(const String& name);
+    Light* addLight(const String& name, const LightState& initialState);
     void removeLight(const String& deviceId);
 
-    Light* getLightByDeviceId(const String& deviceId);
+    Light* getLightByDeviceId(ushort deviceId);
     Light* getLightByName(const String& name);
+    void createSsdp() const;
+    bool checkUsername(const String& username);
 };
