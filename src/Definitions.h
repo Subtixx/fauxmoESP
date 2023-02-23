@@ -1,13 +1,13 @@
 #pragma once
 
 #include <functional>
-#include "LightState.h"
-#include "Light.h"
 
+struct LightState;
 struct Light;
 
 #define FAUXMO_LOG_TAG            "[FAUXMO] "
 #define DEVICE_UNIQUE_ID_LENGTH 27
+#define MAX_DEVICES 65535
 
 #if defined(DEBUG)
     #define DEBUG_FAUXMO Serial
