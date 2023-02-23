@@ -110,21 +110,21 @@ void setup() {
         // If you have to do something more involved here set a flag and process it in your main loop.
         
         Serial.printf("[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n", 
-            deviceId, device->name.c_str(), device->state ? "ON" : "OFF", device->value, device->hue, device->sat);
+            deviceId, device->name.c_str(), device->isOn ? "ON" : "OFF", device->value, device->hue, device->sat);
 
         // Checking for device_id is simpler if you are certain about the order they are loaded and it does not change.
         // Otherwise comparing the device->name is safer.
 
         if (device->name == ID_YELLOW) {
-            digitalWrite(LED_YELLOW, device->state ? HIGH : LOW);
+            digitalWrite(LED_YELLOW, device->isOn ? HIGH : LOW);
         } else if (device->name == ID_GREEN) {
-            digitalWrite(LED_GREEN, device->state ? HIGH : LOW);
+            digitalWrite(LED_GREEN, device->isOn ? HIGH : LOW);
         } else if (device->name == ID_BLUE) {
-            digitalWrite(LED_BLUE, device->state ? HIGH : LOW);
+            digitalWrite(LED_BLUE, device->isOn ? HIGH : LOW);
         } else if (device->name == ID_PINK) {
-            digitalWrite(LED_PINK, device->state ? HIGH : LOW);
+            digitalWrite(LED_PINK, device->isOn ? HIGH : LOW);
         } else if (device->name == ID_WHITE) {
-            digitalWrite(LED_WHITE, device->state ? HIGH : LOW);
+            digitalWrite(LED_WHITE, device->isOn ? HIGH : LOW);
         }
     });
 
