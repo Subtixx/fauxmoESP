@@ -1,5 +1,8 @@
 #include <Arduino.h>
+
+#if USE_ARDUINO_JSON
 #include <ArduinoJson.h>
+#endif
 
 #include <utility>
 
@@ -11,7 +14,7 @@
 #include "Definitions.h"
 #include "templates.h"
 
-FauxmoESP::FauxmoESP()
+FauxmoESP::FauxmoESP() : webServer(nullptr)
 {
 }
 
