@@ -3,6 +3,8 @@
 #include <ArduinoJson.h>
 #endif
 
+#include <vector>
+
 #include "LightStateChange.h"
 #include "Definitions.h"
 
@@ -545,78 +547,86 @@ void LightStateChange::setXyPointIncrementSuccess(bool success)
 String LightStateChange::getChanges(int lightId)
 {
     String templateString = R"({"success":{"/lights/%d/state/%s":%s}})";
-    String changes = "";
+    std::vector<String> changes;
     char buffer[128];
     if(_isOnSet && _isOnSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "on", _isOn ? "true" : "false");
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_brightnessSet && _brightnessSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "bri", String(_brightness).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_hueSet && _hueSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "hue", String(_hue).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_saturationSet && _saturationSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "sat", String(_saturation).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_xyPointSet && _xyPointSuccessfullySet){
         const String& resultVal = "[" + String(_xyPoint.x) + "," + String(_xyPoint.y) + "]";
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "xy", resultVal.c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_colorTemperatureSet && _colorTemperatureSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "ct", String(_colorTemperature).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_alertEffectSet && _alertEffectSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "alert", AlertEffectToString(_alertEffect));
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_lightEffectSet && _lightEffectSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "effect", LightEffectToString(_lightEffect));
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_transitionTimeSet && _transitionTimeSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "transitiontime", String(_transitionTime).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_brightnessIncrementSet && _brightnessIncrementSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "bri_inc", String(_brightnessIncrement).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_saturationIncrementSet && _saturationIncrementSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "sat_inc", String(_saturationIncrement).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_hueIncrementSet && _hueIncrementSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "hue_inc", String(_hueIncrement).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_colorTemperatureIncrementSet && _colorTemperatureIncrementSuccessfullySet){
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "ct_inc", String(_colorTemperatureIncrement).c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
 
     if(_xyPointIncrementSet && _xyPointIncrementSuccessfullySet){
         const String& resultVal = "[" + String(_xyPointIncrement.x) + "," + String(_xyPointIncrement.y) + "]";
         snprintf(buffer, sizeof(buffer), templateString.c_str(), lightId, "xy_inc", resultVal.c_str());
-        changes += buffer;
+        changes.emplace_back(buffer);
     }
-    return "[" + changes + "]";
+
+    String result = "";
+    for(const auto& change : changes){
+        result += change;
+        if(&change != &changes.back()){
+            result += ",";
+        }
+    }
+    return "[" + result + "]";
 }
