@@ -7,6 +7,10 @@
 #include <WiFi.h>
 #endif
 
+#if defined(USE_ARDUINO_JSON)
+#include <ArduinoJson.h>
+#endif
+
 Light::Light(const String& deviceName, uint deviceId)
 {
     this->name = deviceName;

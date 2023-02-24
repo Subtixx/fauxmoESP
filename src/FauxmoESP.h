@@ -19,10 +19,6 @@
     #error Platform not supported
 #endif
 
-#if USE_ARDUINO_JSON
-#include <ArduinoJson.h>
-#endif
-
 #include <uri/UriBraces.h>
 #include <uri/UriRegex.h>
 

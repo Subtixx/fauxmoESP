@@ -22,10 +22,9 @@ EXAMPLES=${EXAMPLES:-"Basic External_Server"}
 # list of boards to compile for by default
 BOARDS=${BOARDS:-"esp32dev esp01"}
 
-LIBS=${LIBS:-"ottowinter/ESPAsyncTCP-esphome esphome/AsyncTCP-esphome ottowinter/ESPAsyncWebServer-esphome luc-github/ESP32SSDP"}
+LIBS=${LIBS:-"ottowinter/ESPAsyncTCP-esphome esphome/AsyncTCP-esphome ottowinter/ESPAsyncWebServer-esphome luc-github/ESP32SSDP bblanchon/ArduinoJson"}
 
-#--project-option="build_unflags = -std=gnu++11" --project-option="build_flags = -std=gnu++14"
-PROJECT_OPTIONS=${PROJECT_OPTIONS:-"build_unflags=-std=gnu++11 build_flags=-std=gnu++14"}
+PROJECT_OPTIONS=${PROJECT_OPTIONS:-"build_unflags=-std=gnu++11 build_flags=-std=gnu++14 build_flags=-Wall build_flags=-Wno-unused-function"}
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BOARD_OPTS=$(for b in $BOARDS; do echo -n "--board $b "; done)
@@ -39,8 +38,12 @@ cd "$DIR/.."
 export PLATFORMIO_EXTRA_SCRIPTS="pre:lib/ci/ci-flags.py"
 
 for d in $EXAMPLES ; do
-  echo "*** building example $d for $BOARDS ***"
+  echo "*** installing dependencies for $d ***"
   pio pkg install --global --no-save $LIB_DEPS
-  echo "platformio ci $BOARD_OPTS $PROJECT_OPTS --lib=\"ci\" --lib=\"src\" \"examples/$d/$d.ino\""
+
+  echo "*** building example $d for $BOARDS ***"
   pio ci $BOARD_OPTS $PROJECT_OPTS --lib="ci" --lib="src" "examples/$d/$d.ino"
+
+  echo "*** building example $d for $BOARDS with ArduinoJson ***"
+  pio ci $BOARD_OPTS $PROJECT_OPTS --project-option="build_flags=-DUSE_ARDUINO_JSON" --lib="ci" --lib="src" "examples/$d/$d.ino"
 done

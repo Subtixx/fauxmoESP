@@ -1,5 +1,9 @@
 #include "LightCapabilities.h"
 
+#if defined(USE_ARDUINO_JSON)
+#include <ArduinoJson.h>
+#endif
+
 LightCapabilities::LightCapabilities()
         :LightCapabilities(100, 560, 153, 500)
 {
@@ -19,7 +23,7 @@ String LightCapabilities::toJson() const
     StaticJsonDocument<384> doc;
     doc["mindimlevel"] = minDimLevel;
     doc["maxlumen"] = maxLumen;
-    doc["colorgamuttype"] = colorGamutType;
+    doc["colorgamuttype"] = String(colorGamutType);
     doc["colorgamut"][0][0] = colorGamut[0].x;
     doc["colorgamut"][0][1] = colorGamut[0].y;
     doc["colorgamut"][1][0] = colorGamut[1].x;
@@ -29,7 +33,6 @@ String LightCapabilities::toJson() const
     doc["ct"]["min"] = minColorTemperature;
     doc["ct"]["max"] = maxColorTemperature;
     doc["certified"] = certified;
-    doc["streaming"] = {};
     doc["streaming"]["renderer"] = streamingRenderer;
     doc["streaming"]["proxy"] = streamingProxy;
 
