@@ -17,47 +17,46 @@ LightStateChange::LightStateChange(const String& jsonString)
         return;
     }
 
-    JsonObject state = doc["state"];
-    if (state.containsKey("on"))
+    if (doc.containsKey("on"))
     {
         _isOnSet = true;
-        _isOn = state["on"];
+        _isOn = doc["on"];
     }
 
-    if (state.containsKey("bri"))
+    if (doc.containsKey("bri"))
     {
         _brightnessSet = true;
-        _brightness = state["bri"];
+        _brightness = doc["bri"];
     }
 
-    if (state.containsKey("hue"))
+    if (doc.containsKey("hue"))
     {
         _hueSet = true;
-        _hue = state["hue"];
+        _hue = doc["hue"];
     }
 
-    if (state.containsKey("sat"))
+    if (doc.containsKey("sat"))
     {
         _saturationSet = true;
-        _saturation = state["sat"];
+        _saturation = doc["sat"];
     }
 
-    if (state.containsKey("xy"))
+    if (doc.containsKey("xy"))
     {
         _xyPointSet = true;
-        _xyPoint = XYPoint(state["xy"][0], state["xy"][1]);
+        _xyPoint = XYPoint(doc["xy"][0], doc["xy"][1]);
     }
 
-    if (state.containsKey("ct"))
+    if (doc.containsKey("ct"))
     {
         _colorTemperatureSet = true;
-        _colorTemperature = state["ct"];
+        _colorTemperature = doc["ct"];
     }
 
-    if (state.containsKey("alert"))
+    if (doc.containsKey("alert"))
     {
         _alertEffectSet = true;
-        String alertEffect = state["alert"];
+        String alertEffect = doc["alert"];
         if (alertEffect == "none")
         {
             _alertEffect = AlertEffect::ALERT_EFFECT_NONE;
@@ -72,10 +71,10 @@ LightStateChange::LightStateChange(const String& jsonString)
         }
     }
 
-    if (state.containsKey("effect"))
+    if (doc.containsKey("effect"))
     {
         _lightEffectSet = true;
-        String lightEffect = state["effect"];
+        String lightEffect = doc["effect"];
         if (lightEffect == "none")
         {
             _lightEffect = LightEffect::LIGHT_EFFECT_NONE;
@@ -86,40 +85,40 @@ LightStateChange::LightStateChange(const String& jsonString)
         }
     }
 
-    if (state.containsKey("transitiontime"))
+    if (doc.containsKey("transitiontime"))
     {
         _transitionTimeSet = true;
-        _transitionTime = state["transitiontime"];
+        _transitionTime = doc["transitiontime"];
     }
 
-    if (!state.containsKey("bri") && state.containsKey("bri_inc"))
+    if (!doc.containsKey("bri") && doc.containsKey("bri_inc"))
     {
         _brightnessIncrementSet = true;
-        _brightnessIncrement = state["bri_inc"];
+        _brightnessIncrement = doc["bri_inc"];
     }
 
-    if (!state.containsKey("hue") && state.containsKey("hue_inc"))
+    if (!doc.containsKey("hue") && doc.containsKey("hue_inc"))
     {
         _hueIncrementSet = true;
-        _hueIncrement = state["hue_inc"];
+        _hueIncrement = doc["hue_inc"];
     }
 
-    if (!state.containsKey("sat") && state.containsKey("sat_inc"))
+    if (!doc.containsKey("sat") && doc.containsKey("sat_inc"))
     {
         _saturationIncrementSet = true;
-        _saturationIncrement = state["sat_inc"];
+        _saturationIncrement = doc["sat_inc"];
     }
 
-    if (!state.containsKey("ct") && state.containsKey("ct_inc"))
+    if (!doc.containsKey("ct") && doc.containsKey("ct_inc"))
     {
         _colorTemperatureIncrementSet = true;
-        _colorTemperatureIncrement = state["ct_inc"];
+        _colorTemperatureIncrement = doc["ct_inc"];
     }
 
-    if (!state.containsKey("xy") && state.containsKey("xy_inc"))
+    if (!doc.containsKey("xy") && doc.containsKey("xy_inc"))
     {
         _xyPointIncrementSet = true;
-        _xyPointIncrement = XYPoint(state["xy_inc"][0], state["xy_inc"][1]);
+        _xyPointIncrement = XYPoint(doc["xy_inc"][0], doc["xy_inc"][1]);
     }
     #else
     String jString = jsonString;
