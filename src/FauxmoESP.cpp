@@ -331,7 +331,7 @@ void FauxmoESP::onLightStateChange(uint16_t lightId, const String& body, String&
     }
     else
     {
-        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "State is not valid\n")
+        DEBUG_MSG_FAUXMO(FAUXMO_LOG_TAG "State is not valid for light %s: light is unreachable!\n", light->name.c_str())
         response = R"({"error":{"type": 201, "address": "/lights/)" + String(lightId)
                 + R"(/state", "description": "State is not valid."}})";
         *resultCode = 400;
