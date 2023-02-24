@@ -3,3 +3,7 @@ SET_SOURCE_FILES_PROPERTIES(./examples/External_Server/External_Server.ino PROPE
 
 LIST(APPEND SRC_LIST ./examples/Basic/Basic.ino)
 LIST(APPEND SRC_LIST ./examples/External_Server/External_Server.ino)
+
+add_compile_options(-Wall -Wno-register -Wextra -Wno-unused-function -std=c++14)
+add_definitions(-DUSE_HTTP_SERVER)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-register -Wextra -Wno-unused-function -std=c++14")
