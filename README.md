@@ -66,16 +66,17 @@ void setup() {
 
     ... connect to wifi ...
 
-    fauxmo.addDevice("light one");
-    fauxmo.addDevice("light two");
-    fauxmo.addDevice("light three");
-    fauxmo.addDevice("light four");
+    fauxmo.addLight("light one");
+    fauxmo.addLight("light two");
+    fauxmo.addLight("light three");
+    fauxmo.addLight("light four");
 
     fauxmo.setWebServerPort(80); // required for gen3 devices
-    fauxmo.enable(true);
+    fauxmo.setWebServerEnabled(true);
 
-    fauxmo.onSetState([](unsigned char deviceId, fauxmoesp_device_t* device) {
-        Serial.printf("[MAIN] Device #%d (%s) state: %s value: %d\n", deviceId, device->name, device->state ? "ON" : "OFF", device->value);
+    fauxmo.setup([](Light* light) {
+        Serial.printf("Device %s state: %s\n", light->name.c_str(), light->state ? "ON" : "OFF");
+    }, [](Light* light) {
     });
 
 }
@@ -122,7 +123,6 @@ Raspberry Pi Pico
 
 ## 🍰 **Supporters and donators**
 
-<!-- Change your small logo -->
 <a href="https://github.com/Subtixx/FauxmoESP">
   <img alt="@Subtixx/FauxmoESP's brand logo without text" align="right" src="https://github.com/Subtixx/fauxmoESP/raw/main/docs/include/logo.svg" width="18%" />
 </a>
