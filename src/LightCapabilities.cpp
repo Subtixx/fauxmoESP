@@ -17,7 +17,11 @@ LightCapabilities::LightCapabilities(uint16_t minDimLevel, uint16_t maxLumen, ui
 {
 }
 
+#if defined(USE_ARDUINO_JSON)
+StaticJsonDocument<384> LightCapabilities::toJson() const
+#else
 String LightCapabilities::toJson() const
+#endif
 {
     #if USE_ARDUINO_JSON
     StaticJsonDocument<384> doc;
@@ -36,9 +40,7 @@ String LightCapabilities::toJson() const
     doc["streaming"]["renderer"] = streamingRenderer;
     doc["streaming"]["proxy"] = streamingProxy;
 
-    String json;
-    serializeJson(doc, json);
-    return json;
+    return doc;
     #else
     char buffer[384];
     sprintf(buffer,

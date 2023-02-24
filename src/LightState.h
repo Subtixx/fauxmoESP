@@ -6,6 +6,10 @@
 #include "XYPoint.h"
 #include "ColorMode.h"
 
+#if USE_ARDUINO_JSON
+#include <ArduinoJson.h>
+#endif
+
 struct LightState
 {
     LightState();
@@ -118,7 +122,12 @@ struct LightState
     /**
      * Returns the current state of the light as a JSON string.
      */
+
+#if USE_ARDUINO_JSON
+    [[nodiscard]] StaticJsonDocument<256> toJson() const;
+#else
     [[nodiscard]] String toJson() const;
+#endif
 
     [[nodiscard]] String getColorModeString() const;
 
@@ -128,7 +137,4 @@ struct LightState
 
     bool operator==(const LightState& other) const;
     bool operator!=(const LightState& other) const;
-    [[nodiscard]] bool isValidChange(const LightState& oldState) const;
-
-    String updateFrom(const String& json);
 };
