@@ -1,11 +1,126 @@
 #include <Arduino.h>
+#if defined(USE_ARDUINO_JSON)
+#include <ArduinoJson.h>
+#endif
 
 #include "LightStateChange.h"
+#include "Definitions.h"
 
 LightStateChange::LightStateChange(const String& jsonString)
 {
     #if defined(USE_ARDUINO_JSON)
-        #error "ArduinoJson is not supported yet"
+    DynamicJsonDocument doc(1024);
+    DeserializationError error = deserializeJson(doc, jsonString);
+    if (error)
+    {
+        DEBUG_MSG_FAUXMO("[ERROR] deserializeJson() failed: %s\n", error.c_str())
+        return;
+    }
+
+    JsonObject state = doc["state"];
+    if (state.containsKey("on"))
+    {
+        _isOnSet = true;
+        _isOn = state["on"];
+    }
+
+    if (state.containsKey("bri"))
+    {
+        _brightnessSet = true;
+        _brightness = state["bri"];
+    }
+
+    if (state.containsKey("hue"))
+    {
+        _hueSet = true;
+        _hue = state["hue"];
+    }
+
+    if (state.containsKey("sat"))
+    {
+        _saturationSet = true;
+        _saturation = state["sat"];
+    }
+
+    if (state.containsKey("xy"))
+    {
+        _xyPointSet = true;
+        _xyPoint = XYPoint(state["xy"][0], state["xy"][1]);
+    }
+
+    if (state.containsKey("ct"))
+    {
+        _colorTemperatureSet = true;
+        _colorTemperature = state["ct"];
+    }
+
+    if (state.containsKey("alert"))
+    {
+        _alertEffectSet = true;
+        String alertEffect = state["alert"];
+        if (alertEffect == "none")
+        {
+            _alertEffect = AlertEffect::ALERT_EFFECT_NONE;
+        }
+        else if (alertEffect == "select")
+        {
+            _alertEffect = AlertEffect::ALERT_EFFECT_SELECT;
+        }
+        else if (alertEffect == "lselect")
+        {
+            _alertEffect = AlertEffect::ALERT_EFFECT_LSELECT;
+        }
+    }
+
+    if (state.containsKey("effect"))
+    {
+        _lightEffectSet = true;
+        String lightEffect = state["effect"];
+        if (lightEffect == "none")
+        {
+            _lightEffect = LightEffect::LIGHT_EFFECT_NONE;
+        }
+        else if (lightEffect == "colorloop")
+        {
+            _lightEffect = LightEffect::LIGHT_EFFECT_COLORLOOP;
+        }
+    }
+
+    if (state.containsKey("transitiontime"))
+    {
+        _transitionTimeSet = true;
+        _transitionTime = state["transitiontime"];
+    }
+
+    if (!state.containsKey("bri") && state.containsKey("bri_inc"))
+    {
+        _brightnessIncrementSet = true;
+        _brightnessIncrement = state["bri_inc"];
+    }
+
+    if (!state.containsKey("hue") && state.containsKey("hue_inc"))
+    {
+        _hueIncrementSet = true;
+        _hueIncrement = state["hue_inc"];
+    }
+
+    if (!state.containsKey("sat") && state.containsKey("sat_inc"))
+    {
+        _saturationIncrementSet = true;
+        _saturationIncrement = state["sat_inc"];
+    }
+
+    if (!state.containsKey("ct") && state.containsKey("ct_inc"))
+    {
+        _colorTemperatureIncrementSet = true;
+        _colorTemperatureIncrement = state["ct_inc"];
+    }
+
+    if (!state.containsKey("xy") && state.containsKey("xy_inc"))
+    {
+        _xyPointIncrementSet = true;
+        _xyPointIncrement = XYPoint(state["xy_inc"][0], state["xy_inc"][1]);
+    }
     #else
     String jString = jsonString;
     jString.replace(" ", "");
