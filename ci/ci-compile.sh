@@ -22,12 +22,17 @@ EXAMPLES=${EXAMPLES:-"Basic External_Server"}
 # list of boards to compile for by default
 BOARDS=${BOARDS:-"esp32dev esp01"}
 
-LIBS=${LIBS:-"ottowinter/ESPAsyncTCP-esphome esphome/AsyncTCP-esphome ottowinter/ESPAsyncWebServer-esphome"}
+LIBS=${LIBS:-"ottowinter/ESPAsyncTCP-esphome esphome/AsyncTCP-esphome ottowinter/ESPAsyncWebServer-esphome luc-github/ESP32SSDP"}
+
+#--project-option="build_unflags = -std=gnu++11" --project-option="build_flags = -std=gnu++14"
+PROJECT_OPTIONS=${PROJECT_OPTIONS:-"build_unflags=-std=gnu++11 build_flags=-std=gnu++14"}
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BOARD_OPTS=$(for b in $BOARDS; do echo -n "--board $b "; done)
 
 LIB_DEPS=$(for l in $LIBS; do echo -n "-l=$l "; done)
+
+PROJECT_OPTS=$(for l in $PROJECT_OPTIONS; do echo -n "--project-option=$l "; done)
 
 cd "$DIR/.."
 
@@ -36,5 +41,6 @@ export PLATFORMIO_EXTRA_SCRIPTS="pre:lib/ci/ci-flags.py"
 for d in $EXAMPLES ; do
   echo "*** building example $d for $BOARDS ***"
   pio pkg install --global --no-save $LIB_DEPS
-  pio ci $BOARD_OPTS --lib="ci" --lib="src" "examples/$d/$d.ino"
+  echo "platformio ci $BOARD_OPTS $PROJECT_OPTS --lib=\"ci\" --lib=\"src\" \"examples/$d/$d.ino\""
+  pio ci $BOARD_OPTS $PROJECT_OPTS --lib="ci" --lib="src" "examples/$d/$d.ino"
 done

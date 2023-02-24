@@ -1,17 +1,22 @@
 #include <Arduino.h>
 #if defined(ESP8266)
     #include <ESP8266WiFi.h>
+    #include <ESP8266WebServer.h>
 #elif defined(ESP32)
     #include <WiFi.h>
+    #include <WebServer.h>
 #endif
-#include <ESPAsyncWebServer.h>
 #include "FauxmoESP.h"
 
 #define WIFI_SSID "your_ssid"
 #define WIFI_PASS "your_password"
 
 FauxmoESP fauxmo;
-AsyncWebServer server(80);
+#if defined(ESP8266)
+    ESP8266WebServer* server = new ESP8266WebServer(80);
+#elif defined(ESP32)
+    WebServer* server = new WebServer(80);
+#endif
 
 // -----------------------------------------------------------------------------
 
@@ -22,7 +27,8 @@ AsyncWebServer server(80);
 // Wifi
 // -----------------------------------------------------------------------------
 
-void wifiSetup() {
+void wifiSetup()
+{
 
     // Set WIFI module to STA mode
     WiFi.mode(WIFI_STA);
@@ -32,41 +38,50 @@ void wifiSetup() {
     WiFi.begin(WIFI_SSID, WIFI_PASS);
 
     // Wait
-    while (WiFi.status() != WL_CONNECTED) {
+    while (WiFi.status() != WL_CONNECTED)
+    {
         Serial.print(".");
         delay(100);
     }
     Serial.println();
 
     // Connected!
-    Serial.printf("[WIFI] STATION Mode, SSID: %s, IP address: %s\n", WiFi.SSID().c_str(), WiFi.localIP().toString().c_str());
+    Serial.printf("[WIFI] STATION Mode, SSID: %s, IP address: %s\n", WiFi.SSID().c_str(),
+            WiFi.localIP().toString().c_str());
 
 }
 
-void serverSetup() {
+void serverSetup()
+{
 
     // Custom entry point (not required by the library, here just as an example)
-    server.on("/index.html", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(200, "text/plain", "Hello, world");
+    server->on(Uri("/index.html"), HTTP_GET, []
+    {
+        server->send(200, "text/html", "<h1>Hello World!</h1>");
     });
 
     // These two callbacks are required for gen1 and gen3 compatibility
-    server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
-        if (fauxmo.process(request->client(), request->method() == HTTP_GET, request->url(), String((char *)data))) return;
+    server->on(UriRegex("/api/(.*)"), HTTP_ANY, []
+    {
+        String response;
+        uint16_t code = 0;
+
+        String method = server->method() == HTTP_GET ? "GET" : server->method() == HTTP_POST ? "POST" : server->method() == HTTP_PUT ? "PUT" : server->method() == HTTP_DELETE ? "DELETE" : "UNKNOWN";
+        fauxmo.processRequest(server->uri(), server->arg("body"), method, response, &code);
         // Handle any other body request here...
     });
-    server.onNotFound([](AsyncWebServerRequest *request) {
-        String body = (request->hasParam("body", true)) ? request->getParam("body", true)->value() : String();
-        if (fauxmo.process(request->client(), request->method() == HTTP_GET, request->url(), body)) return;
-        // Handle not found request here...
+    server->onNotFound([]
+    {
+        server->send(404, "text/plain", "Not found");
     });
 
     // Start the server
-    server.begin();
+    server->begin();
 
 }
 
-void setup() {
+void setup()
+{
 
     // Init serial port and clean garbage
     Serial.begin(SERIAL_BAUDRATE);
@@ -83,36 +98,24 @@ void setup() {
     // Web server
     serverSetup();
 
-    // Set fauxmoESP to not create an internal TCP server and redirect requests to the server on the defined port
-    // The TCP port must be 80 for gen3 devices (default is 1901)
-    // This has to be done before the call to enable()
-    fauxmo.setWebServerEnabled(false);
-    fauxmo.setWebServerPort(80); // This is required for gen3 devices
-
-    // You have to call enable(true) once you have a WiFi connection
-    // You can enable or disable the library at any moment
-    // Disabling it will prevent the devices from being discovered and switched
-    fauxmo.enable(true);
-
     // You can use different ways to invoke alexa to modify the devices state:
     // "Alexa, turn kitchen on" ("kitchen" is the name of the first device below)
     // "Alexa, turn on kitchen"
     // "Alexa, set kitchen to fifty" (50 means 50% of brightness)
 
     // Add virtual devices
-    fauxmo.addDevice("kitchen");
-	fauxmo.addDevice("livingroom");
+    fauxmo.addLight("kitchen");
+    fauxmo.addLight("livingroom");
 
     // You can add more devices
-	//fauxmo.addDevice("light 3");
-    //fauxmo.addDevice("light 4");
-    //fauxmo.addDevice("light 5");
-    //fauxmo.addDevice("light 6");
-    //fauxmo.addDevice("light 7");
-    //fauxmo.addDevice("light 8");
-
-    fauxmo.onSetState([](unsigned int deviceId, fauxmoesp_device_t* device) {
-        
+    //fauxmo.addLight("light 3");
+    //fauxmo.addLight("light 4");
+    //fauxmo.addLight("light 5");
+    //fauxmo.addLight("light 6");
+    //fauxmo.addLight("light 7");
+    //fauxmo.addLight("light 8");
+    fauxmo.setup([](Light* light, LightStateChange* change)
+    {
         // Callback when a command from Alexa is received. 
         // You can use device_id or device_name to choose the element to perform an action onto (relay, LED,...)
         // State is a boolean (ON/OFF), value a number from 0 to 255 (if you say "set kitchen light to 50%" you will receive a 128 here),
@@ -121,33 +124,33 @@ void setup() {
         // https://stackoverflow.com/questions/3018313/algorithm-to-convert-rgb-to-hsv-and-hsv-to-rgb-in-range-0-255-for-both  
         // Just remember not to delay too much here, this is a callback, exit as soon as possible.
         // If you have to do something more involved here set a flag and process it in your main loop.
-        
+
         // if (0 == device_id) digitalWrite(RELAY1_PIN, state);
         // if (1 == device_id) digitalWrite(RELAY2_PIN, state);
         // if (2 == device_id) analogWrite(LED1_PIN, value);
-        
-        Serial.printf("[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n", 
-            deviceId, device->name, device->_isOn ? "ON" : "OFF", device->value, device->hue, device->saturation);
+
+        Serial.printf("[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n",
+                light->deviceId, light->name.c_str(), light->state.isOn ? "ON" : "OFF", light->state.brightness,
+                light->state.hue, light->state.saturation);
 
         // For the example we are turning the same LED on and off regardless fo the device triggered or the value
-        digitalWrite(LED, !device->_isOn); // we are nor-ing the state because our LED has inverse logic.
+        digitalWrite(LED, !light->state.isOn); // we are nor-ing the state because our LED has inverse logic.
+
+    }, [](Light* light)
+    {
 
     });
 
 }
 
-void loop() {
-
-    // fauxmoESP uses an async TCP server but a sync UDP server
-    // Therefore, we have to manually poll for UDP packets
-    fauxmo.handle();
-
+void loop()
+{
     // This is a sample code to output free heap every 5 seconds
     // This is a cheap way to detect memory leaks
     static unsigned long last = millis();
-    if (millis() - last > 5000) {
+    if (millis() - last > 5000)
+    {
         last = millis();
         Serial.printf("[MAIN] Free heap: %d bytes\n", ESP.getFreeHeap());
     }
-
 }

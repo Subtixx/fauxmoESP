@@ -1,4 +1,5 @@
 #include <Arduino.h>
+
 #ifdef ESP32
     #include <WiFi.h>
 #elif defined(ESP8266)
@@ -194,7 +195,7 @@ void loop()
     if (millis() - last > 5000)
     {
         last = millis();
-        Serial.printf("[MAIN] Free heap: %d bytes\n", EspClass::getFreeHeap());
+        Serial.printf("[MAIN] Free heap: %d bytes\n", ESP.getFreeHeap());
     }
 
     // If your device state is changed by any other means (MQTT, physical button,...)
