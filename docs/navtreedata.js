@@ -25,15 +25,8 @@
 var NAVTREE =
 [
   [ "FauxmoESP", "index.html", [
+    [ "🔥 <strong>Subtixx/FauxmoESP</strong>", "index.html", "index" ],
     [ "Classes", "annotated.html", [
-      [ "Dependencies", "index.html#autotoc_md0", [
-        [ "PlatformIO", "index.html#autotoc_md1", null ],
-        [ "Arduino IDE", "index.html#autotoc_md2", null ]
-      ] ],
-      [ "Usage", "index.html#autotoc_md3", null ],
-      [ "To use with ESP-IDF", "index.html#autotoc_md4", null ],
-      [ "Troubleshooting", "index.html#autotoc_md5", null ],
-      [ "License", "index.html#autotoc_md6", null ],
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
