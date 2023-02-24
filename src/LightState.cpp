@@ -22,7 +22,11 @@ LightState::LightState(bool state, uint8_t brightness, uint16_t hue, uint8_t sat
 
 }
 
+#if USE_ARDUINO_JSON
+StaticJsonDocument<256> LightState::toJson() const
+#else
 String LightState::toJson() const
+#endif
 {
     String colorModeStr = getColorModeString();
     String alertEffectStr = getAlertEffectString();
@@ -42,10 +46,8 @@ String LightState::toJson() const
     doc["colormode"] = colorModeStr;
     doc["reachable"] = isLightReachable;
     doc["mode"] = mode;
-
-    String json;
-    serializeJson(doc, json);
-    return json;
+    
+    return doc;
     #else
     char buffer[256];
     sprintf(buffer,
@@ -110,19 +112,4 @@ bool LightState::operator==(const LightState& other) const
 bool LightState::operator!=(const LightState& other) const
 {
     return !(*this == other);
-}
-
-bool LightState::isValidChange(const LightState& oldState) const
-{
-    if (isOn != oldState.isOn)
-    {
-        return true;
-    }
-
-    if (!oldState.isOn)
-    {
-        return this == &oldState;
-    }
-
-    return true;
 }

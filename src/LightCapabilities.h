@@ -3,6 +3,10 @@
 #include <Arduino.h>
 #include "XYPoint.h"
 
+#if defined(USE_ARDUINO_JSON)
+#include <ArduinoJson.h>
+#endif
+
 struct LightCapabilities
 {
     LightCapabilities();
@@ -73,5 +77,9 @@ struct LightCapabilities
     bool streamingRenderer = true;
     bool streamingProxy = false;
 
+#if USE_ARDUINO_JSON
+    [[nodiscard]] StaticJsonDocument<384> toJson() const;
+#else
     [[nodiscard]] String toJson() const;
+#endif
 };
