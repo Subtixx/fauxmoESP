@@ -1,3 +1,6 @@
+name: build
+id: build
+
 on:
   workflow_dispatch:
   push:
@@ -7,9 +10,7 @@ on:
     branches:
       - main
 
-name: build
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:

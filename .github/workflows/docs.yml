@@ -1,4 +1,5 @@
 name: docs
+id: docs
 
 on:
   workflow_dispatch:
