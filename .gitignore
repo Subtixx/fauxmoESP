@@ -16,3 +16,4 @@ CMakeListsPrivate.txt
 cmake-build-*/
 
 build/
+/compile_commands.json

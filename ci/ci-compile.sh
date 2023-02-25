@@ -35,15 +35,38 @@ PROJECT_OPTS=$(for l in $PROJECT_OPTIONS; do echo -n "--project-option=$l "; don
 
 cd "$DIR/.."
 
-export PLATFORMIO_EXTRA_SCRIPTS="pre:lib/ci/ci-flags.py"
+rm -f messages.txt
+
+echo "*** generating compile_commands.json ***"
+pio run -t compiledb > /dev/null 2>> messages.txt
+
+if [ $? -ne 0 ]; then
+  echo "Failed to generate compile_commands.json"
+fi
 
 for d in $EXAMPLES ; do
   echo "*** installing dependencies for $d ***"
-  pio pkg install --global --no-save $LIB_DEPS
+  pio pkg install --global --no-save $LIB_DEPS > /dev/null 2>> messages.txt
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to install dependencies for $d"
+  fi
 
   echo "*** building example $d for $BOARDS ***"
-  pio ci $BOARD_OPTS $PROJECT_OPTS --lib="ci" --lib="src" "examples/$d/$d.ino"
+  pio ci $BOARD_OPTS $PROJECT_OPTS --lib="ci" --lib="src" "examples/$d/$d.ino" > /dev/null 2>> messages.txt
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to build example $d for $BOARDS"
+  fi
 
   echo "*** building example $d for $BOARDS with ArduinoJson ***"
-  pio ci $BOARD_OPTS $PROJECT_OPTS --project-option="build_flags=-DUSE_ARDUINO_JSON" --lib="ci" --lib="src" "examples/$d/$d.ino"
+  pio ci $BOARD_OPTS $PROJECT_OPTS --project-option="build_flags=-DUSE_ARDUINO_JSON" --lib="ci" --lib="src" "examples/$d/$d.ino" > /dev/null 2>> messages.txt
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to build example $d for $BOARDS with ArduinoJson"
+  fi
 done
+
+# Run extract_messages.py
+echo "*** running extract_messages.py ***"
+python3 scripts/extract_messages.py messages.txt annotations.json
