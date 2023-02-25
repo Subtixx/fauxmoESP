@@ -10,8 +10,7 @@ on:
       - main
 
 jobs:
-  analyze:
-    name: Analyze
+  build:
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -19,40 +18,13 @@ jobs:
       security-events: write
 
     steps:
-      - name: Checkout repository
+      - name: checkout code
         uses: actions/checkout@v3
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: 'cpp'
-
-      - name: Make scripts executable
-        run: |
-          chmod +x ./ci/ci-compile.sh
-
-      - name: install python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: install platformio
-        run: |
-          pip install platformio==6.1.4
-
-      - name: build examples
-        run: ./ci/ci-compile.sh
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: "/language:cpp"
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v3
 
       - name: Make scripts executable
         run: |
@@ -85,3 +57,8 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           title: 'Build Result'
           input: './annotations.json'
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:cpp"
