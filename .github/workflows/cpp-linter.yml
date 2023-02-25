@@ -27,7 +27,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           platform: 'avr8'
-          other_options: '--enable=all --std=gnu++17 --suppress=*:*/.pio/* --suppress=*:*/lib/* --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=missingInclude --suppress=unusedFunction'
+          other_options: '--enable=all --std=c++17 --suppress=*:*/.pio/* --suppress=*:*/lib/* --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=missingInclude --suppress=unusedFunction'
 
       - name: publish report
         uses: mikeal/publish-to-github-action@master
