@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 🤔 &lt;strong&gt;About the project&lt;/strong&gt;</h1>
 <p>Amazon Alexa support for ESP8266, ESP32 and Raspberry Pi Pico W devices.</p>
 <p>This is a library for ESP8266/ESP32-based/Raspberry Pi Pico W devices that emulates Philips Hue lights and thus allows you to control them using this protocol, in particular from Alexa-powered devices like the Amazon Echo or the Dot.</p>
-<p>This is a fork of <a class="el" href="class_fauxmo_e_s_p.html">FauxmoESP</a> with some changes! For more see <a href="https://github.com/Subtixx/fauxmoESP/blob/main/CHANGELOG.md">CHANGELOG.md</a></p>
+<p>This is a fork of <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> with some changes! For more see <a href="https://github.com/Subtixx/fauxmoESP/blob/main/CHANGELOG.md">CHANGELOG.md</a></p>
 <hr  />
 <h1><a class="anchor" id="autotoc_md4"></a>
 ⚡ &lt;strong&gt;Installation&lt;/strong&gt;</h1>
@@ -123,74 +123,54 @@ PlatformIO</h2>
 &lt;/blockquote&gt;</h1>
 <h1><a class="anchor" id="autotoc_md7"></a>
 🚀 &lt;strong&gt;Usage&lt;/strong&gt;</h1>
-<p>The library is very easy to use, basically instantiate an object, connect to the Wifi, add one or more virtual devices and bind the callback to get the messages. An schematic example could be:</p>
-<div class="fragment"><div class="line">#include &lt;FauxmoESP.h&gt;</div>
-<div class="line"> </div>
-<div class="line">FauxmoESP fauxmo;</div>
-<div class="line"> </div>
-<div class="line">void setup() {</div>
-<div class="line"> </div>
-<div class="line">    Serial.begin(115200);</div>
-<div class="line"> </div>
-<div class="line">    ... connect to wifi ...</div>
-<div class="line"> </div>
-<div class="line">    fauxmo.addDevice(&quot;light one&quot;);</div>
-<div class="line">    fauxmo.addDevice(&quot;light two&quot;);</div>
-<div class="line">    fauxmo.addDevice(&quot;light three&quot;);</div>
-<div class="line">    fauxmo.addDevice(&quot;light four&quot;);</div>
-<div class="line"> </div>
-<div class="line">    fauxmo.setWebServerPort(80); // required for gen3 devices</div>
-<div class="line">    fauxmo.enable(true);</div>
-<div class="line"> </div>
-<div class="line">    fauxmo.onSetState([](unsigned char deviceId, fauxmoesp_device_t* device) {</div>
-<div class="line">        Serial.printf(&quot;[MAIN] Device #%d (%s) state: %s value: %d\n&quot;, deviceId, device-&gt;name, device-&gt;state ? &quot;ON&quot; : &quot;OFF&quot;, device-&gt;value);</div>
-<div class="line">    });</div>
-<div class="line"> </div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line">void loop() {</div>
-<div class="line">    fauxmo.handle();</div>
-<div class="line">}</div>
-</div><!-- fragment --><p>(Check the examples folder)</p>
-<h1><a class="anchor" id="autotoc_md8"></a>
-To use with ESP-IDF</h1>
-<p>Add <code>#include "Arduino.h"</code></p>
+<p>The library is very easy to use, basically instantiate an object, connect to the Wifi, add one or more virtual devices and bind the callback to get the messages.</p>
+<p>See the <a href="https://github.com/subtixx/fauxmoESP/tree/main/examples">examples</a> for more details.</p>
+<h2><a class="anchor" id="autotoc_md8"></a>
+🖥️ &lt;strong&gt;Add light to Alexa&lt;/strong&gt;</h2>
+<p>To add a light to Alexa, you need to use the Alexa app on your phone.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+1. Click on the plus button</h2>
+<h2><a class="anchor" id="autotoc_md10"></a>
+2. Click add device</h2>
+<p><a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step1.png"><img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step1.png" alt="" width="64px" class="inline"/> </a></p>
+<h2><a class="anchor" id="autotoc_md11"></a>
+3. Click on the light bulb</h2>
+<p><a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step2.png"><img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step2.png" alt="" width="64px" class="inline"/> </a></p>
+<h2><a class="anchor" id="autotoc_md12"></a>
+4. Search for "**Philips Hue Lamp**"</h2>
+<p>Only select the "**Philips Hue Lamp**" and not "Philips Hue Remote", "Philips Hue Hub", "Philips Hue Lamp 929002487114", or "Philips Hue Switch"</p>
+<h2><a class="anchor" id="autotoc_md13"></a>
+5. Click on "**Philips Hue Lamp**"</h2>
+<h2><a class="anchor" id="autotoc_md14"></a>
+6. Click on "Discover Devices"</h2>
+<p><a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step3.png"><img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step3.png" alt="" width="64px" class="inline"/> </a></p>
+<h2><a class="anchor" id="autotoc_md15"></a>
+7. Wait for the device to be discovered</h2>
+<p><a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step4.png"><img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step4.png" alt="" width="64px" class="inline"/> </a></p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+8. Select the device to add</h2>
+<p><a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step5.png"><img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step5.png" alt="" width="64px" class="inline"/> </a></p>
+<p>That's it! Now you can control your device with Alexa!</p>
+<h1><a class="anchor" id="autotoc_md17"></a>
+📚 &lt;strong&gt;Documentation&lt;/strong&gt;</h1>
+<p>The documentation is available at <a href="https://subtixx.github.io/fauxmoESP">https://subtixx.github.io/fauxmoESP</a></p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md10"></a>
-🌲 &lt;strong&gt;Project tree&lt;/strong&gt;</h1>
-<hr  />
-<h1><a class="anchor" id="autotoc_md12"></a>
-📝 &lt;strong&gt;Additional notes&lt;/strong&gt;</h1>
-<p>Besides the libraries already included with the Arduino Core for ESP8266 or ESP32, these libraries are also required to use fauxmoESP:</p>
-<p>ESP8266:</p>
-<ul>
-<li>This library uses <a href="https://github.com/ottowinter/ESPAsyncTCP">ESPAsyncTCP</a> library by <a href="https://github.com/ottowinter">ottowinter</a></li>
-</ul>
-<p>ESP32:</p>
-<ul>
-<li>This library uses <a href="https://github.com/esphome/AsyncTCP">AsyncTCP</a> library by <a href="https://github.com/esphome">esphome</a></li>
-</ul>
-<p>Raspberry Pi Pico</p>
-<ul>
-<li>This library uses <a href="https://github.com/khoih-prog/AsyncTCP_RP2040W">AsyncTCP_RP2040W</a> library by <a href="https://github.com/khoih-prog">khoih-prog</a></li>
-</ul>
-<hr  />
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 🍰 &lt;strong&gt;Supporters and donators&lt;/strong&gt;</h1>
 <p><a href="https://github.com/Subtixx/FauxmoESP"><img src="https://github.com/Subtixx/fauxmoESP/raw/main/docs/include/logo.svg" alt="@Subtixx/FauxmoESP's brand logo without text" style="pointer-events: none;" align="right" width="18%" class="inline"/> </a></p>
 <p>We are currently looking for new donators to help and maintain this project! ❤️</p>
-<p>By donating, you will help the development of this project, and <em>you will be featured in this <a class="el" href="class_fauxmo_e_s_p.html">FauxmoESP</a>'s README.md</em>, so everyone can see your kindness and visit your content ⭐.</p>
+<p>By donating, you will help the development of this project, and <em>you will be featured in this <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a>'s README.md</em>, so everyone can see your kindness and visit your content ⭐.</p>
 <p><a href="https://github.com/sponsors/Subtixx"><img src="https://img.shields.io/badge/Sponsor-Subtixx/FauxmoESP-blue?logo=github-sponsors&amp;style=for-the-badge&amp;color=red" alt="" class="inline"/> </a></p>
 <hr  />
-<p><a class="el" href="class_fauxmo_e_s_p.html">FauxmoESP</a> was generated from <em><a href="https://github.com/Josee9988/project-template">Josee9988/project-template</a></em> 📚</p>
+<p><a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> was generated from <em><a href="https://github.com/Josee9988/project-template">Josee9988/project-template</a></em> 📚</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 🎉 Was the API helpful? Help us raise these numbers up</h1>
 <p><a href="https://github.com/Subtixx"><img src="https://img.shields.io/github/followers/Subtixx.svg?style=social" alt="GitHub followers" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/Subtixx/FauxmoESP/stargazers"><img src="https://img.shields.io/github/stars/Subtixx/FauxmoESP.svg?style=social" alt="GitHub stars" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/Subtixx/FauxmoESP/watchers"><img src="https://img.shields.io/github/watchers/Subtixx/FauxmoESP.svg?style=social" alt="GitHub watchers" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/Subtixx/FauxmoESP/network/members"><img src="https://img.shields.io/github/forks/Subtixx/FauxmoESP.svg?style=social" alt="GitHub forks" style="pointer-events: none;" class="inline"/></a></p>
 <p><a href="https://github.com/sponsors/Subtixx"><img src="https://img.shields.io/static/v1?label=Sponsor&amp;message=%E2%9D%A4&amp;logo=github-sponsors&amp;color=red&amp;style=social" alt="Sponsor" class="inline"/></a></p>
 <p>Enjoy! 😃</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 ⚖️📝 &lt;strong&gt;License and Changelog&lt;/strong&gt;</h1>
 <p>See the license in the '<b>[LICENSE](LICENSE)</b>' file.</p>
 <p>Watch the changes in the '<b>CHANGELOG.md</b>' file.</p>
@@ -203,7 +183,7 @@ To use with ESP-IDF</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="footer">Generated on Fri Feb 24 2023 22:27:32 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+        <li class="footer">Generated on Sat Feb 25 2023 21:34:44 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
     </ul>
 </div>
 <!-- ... -->

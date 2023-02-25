@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enable_0',['enable',['../class_fauxmo_e_s_p.html#aa37364d75193d94b11d97a038a671b4d',1,'FauxmoESP']]]
+  ['checkusername_0',['checkUsername',['../class_fauxmo_e_s_p.html#ac742e1bb2211df78e31d7400b68b19c0',1,'FauxmoESP']]]
 ];

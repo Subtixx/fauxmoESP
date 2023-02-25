@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['adddevice_0',['addDevice',['../class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931',1,'FauxmoESP']]]
+  ['addlight_0',['addLight',['../class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d',1,'FauxmoESP']]]
 ];

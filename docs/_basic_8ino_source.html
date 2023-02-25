@@ -100,164 +100,225 @@ $(document).ready(function(){initNavTree('_basic_8ino_source.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifdef ESP32</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">    #include &lt;WiFi.h&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#elif defined(ESP8266)</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">    #include &lt;ESP8266WiFi.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;FauxmoESP.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><a class="code hl_class" href="class_fauxmo_e_s_p.html">FauxmoESP</a> fauxmo;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define WIFI_SSID &quot;your_ssid&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define WIFI_PASS &quot;your_password&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define SERIAL_BAUDRATE     115200</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define LED_YELLOW          4</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define LED_GREEN           5</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define LED_BLUE            0</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#define LED_PINK            2</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define LED_WHITE           15</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define ID_YELLOW           &quot;yellow lamp&quot;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define ID_GREEN            &quot;green lamp&quot;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define ID_BLUE             &quot;blue lamp&quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define ID_PINK             &quot;pink lamp&quot;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define ID_WHITE            &quot;white lamp&quot;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// Wifi</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> wifiSetup() {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment">// Set WIFI module to STA mode</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    WiFi.mode(WIFI_STA);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">// Connect</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    Serial.printf(<span class="stringliteral">&quot;[WIFI] Connecting to %s &quot;</span>, WIFI_SSID);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    WiFi.begin(WIFI_SSID, WIFI_PASS);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="comment">// Wait</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">while</span> (WiFi.status() != WL_CONNECTED) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        Serial.print(<span class="stringliteral">&quot;.&quot;</span>);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        delay(100);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    Serial.println();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// Connected!</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    Serial.printf(<span class="stringliteral">&quot;[WIFI] STATION Mode, SSID: %s, IP address: %s\n&quot;</span>, WiFi.SSID().c_str(), WiFi.localIP().toString().c_str());</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#ifdef ESP32</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">    #include &lt;WiFi.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#elif defined(ESP8266)</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">    #include &lt;ESP8266WiFi.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;FauxmoESP.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><a class="code hl_class" href="class_fauxmo_e_s_p.html">FauxmoESP</a> fauxmo;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define WIFI_SSID &quot;your_ssid&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define WIFI_PASS &quot;your_password&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#define SERIAL_BAUDRATE     115200</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define LED_YELLOW          4</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define LED_GREEN           5</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#define LED_BLUE            0</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define LED_PINK            2</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define LED_WHITE           15</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define ID_YELLOW           &quot;yellow lamp&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define ID_GREEN            &quot;green lamp&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define ID_BLUE             &quot;blue lamp&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define ID_PINK             &quot;pink lamp&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define ID_WHITE            &quot;white lamp&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// Wifi</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> wifiSetup()</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// Set WIFI module to STA mode</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    WiFi.mode(WIFI_STA);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// Connect</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    Serial.printf(<span class="stringliteral">&quot;[WIFI] Connecting to %s &quot;</span>, WIFI_SSID);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    WiFi.begin(WIFI_SSID, WIFI_PASS);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// Wait</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">while</span> (WiFi.status() != WL_CONNECTED)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        Serial.print(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        delay(100);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    Serial.println();</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> setup() {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// Connected!</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    Serial.printf(<span class="stringliteral">&quot;[WIFI] STATION Mode, SSID: %s, IP address: %s\n&quot;</span>, WiFi.SSID().c_str(),</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            WiFi.localIP().toString().c_str());</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// Init serial port and clean garbage</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    Serial.begin(SERIAL_BAUDRATE);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    Serial.println();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    Serial.println();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">void</span> setup()</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>{</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// LEDs</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    pinMode(LED_YELLOW, OUTPUT);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    pinMode(LED_GREEN, OUTPUT);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    pinMode(LED_BLUE, OUTPUT);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    pinMode(LED_PINK, OUTPUT);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    pinMode(LED_WHITE, OUTPUT);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    digitalWrite(LED_YELLOW, LOW);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    digitalWrite(LED_GREEN, LOW);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    digitalWrite(LED_BLUE, LOW);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    digitalWrite(LED_PINK, LOW);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    digitalWrite(LED_WHITE, LOW);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">// Wifi</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    wifiSetup();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">// By default, fauxmoESP creates it&#39;s own webserver on the defined port</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// The TCP port must be 80 for gen3 devices (default is 1901)</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// This has to be done before the call to enable()</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a434c68966c22bfad5db099dbc099dfb0">setWebServerEnabled</a>(<span class="keyword">true</span>); <span class="comment">// not needed, this is the default value</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a6324fac2f4a49729c4d26a4c1c677a8a">setWebServerPort</a>(80); <span class="comment">// This is required for gen3 devices</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// You have to call enable(true) once you have a WiFi connection</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// You can enable or disable the library at any moment</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="comment">// Disabling it will prevent the devices from being discovered and switched</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#aa37364d75193d94b11d97a038a671b4d">enable</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// Init serial port and clean garbage</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    Serial.begin(SERIAL_BAUDRATE);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    Serial.println();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Serial.println();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// LEDs</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    pinMode(LED_YELLOW, OUTPUT);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    pinMode(LED_GREEN, OUTPUT);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    pinMode(LED_BLUE, OUTPUT);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    pinMode(LED_PINK, OUTPUT);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    pinMode(LED_WHITE, OUTPUT);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    digitalWrite(LED_YELLOW, LOW);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    digitalWrite(LED_GREEN, LOW);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    digitalWrite(LED_BLUE, LOW);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    digitalWrite(LED_PINK, LOW);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    digitalWrite(LED_WHITE, LOW);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// Wifi</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    wifiSetup();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">// By default, fauxmoESP creates it&#39;s own webserver on the defined port</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// The TCP port must be 80 for gen3 devices (default is 1901)</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// This has to be done before the call to enable()</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a434c68966c22bfad5db099dbc099dfb0">setWebServerEnabled</a>(<span class="keyword">true</span>); <span class="comment">// not needed, this is the default value</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a6d1c45a6dd7cddbeb84aa5d414df8a99">setWebServerPort</a>(80); <span class="comment">// This is required for gen3 devices</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">// You can use different ways to invoke alexa to modify the devices state:</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// &quot;Alexa, turn yellow lamp on&quot;</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">// &quot;Alexa, turn on yellow lamp</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// &quot;Alexa, set yellow lamp to fifty&quot; (50 means 50% of brightness, note, this example does not use this functionality)</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">// Add virtual devices</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931">addDevice</a>(ID_YELLOW);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931">addDevice</a>(ID_GREEN);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931">addDevice</a>(ID_BLUE);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931">addDevice</a>(ID_PINK);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931">addDevice</a>(ID_WHITE);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a217efc9673f2cc6fce7197c6a3c2e1dd">onSetState</a>([](<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> deviceId, <a class="code hl_struct" href="structfauxmoesp__device__t.html">fauxmoesp_device_t</a>* device) {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="comment">// Callback when a command from Alexa is received. </span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="comment">// You can use device_id or device-&gt;name to choose the element to perform an action onto (relay, LED,...)</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">// State is a boolean (ON/OFF), value a number from 0 to 255 (if you say &quot;set kitchen light to 50%&quot; you will receive a 128 here),</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="comment">// hue a number from 0 to 255, and sat a number from 0 to 255. You will be responsible for converting hue, saturation, and value </span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="comment">// (HSV) to RGB. Here is a resource to get you started:</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="comment">// https://stackoverflow.com/questions/3018313/algorithm-to-convert-rgb-to-hsv-and-hsv-to-rgb-in-range-0-255-for-both  </span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// Just remember not to delay too much here, this is a callback, exit as soon as possible.</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="comment">// If you have to do something more involved here set a flag and process it in your main loop.</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        Serial.printf(<span class="stringliteral">&quot;[MAIN] Device #%d (%s) state: %s brightness: %d | hue: %d | saturation: %d \n&quot;</span>, </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            deviceId, device-&gt;name.c_str(), device-&gt;state ? <span class="stringliteral">&quot;ON&quot;</span> : <span class="stringliteral">&quot;OFF&quot;</span>, device-&gt;value, device-&gt;hue, device-&gt;sat);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="comment">// Checking for device_id is simpler if you are certain about the order they are loaded and it does not change.</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="comment">// Otherwise comparing the device-&gt;name is safer.</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        if (device-&gt;name == ID_YELLOW) {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            digitalWrite(LED_YELLOW, device-&gt;state ? HIGH : LOW);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        } <span class="keywordflow">else</span> if (device-&gt;name == ID_GREEN) {</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            digitalWrite(LED_GREEN, device-&gt;state ? HIGH : LOW);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        } <span class="keywordflow">else</span> if (device-&gt;name == ID_BLUE) {</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            digitalWrite(LED_BLUE, device-&gt;state ? HIGH : LOW);</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        } <span class="keywordflow">else</span> if (device-&gt;name == ID_PINK) {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            digitalWrite(LED_PINK, device-&gt;state ? HIGH : LOW);</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        } <span class="keywordflow">else</span> if (device-&gt;name == ID_WHITE) {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            digitalWrite(LED_WHITE, device-&gt;state ? HIGH : LOW);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    });</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keywordtype">void</span> loop() {</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="comment">// fauxmoESP uses an async TCP server but a sync UDP server</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="comment">// Therefore, we have to manually poll for UDP packets</span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#ad0c9ee456a28b2e88e6cbf3d4dc202c0">handle</a>();</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="comment">// This is a sample code to output free heap every 5 seconds</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="comment">// This is a cheap way to detect memory leaks</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> last = millis();</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">if</span> (millis() - last &gt; 5000) {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        last = millis();</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        Serial.printf(<span class="stringliteral">&quot;[MAIN] Free heap: %d bytes\n&quot;</span>, ESP.getFreeHeap());</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="comment">// If your device state is changed by any other means (MQTT, physical button,...)</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="comment">// you can instruct the library to report the new state to Alexa on next request:</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="comment">// fauxmo.setState(ID_YELLOW, true, 255);</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
-<div class="ttc" id="aclass_fauxmo_e_s_p_html"><div class="ttname"><a href="class_fauxmo_e_s_p.html">FauxmoESP</a></div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00093">FauxmoESP.h:94</a></div></div>
-<div class="ttc" id="aclass_fauxmo_e_s_p_html_a217efc9673f2cc6fce7197c6a3c2e1dd"><div class="ttname"><a href="class_fauxmo_e_s_p.html#a217efc9673f2cc6fce7197c6a3c2e1dd">FauxmoESP::onSetState</a></div><div class="ttdeci">void onSetState(TSetStateCallback fn)</div><div class="ttdoc">Set the callback function to be called when a device state is changed.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00207">FauxmoESP.h:207</a></div></div>
-<div class="ttc" id="aclass_fauxmo_e_s_p_html_a434c68966c22bfad5db099dbc099dfb0"><div class="ttname"><a href="class_fauxmo_e_s_p.html#a434c68966c22bfad5db099dbc099dfb0">FauxmoESP::setWebServerEnabled</a></div><div class="ttdeci">void setWebServerEnabled(bool enabled)</div><div class="ttdoc">Set whether the integrated web server is enabled or not.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00214">FauxmoESP.h:214</a></div></div>
-<div class="ttc" id="aclass_fauxmo_e_s_p_html_a6324fac2f4a49729c4d26a4c1c677a8a"><div class="ttname"><a href="class_fauxmo_e_s_p.html#a6324fac2f4a49729c4d26a4c1c677a8a">FauxmoESP::setWebServerPort</a></div><div class="ttdeci">void setWebServerPort(unsigned long tcp_port)</div><div class="ttdoc">Set the TCP port for the integrated web server.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00220">FauxmoESP.h:220</a></div></div>
-<div class="ttc" id="aclass_fauxmo_e_s_p_html_aa37364d75193d94b11d97a038a671b4d"><div class="ttname"><a href="class_fauxmo_e_s_p.html#aa37364d75193d94b11d97a038a671b4d">FauxmoESP::enable</a></div><div class="ttdeci">void enable(bool enable)</div><div class="ttdoc">Enable or disable fauxmoESP.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8cpp_source.html#l00648">FauxmoESP.cpp:648</a></div></div>
-<div class="ttc" id="aclass_fauxmo_e_s_p_html_aca945c6ff4d013254dfd94a83ca69931"><div class="ttname"><a href="class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931">FauxmoESP::addDevice</a></div><div class="ttdeci">unsigned char addDevice(const char *deviceName)</div><div class="ttdoc">Add a device to the list of devices that can be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8cpp_source.html#l00520">FauxmoESP.cpp:520</a></div></div>
-<div class="ttc" id="aclass_fauxmo_e_s_p_html_ad0c9ee456a28b2e88e6cbf3d4dc202c0"><div class="ttname"><a href="class_fauxmo_e_s_p.html#ad0c9ee456a28b2e88e6cbf3d4dc202c0">FauxmoESP::handle</a></div><div class="ttdeci">void handle()</div><div class="ttdoc">Main loop function to handle UDP and TCP requests.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8cpp_source.html#l00638">FauxmoESP.cpp:638</a></div></div>
-<div class="ttc" id="astructfauxmoesp__device__t_html"><div class="ttname"><a href="structfauxmoesp__device__t.html">fauxmoesp_device_t</a></div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00079">FauxmoESP.h:80</a></div></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">// You have to call enable(true) once you have a WiFi connection</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// You can enable or disable the library at any moment</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">// Disabling it will prevent the devices from being discovered and switched</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#adfeb7e5b85b050a62b3f11b07cb16781">setup</a>([](<a class="code hl_struct" href="struct_light.html">Light</a>* light, <a class="code hl_struct" href="struct_light_state_change.html">LightStateChange</a>* change)</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">// Callback when a command from Alexa is received.</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="comment">// You can use device_id or device-&gt;name to choose the element to perform an action onto (relay, LED,...)</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="comment">// State is a boolean (ON/OFF), value a number from 0 to 255 (if you say &quot;set kitchen light to 50%&quot; you will receive a 128 here),</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">// hue a number from 0 to 255, and sat a number from 0 to 255. You will be responsible for converting hue, saturation, and value</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="comment">// (HSV) to RGB. Here is a resource to get you started:</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">// https://stackoverflow.com/questions/3018313/algorithm-to-convert-rgb-to-hsv-and-hsv-to-rgb-in-range-0-255-for-both</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="comment">// Just remember not to delay too much here, this is a callback, exit as soon as possible.</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">// If you have to do something more involved here set a flag and process it in your main loop.</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        Serial.printf(<span class="stringliteral">&quot;[MAIN] Light #%d (%s/%s) state: %s brightness: %d | hue: %d | saturation: %d \n&quot;</span>,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                light-&gt;<a class="code hl_variable" href="struct_light.html#ae173fa2e9fb18723793e953479e1c7f2">deviceId</a>, light-&gt;<a class="code hl_variable" href="struct_light.html#a234e9534bfae782c00bf2f0438fd6485">uniqueId</a>, light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a>.c_str(), light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#aff643ec89dcc5fee4587a32580ba2bcc">isOn</a> ? <span class="stringliteral">&quot;ON&quot;</span> : <span class="stringliteral">&quot;OFF&quot;</span>, light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#a0c159048ecc3974c0260f4dfae7d5d40">brightness</a>,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#aa9387df531654c364d66fc2b0b2aca0a">hue</a>, light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#a41931bfd7afd76e2fe538f7e3efa1bcd">saturation</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        if (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_YELLOW)</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            if (change-&gt;isOnSet())</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                digitalWrite(LED_YELLOW, change-&gt;getIsOn() ? HIGH : LOW);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                change-&gt;setOnSuccess(true);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_GREEN)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            if (change-&gt;isOnSet())</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                digitalWrite(LED_GREEN, change-&gt;getIsOn() ? HIGH : LOW);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                change-&gt;setOnSuccess(true);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_BLUE)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            if (change-&gt;isOnSet())</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                digitalWrite(LED_BLUE, change-&gt;getIsOn() ? HIGH : LOW);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                change-&gt;setOnSuccess(true);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_PINK)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            if (change-&gt;isOnSet())</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                digitalWrite(LED_PINK, change-&gt;getIsOn() ? HIGH : LOW);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                change-&gt;setOnSuccess(true);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            }</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_WHITE)</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            if (change-&gt;isOnSet())</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                digitalWrite(LED_WHITE, change-&gt;getIsOn() ? HIGH : LOW);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                change-&gt;setOnSuccess(true);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            }</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }, [](<a class="code hl_struct" href="struct_light.html">Light</a>* light)</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        Serial.printf(<span class="stringliteral">&quot;[MAIN] Light #%d (%s/%s) state requested\n&quot;</span>, light-&gt;<a class="code hl_variable" href="struct_light.html#ae173fa2e9fb18723793e953479e1c7f2">deviceId</a>, light-&gt;<a class="code hl_variable" href="struct_light.html#a234e9534bfae782c00bf2f0438fd6485">uniqueId</a>, light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a>.c_str());</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_YELLOW)</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#aff643ec89dcc5fee4587a32580ba2bcc">isOn</a> = digitalRead(LED_YELLOW) == HIGH;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        }</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_GREEN)</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#aff643ec89dcc5fee4587a32580ba2bcc">isOn</a> = digitalRead(LED_GREEN) == HIGH;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_BLUE)</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#aff643ec89dcc5fee4587a32580ba2bcc">isOn</a> = digitalRead(LED_BLUE) == HIGH;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_PINK)</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#aff643ec89dcc5fee4587a32580ba2bcc">isOn</a> = digitalRead(LED_PINK) == HIGH;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        }</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (light-&gt;<a class="code hl_variable" href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">name</a> == ID_WHITE)</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            light-&gt;<a class="code hl_variable" href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">state</a>.<a class="code hl_variable" href="struct_light_state.html#aff643ec89dcc5fee4587a32580ba2bcc">isOn</a> = digitalRead(LED_WHITE) == HIGH;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    });</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="comment">// You can use different ways to invoke alexa to modify the devices state:</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="comment">// &quot;Alexa, turn yellow lamp on&quot;</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="comment">// &quot;Alexa, turn on yellow lamp</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="comment">// &quot;Alexa, set yellow lamp to fifty&quot; (50 means 50% of brightness, note, this example does not use this functionality)</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="comment">// Add virtual devices</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d">addLight</a>(ID_YELLOW);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d">addLight</a>(ID_GREEN);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d">addLight</a>(ID_BLUE);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d">addLight</a>(ID_PINK);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d">addLight</a>(ID_WHITE);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>}</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="keywordtype">void</span> loop()</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>{</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="comment">// fauxmoESP uses an async TCP server but a sync UDP server</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">// Therefore, we have to manually poll for UDP packets</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    fauxmo.<a class="code hl_function" href="class_fauxmo_e_s_p.html#a5073d4c433a7b318210a39ad4f155655">update</a>();</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="comment">// This is a sample code to output free heap every 5 seconds</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="comment">// This is a cheap way to detect memory leaks</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> last = millis();</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">if</span> (millis() - last &gt; 5000)</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        last = millis();</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        Serial.printf(<span class="stringliteral">&quot;[MAIN] Free heap: %d bytes\n&quot;</span>, ESP.getFreeHeap());</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    }</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="comment">// If your device state is changed by any other means (MQTT, physical button,...)</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="comment">// you can instruct the library to report the new state to Alexa on next request:</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="comment">// fauxmo.setState(ID_YELLOW, true, 255);</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>}</div>
+<div class="ttc" id="aclass_fauxmo_e_s_p_html"><div class="ttname"><a href="class_fauxmo_e_s_p.html">FauxmoESP</a></div><div class="ttdoc">Main class for FauxmoESP.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00032">FauxmoESP.h:33</a></div></div>
+<div class="ttc" id="aclass_fauxmo_e_s_p_html_a0d31b5184e882a5c2b643f5422af5a7d"><div class="ttname"><a href="class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d">FauxmoESP::addLight</a></div><div class="ttdeci">Light * addLight(const String &amp;name, const LightCapabilities &amp;capabilities=LightCapabilities(), const LightState &amp;initialState=LightState())</div><div class="ttdoc">Add a light to the FauxmoESP object.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8cpp_source.html#l00370">FauxmoESP.cpp:370</a></div></div>
+<div class="ttc" id="aclass_fauxmo_e_s_p_html_a434c68966c22bfad5db099dbc099dfb0"><div class="ttname"><a href="class_fauxmo_e_s_p.html#a434c68966c22bfad5db099dbc099dfb0">FauxmoESP::setWebServerEnabled</a></div><div class="ttdeci">void setWebServerEnabled(bool enabled)</div><div class="ttdoc">Set whether the web server is enabled or not.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00109">FauxmoESP.h:109</a></div></div>
+<div class="ttc" id="aclass_fauxmo_e_s_p_html_a5073d4c433a7b318210a39ad4f155655"><div class="ttname"><a href="class_fauxmo_e_s_p.html#a5073d4c433a7b318210a39ad4f155655">FauxmoESP::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Handles the SSDP and web server.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8cpp_source.html#l00232">FauxmoESP.cpp:232</a></div></div>
+<div class="ttc" id="aclass_fauxmo_e_s_p_html_a6d1c45a6dd7cddbeb84aa5d414df8a99"><div class="ttname"><a href="class_fauxmo_e_s_p.html#a6d1c45a6dd7cddbeb84aa5d414df8a99">FauxmoESP::setWebServerPort</a></div><div class="ttdeci">void setWebServerPort(uint16_t port)</div><div class="ttdoc">Set the web server port.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8h_source.html#l00155">FauxmoESP.h:155</a></div></div>
+<div class="ttc" id="aclass_fauxmo_e_s_p_html_adfeb7e5b85b050a62b3f11b07cb16781"><div class="ttname"><a href="class_fauxmo_e_s_p.html#adfeb7e5b85b050a62b3f11b07cb16781">FauxmoESP::setup</a></div><div class="ttdeci">void setup(OnStateChangeCallback onStateChangeCallback, OnGetStateCallback onGetStateCallback)</div><div class="ttdoc">Setup the FauxmoESP object.</div><div class="ttdef"><b>Definition:</b> <a href="_fauxmo_e_s_p_8cpp_source.html#l00021">FauxmoESP.cpp:21</a></div></div>
+<div class="ttc" id="astruct_light_html"><div class="ttname"><a href="struct_light.html">Light</a></div><div class="ttdoc">Represents a light device that can be controlled by the Hue API.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00012">Light.h:13</a></div></div>
+<div class="ttc" id="astruct_light_html_a234e9534bfae782c00bf2f0438fd6485"><div class="ttname"><a href="struct_light.html#a234e9534bfae782c00bf2f0438fd6485">Light::uniqueId</a></div><div class="ttdeci">char uniqueId[DEVICE_UNIQUE_ID_LENGTH]</div><div class="ttdoc">Unique id of the device.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00037">Light.h:37</a></div></div>
+<div class="ttc" id="astruct_light_html_a59499b7ac20056edb6676052f25e2eb1"><div class="ttname"><a href="struct_light.html#a59499b7ac20056edb6676052f25e2eb1">Light::state</a></div><div class="ttdeci">LightState state</div><div class="ttdoc">The current state of the device.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00042">Light.h:42</a></div></div>
+<div class="ttc" id="astruct_light_html_a606c8d5149f5d8c79a479f6ffac3a857"><div class="ttname"><a href="struct_light.html#a606c8d5149f5d8c79a479f6ffac3a857">Light::name</a></div><div class="ttdeci">String name</div><div class="ttdoc">The name of the device.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00024">Light.h:24</a></div></div>
+<div class="ttc" id="astruct_light_html_ae173fa2e9fb18723793e953479e1c7f2"><div class="ttname"><a href="struct_light.html#ae173fa2e9fb18723793e953479e1c7f2">Light::deviceId</a></div><div class="ttdeci">ushort deviceId</div><div class="ttdoc">The id of the device.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00030">Light.h:30</a></div></div>
+<div class="ttc" id="astruct_light_state_change_html"><div class="ttname"><a href="struct_light_state_change.html">LightStateChange</a></div><div class="ttdoc">Represents a state change of a light device.</div><div class="ttdef"><b>Definition:</b> <a href="_light_state_change_8h_source.html#l00010">LightStateChange.h:11</a></div></div>
+<div class="ttc" id="astruct_light_state_html_a0c159048ecc3974c0260f4dfae7d5d40"><div class="ttname"><a href="struct_light_state.html#a0c159048ecc3974c0260f4dfae7d5d40">LightState::brightness</a></div><div class="ttdeci">uint8_t brightness</div><div class="ttdoc">Brightness of the light.</div><div class="ttdef"><b>Definition:</b> <a href="_light_state_8h_source.html#l00059">LightState.h:59</a></div></div>
+<div class="ttc" id="astruct_light_state_html_a41931bfd7afd76e2fe538f7e3efa1bcd"><div class="ttname"><a href="struct_light_state.html#a41931bfd7afd76e2fe538f7e3efa1bcd">LightState::saturation</a></div><div class="ttdeci">uint8_t saturation</div><div class="ttdoc">Saturation of the light.</div><div class="ttdef"><b>Definition:</b> <a href="_light_state_8h_source.html#l00079">LightState.h:79</a></div></div>
+<div class="ttc" id="astruct_light_state_html_aa9387df531654c364d66fc2b0b2aca0a"><div class="ttname"><a href="struct_light_state.html#aa9387df531654c364d66fc2b0b2aca0a">LightState::hue</a></div><div class="ttdeci">uint16_t hue</div><div class="ttdoc">Hue of the light.</div><div class="ttdef"><b>Definition:</b> <a href="_light_state_8h_source.html#l00071">LightState.h:71</a></div></div>
+<div class="ttc" id="astruct_light_state_html_aff643ec89dcc5fee4587a32580ba2bcc"><div class="ttname"><a href="struct_light_state.html#aff643ec89dcc5fee4587a32580ba2bcc">LightState::isOn</a></div><div class="ttdeci">bool isOn</div><div class="ttdoc">On/Off state of the light.</div><div class="ttdef"><b>Definition:</b> <a href="_light_state_8h_source.html#l00050">LightState.h:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.3-->
@@ -265,7 +326,7 @@ $(document).ready(function(){initNavTree('_basic_8ino_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
         <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="dir_9fd43cbf431ad4345d64cbab9841c2b6.html">Basic</a></li><li class="navelem"><b>Basic.ino</b></li>
-        <li class="footer">Generated on Fri Feb 24 2023 22:27:32 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+        <li class="footer">Generated on Sat Feb 25 2023 21:34:44 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
     </ul>
 </div>
 <!-- ... -->

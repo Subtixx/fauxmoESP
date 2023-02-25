@@ -1,4 +1,23 @@
 var searchData=
 [
-  ['handle_0',['handle',['../class_fauxmo_e_s_p.html#ad0c9ee456a28b2e88e6cbf3d4dc202c0',1,'FauxmoESP']]]
+  ['getalerteffect_0',['getAlertEffect',['../struct_light_state_change.html#afa155bc2fc1c6ff3fa6ec0381da9a48b',1,'LightStateChange']]],
+  ['getalerteffectstring_1',['getAlertEffectString',['../struct_light_state.html#a597cdc88cfe8b7baf23dce00febd231a',1,'LightState']]],
+  ['getbrightness_2',['getBrightness',['../struct_light_state_change.html#a3225dfe31ca389d55986924cd48a58ad',1,'LightStateChange']]],
+  ['getbrightnessincrement_3',['getBrightnessIncrement',['../struct_light_state_change.html#a4e5445fa3cc82769d67c07f006599752',1,'LightStateChange']]],
+  ['getchanges_4',['getChanges',['../struct_light_state_change.html#a1063a64484d5bef8d24e5ff210c3813f',1,'LightStateChange']]],
+  ['getcolormodestring_5',['getColorModeString',['../struct_light_state.html#ad11b015c905de14063a35ef72074331d',1,'LightState']]],
+  ['getcolortemperature_6',['getColorTemperature',['../struct_light_state_change.html#a417932320a100aa7fa0010bce7e975bf',1,'LightStateChange']]],
+  ['getcolortemperatureincrement_7',['getColorTemperatureIncrement',['../struct_light_state_change.html#ae28b1b89ca725a50e0fd2cf29b188f9c',1,'LightStateChange']]],
+  ['getdynamiclighteffectstring_8',['getDynamicLightEffectString',['../struct_light_state.html#ac8f34a52a750a91d737fb44062ee40e3',1,'LightState']]],
+  ['gethue_9',['getHue',['../struct_light_state_change.html#a52cdb3fe26227aa0a2a4aa740adc2a18',1,'LightStateChange']]],
+  ['gethueincrement_10',['getHueIncrement',['../struct_light_state_change.html#a35c6d78a61db1781fda037c8804a92e2',1,'LightStateChange']]],
+  ['getison_11',['getIsOn',['../struct_light_state_change.html#a8f2c8b335b38daf674d39b4538b3a221',1,'LightStateChange']]],
+  ['getlightbydeviceid_12',['getLightByDeviceId',['../class_fauxmo_e_s_p.html#aef088e2cf8066e597bcf5dd6f4fd048c',1,'FauxmoESP']]],
+  ['getlightbyname_13',['getLightByName',['../class_fauxmo_e_s_p.html#ab6232381e5bc3bda2fa49baa19d69ccc',1,'FauxmoESP']]],
+  ['getlighteffect_14',['getLightEffect',['../struct_light_state_change.html#aaede8f2ef15b5bf4c74f8b7b17482a3c',1,'LightStateChange']]],
+  ['getsaturation_15',['getSaturation',['../struct_light_state_change.html#a7cc4e4034bff5f989dc78fc56adb6d7f',1,'LightStateChange']]],
+  ['getsaturationincrement_16',['getSaturationIncrement',['../struct_light_state_change.html#a3ed0642342d1bea9d1dcdc696b1c91e4',1,'LightStateChange']]],
+  ['gettransitiontime_17',['getTransitionTime',['../struct_light_state_change.html#ad5045e60f3bafff97509509256d3eec0',1,'LightStateChange']]],
+  ['getxypoint_18',['getXyPoint',['../struct_light_state_change.html#a987135202faefef5cab7388af771937e',1,'LightStateChange']]],
+  ['getxypointincrement_19',['getXyPointIncrement',['../struct_light_state_change.html#a5280f6dfbb90cc7c56bbcba3c978d862',1,'LightStateChange']]]
 ];

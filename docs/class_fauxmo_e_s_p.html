@@ -103,63 +103,97 @@ $(document).ready(function(){initNavTree('class_fauxmo_e_s_p.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00093">93</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
-</div><table class="memberdecls">
+<div class="textblock"><p>Main class for <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00032">32</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
+</div>
+<p><code>#include &lt;<a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>&gt;</code></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aca945c6ff4d013254dfd94a83ca69931"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#aca945c6ff4d013254dfd94a83ca69931">addDevice</a> (const char *deviceName)</td></tr>
-<tr class="memdesc:aca945c6ff4d013254dfd94a83ca69931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a device to the list of devices that can be controlled.  <br /></td></tr>
-<tr class="separator:aca945c6ff4d013254dfd94a83ca69931"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a600d2d7e0e63339d1162226c3c44027a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a600d2d7e0e63339d1162226c3c44027a">renameDevice</a> (unsigned char id, const String &amp;newDeviceName)</td></tr>
-<tr class="memdesc:a600d2d7e0e63339d1162226c3c44027a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rename a device by ID.  <br /></td></tr>
-<tr class="separator:a600d2d7e0e63339d1162226c3c44027a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9dd94d43129cfd449be98a1b7d756b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#ab9dd94d43129cfd449be98a1b7d756b2">renameDevice</a> (const char *oldDeviceName, const char *newDeviceName)</td></tr>
-<tr class="memdesc:ab9dd94d43129cfd449be98a1b7d756b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rename a device by name.  <br /></td></tr>
-<tr class="separator:ab9dd94d43129cfd449be98a1b7d756b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e16916b890d8d417e06af94858c42a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a9e16916b890d8d417e06af94858c42a2">removeDevice</a> (unsigned char id)</td></tr>
-<tr class="memdesc:a9e16916b890d8d417e06af94858c42a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a device from the list of devices that can be controlled, by ID.  <br /></td></tr>
-<tr class="separator:a9e16916b890d8d417e06af94858c42a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0b5a8f26b1e840f1309030b690b476b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#af0b5a8f26b1e840f1309030b690b476b">removeDevice</a> (const char *deviceName)</td></tr>
-<tr class="memdesc:af0b5a8f26b1e840f1309030b690b476b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a device from the list of devices that can be controlled, by name.  <br /></td></tr>
-<tr class="separator:af0b5a8f26b1e840f1309030b690b476b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a980c79b5333151386fb02499384d0e"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a9a980c79b5333151386fb02499384d0e">getDeviceName</a> (unsigned char id)</td></tr>
-<tr class="memdesc:a9a980c79b5333151386fb02499384d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the name of the device with the given ID.  <br /></td></tr>
-<tr class="separator:a9a980c79b5333151386fb02499384d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1900c41b23b74d9729322af3b02dbdd4"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a1900c41b23b74d9729322af3b02dbdd4">getDeviceId</a> (const String &amp;deviceName)</td></tr>
-<tr class="memdesc:a1900c41b23b74d9729322af3b02dbdd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the ID of the device with the given name.  <br /></td></tr>
-<tr class="separator:a1900c41b23b74d9729322af3b02dbdd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fe1510da9a10b254946ddd3f2d36556"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a6fe1510da9a10b254946ddd3f2d36556">setDeviceUniqueId</a> (unsigned char id, const char *uniqueId)</td></tr>
-<tr class="memdesc:a6fe1510da9a10b254946ddd3f2d36556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the unique identifier of the device with the given ID.  <br /></td></tr>
-<tr class="separator:a6fe1510da9a10b254946ddd3f2d36556"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58fcb5700fbee819104357d7d25de313"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a58fcb5700fbee819104357d7d25de313">setState</a> (unsigned char id, bool state, unsigned char value, unsigned char hue, unsigned char sat)</td></tr>
-<tr class="memdesc:a58fcb5700fbee819104357d7d25de313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state of a device.  <br /></td></tr>
-<tr class="separator:a58fcb5700fbee819104357d7d25de313"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ff2e99d6bda27f35fc2187dfced0fa5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a8ff2e99d6bda27f35fc2187dfced0fa5">setState</a> (const char *deviceName, bool state, unsigned char value, unsigned char hue, unsigned char sat)</td></tr>
-<tr class="memdesc:a8ff2e99d6bda27f35fc2187dfced0fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state of a device.  <br /></td></tr>
-<tr class="separator:a8ff2e99d6bda27f35fc2187dfced0fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca2bc7a219f07f8df0c35c1ea2606386"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#aca2bc7a219f07f8df0c35c1ea2606386">process</a> (AsyncClient *client, bool isGet, const String &amp;url, const String &amp;body)</td></tr>
-<tr class="memdesc:aca2bc7a219f07f8df0c35c1ea2606386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a TCP request.  <br /></td></tr>
-<tr class="separator:aca2bc7a219f07f8df0c35c1ea2606386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa37364d75193d94b11d97a038a671b4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#aa37364d75193d94b11d97a038a671b4d">enable</a> (bool enable)</td></tr>
-<tr class="memdesc:aa37364d75193d94b11d97a038a671b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable fauxmoESP.  <br /></td></tr>
-<tr class="separator:aa37364d75193d94b11d97a038a671b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0c9ee456a28b2e88e6cbf3d4dc202c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#ad0c9ee456a28b2e88e6cbf3d4dc202c0">handle</a> ()</td></tr>
-<tr class="memdesc:ad0c9ee456a28b2e88e6cbf3d4dc202c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main loop function to handle UDP and TCP requests.  <br /></td></tr>
-<tr class="separator:ad0c9ee456a28b2e88e6cbf3d4dc202c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a217efc9673f2cc6fce7197c6a3c2e1dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a217efc9673f2cc6fce7197c6a3c2e1dd">onSetState</a> (TSetStateCallback fn)</td></tr>
-<tr class="memdesc:a217efc9673f2cc6fce7197c6a3c2e1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the callback function to be called when a device state is changed.  <br /></td></tr>
-<tr class="separator:a217efc9673f2cc6fce7197c6a3c2e1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d80ec75813f36f33ff43b0e670ae777"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a5d80ec75813f36f33ff43b0e670ae777">FauxmoESP</a> (bool enableWebServer=true)</td></tr>
+<tr class="memdesc:a5d80ec75813f36f33ff43b0e670ae777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object.  <br /></td></tr>
+<tr class="separator:a5d80ec75813f36f33ff43b0e670ae777"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa52b02c55f9e23fb2f76798901dd099f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#aa52b02c55f9e23fb2f76798901dd099f">~FauxmoESP</a> ()</td></tr>
+<tr class="memdesc:aa52b02c55f9e23fb2f76798901dd099f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object.  <br /></td></tr>
+<tr class="separator:aa52b02c55f9e23fb2f76798901dd099f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfeb7e5b85b050a62b3f11b07cb16781"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#adfeb7e5b85b050a62b3f11b07cb16781">setup</a> (OnStateChangeCallback onStateChangeCallback, OnGetStateCallback onGetStateCallback)</td></tr>
+<tr class="memdesc:adfeb7e5b85b050a62b3f11b07cb16781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object.  <br /></td></tr>
+<tr class="separator:adfeb7e5b85b050a62b3f11b07cb16781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87cb0e74b6c3c75e29f7ad408c47129b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a87cb0e74b6c3c75e29f7ad408c47129b">teardown</a> ()</td></tr>
+<tr class="memdesc:a87cb0e74b6c3c75e29f7ad408c47129b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Teardown the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object.  <br /></td></tr>
+<tr class="separator:a87cb0e74b6c3c75e29f7ad408c47129b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d31b5184e882a5c2b643f5422af5a7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_light.html">Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a0d31b5184e882a5c2b643f5422af5a7d">addLight</a> (const String &amp;name, const <a class="el" href="struct_light_capabilities.html">LightCapabilities</a> &amp;capabilities=<a class="el" href="struct_light_capabilities.html">LightCapabilities</a>(), const <a class="el" href="struct_light_state.html">LightState</a> &amp;initialState=<a class="el" href="struct_light_state.html">LightState</a>())</td></tr>
+<tr class="memdesc:a0d31b5184e882a5c2b643f5422af5a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a light to the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object.  <br /></td></tr>
+<tr class="separator:a0d31b5184e882a5c2b643f5422af5a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa0fbbbb6840e7a02cebec88f5b7ec6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#afa0fbbbb6840e7a02cebec88f5b7ec6f">removeLight</a> (const String &amp;deviceId)</td></tr>
+<tr class="memdesc:afa0fbbbb6840e7a02cebec88f5b7ec6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a light from the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object.  <br /></td></tr>
+<tr class="separator:afa0fbbbb6840e7a02cebec88f5b7ec6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5073d4c433a7b318210a39ad4f155655"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a5073d4c433a7b318210a39ad4f155655">update</a> ()</td></tr>
+<tr class="memdesc:a5073d4c433a7b318210a39ad4f155655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the SSDP and web server.  <br /></td></tr>
+<tr class="separator:a5073d4c433a7b318210a39ad4f155655"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a434c68966c22bfad5db099dbc099dfb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a434c68966c22bfad5db099dbc099dfb0">setWebServerEnabled</a> (bool enabled)</td></tr>
-<tr class="memdesc:a434c68966c22bfad5db099dbc099dfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the integrated web server is enabled or not.  <br /></td></tr>
+<tr class="memdesc:a434c68966c22bfad5db099dbc099dfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the web server is enabled or not.  <br /></td></tr>
 <tr class="separator:a434c68966c22bfad5db099dbc099dfb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6324fac2f4a49729c4d26a4c1c677a8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a6324fac2f4a49729c4d26a4c1c677a8a">setWebServerPort</a> (unsigned long tcp_port)</td></tr>
-<tr class="memdesc:a6324fac2f4a49729c4d26a4c1c677a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the TCP port for the integrated web server.  <br /></td></tr>
-<tr class="separator:a6324fac2f4a49729c4d26a4c1c677a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1d8c728bedda6215f0e221d44f1e77a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#ad1d8c728bedda6215f0e221d44f1e77a">setWebServerRedirect</a> (unsigned long redirect_port)</td></tr>
-<tr class="separator:ad1d8c728bedda6215f0e221d44f1e77a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c2f636ee92d62151a11b614c0129bcc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a1c2f636ee92d62151a11b614c0129bcc">setCheckUsername</a> (bool <a class="el" href="class_fauxmo_e_s_p.html#ac742e1bb2211df78e31d7400b68b19c0">checkUsername</a>)</td></tr>
+<tr class="memdesc:a1c2f636ee92d62151a11b614c0129bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the username should be checked or not If a request is made with a username that does not match the known one, the request will be denied.  <br /></td></tr>
+<tr class="separator:a1c2f636ee92d62151a11b614c0129bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac742e1bb2211df78e31d7400b68b19c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#ac742e1bb2211df78e31d7400b68b19c0">checkUsername</a> (const String &amp;username)</td></tr>
+<tr class="memdesc:ac742e1bb2211df78e31d7400b68b19c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the username is correct.  <br /></td></tr>
+<tr class="separator:ac742e1bb2211df78e31d7400b68b19c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add9fcb1e468f87eb953e5e4d783a1b7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#add9fcb1e468f87eb953e5e4d783a1b7a">processRequest</a> (const String &amp;url, const String &amp;body, const String &amp;method, String &amp;response, uint16_t *resultCode)</td></tr>
+<tr class="memdesc:add9fcb1e468f87eb953e5e4d783a1b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a request, only used when the web server is disabled.  <br /></td></tr>
+<tr class="separator:add9fcb1e468f87eb953e5e4d783a1b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8fb5b671be78575e06b83464a241538"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#ac8fb5b671be78575e06b83464a241538">setUsername</a> (const String &amp;username)</td></tr>
+<tr class="memdesc:ac8fb5b671be78575e06b83464a241538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the username.  <br /></td></tr>
+<tr class="separator:ac8fb5b671be78575e06b83464a241538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d1c45a6dd7cddbeb84aa5d414df8a99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#a6d1c45a6dd7cddbeb84aa5d414df8a99">setWebServerPort</a> (uint16_t port)</td></tr>
+<tr class="memdesc:a6d1c45a6dd7cddbeb84aa5d414df8a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the web server port.  <br /></td></tr>
+<tr class="separator:a6d1c45a6dd7cddbeb84aa5d414df8a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef088e2cf8066e597bcf5dd6f4fd048c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_light.html">Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#aef088e2cf8066e597bcf5dd6f4fd048c">getLightByDeviceId</a> (ushort deviceId)</td></tr>
+<tr class="memdesc:aef088e2cf8066e597bcf5dd6f4fd048c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a light by its device id.  <br /></td></tr>
+<tr class="separator:aef088e2cf8066e597bcf5dd6f4fd048c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6232381e5bc3bda2fa49baa19d69ccc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_light.html">Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_fauxmo_e_s_p.html#ab6232381e5bc3bda2fa49baa19d69ccc">getLightByName</a> (const String &amp;name)</td></tr>
+<tr class="memdesc:ab6232381e5bc3bda2fa49baa19d69ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a light by its name.  <br /></td></tr>
+<tr class="separator:ab6232381e5bc3bda2fa49baa19d69ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5d80ec75813f36f33ff43b0e670ae777" name="a5d80ec75813f36f33ff43b0e670ae777"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d80ec75813f36f33ff43b0e670ae777">&#9670;&#160;</a></span>FauxmoESP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FauxmoESP::FauxmoESP </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enableWebServer</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enableWebServer</td><td>Whether to enable the web server or not </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00011">11</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+
+</div>
+</div>
 <a id="aa52b02c55f9e23fb2f76798901dd099f" name="aa52b02c55f9e23fb2f76798901dd099f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa52b02c55f9e23fb2f76798901dd099f">&#9670;&#160;</a></span>~FauxmoESP()</h2>
 
@@ -175,149 +209,237 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00032">32</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+<p>Destroy the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00016">16</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aca945c6ff4d013254dfd94a83ca69931" name="aca945c6ff4d013254dfd94a83ca69931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca945c6ff4d013254dfd94a83ca69931">&#9670;&#160;</a></span>addDevice()</h2>
+<a id="a0d31b5184e882a5c2b643f5422af5a7d" name="a0d31b5184e882a5c2b643f5422af5a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d31b5184e882a5c2b643f5422af5a7d">&#9670;&#160;</a></span>addLight()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned char FauxmoESP::addDevice </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>deviceName</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Add a device to the list of devices that can be controlled. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">deviceName</td><td>The name of the device </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The id of the device </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00520">520</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa37364d75193d94b11d97a038a671b4d" name="aa37364d75193d94b11d97a038a671b4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa37364d75193d94b11d97a038a671b4d">&#9670;&#160;</a></span>enable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FauxmoESP::enable </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enable or disable fauxmoESP. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">enable</td><td>True to enable, false to disable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00648">648</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1900c41b23b74d9729322af3b02dbdd4" name="a1900c41b23b74d9729322af3b02dbdd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1900c41b23b74d9729322af3b02dbdd4">&#9670;&#160;</a></span>getDeviceId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int FauxmoESP::getDeviceId </td>
+          <td class="memname"><a class="el" href="struct_light.html">Light</a> * FauxmoESP::addLight </td>
           <td>(</td>
           <td class="paramtype">const String &amp;&#160;</td>
-          <td class="paramname"><em>deviceName</em></td><td>)</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="struct_light_capabilities.html">LightCapabilities</a> &amp;&#160;</td>
+          <td class="paramname"><em>capabilities</em> = <code><a class="el" href="struct_light_capabilities.html">LightCapabilities</a>()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_light_state.html">LightState</a> &amp;&#160;</td>
+          <td class="paramname"><em>initialState</em> = <code><a class="el" href="struct_light_state.html">LightState</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve the ID of the device with the given name. </p>
+<p>Add a light to the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">deviceName</td><td>The name of the device </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the light </td></tr>
+    <tr><td class="paramname">capabilities</td><td>The capabilities of the light, defaults to <a class="el" href="struct_light_capabilities.html" title="The light capabilities.">LightCapabilities()</a> </td></tr>
+    <tr><td class="paramname">initialState</td><td>The initial state of the light, defaults to <a class="el" href="struct_light_state.html" title="This class represents the state of a light.">LightState()</a> </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The ID of the device </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Light* The light object or nullptr if the light could not be added </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00545">545</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00370">370</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9a980c79b5333151386fb02499384d0e" name="a9a980c79b5333151386fb02499384d0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a980c79b5333151386fb02499384d0e">&#9670;&#160;</a></span>getDeviceName()</h2>
+<a id="ac742e1bb2211df78e31d7400b68b19c0" name="ac742e1bb2211df78e31d7400b68b19c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac742e1bb2211df78e31d7400b68b19c0">&#9670;&#160;</a></span>checkUsername()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">String FauxmoESP::getDeviceName </td>
+          <td class="memname">bool FauxmoESP::checkUsername </td>
           <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>username</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve the name of the device with the given ID. </p>
+<p>Check if the username is correct. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>The ID of the device </td></tr>
+    <tr><td class="paramname">username</td><td>The username to check </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The name of the device </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true If the username is correct, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00600">600</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00242">242</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad0c9ee456a28b2e88e6cbf3d4dc202c0" name="ad0c9ee456a28b2e88e6cbf3d4dc202c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0c9ee456a28b2e88e6cbf3d4dc202c0">&#9670;&#160;</a></span>handle()</h2>
+<a id="aef088e2cf8066e597bcf5dd6f4fd048c" name="aef088e2cf8066e597bcf5dd6f4fd048c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef088e2cf8066e597bcf5dd6f4fd048c">&#9670;&#160;</a></span>getLightByDeviceId()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FauxmoESP::handle </td>
+          <td class="memname"><a class="el" href="struct_light.html">Light</a> * FauxmoESP::getLightByDeviceId </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">ushort&#160;</td>
+          <td class="paramname"><em>deviceId</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main loop function to handle UDP and TCP requests. </p>
+<p>Get a light by its device id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deviceId</td><td>The device id of the light </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Light* The light object or nullptr if the light could not be found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00638">638</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00424">424</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a217efc9673f2cc6fce7197c6a3c2e1dd" name="a217efc9673f2cc6fce7197c6a3c2e1dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a217efc9673f2cc6fce7197c6a3c2e1dd">&#9670;&#160;</a></span>onSetState()</h2>
+<a id="ab6232381e5bc3bda2fa49baa19d69ccc" name="ab6232381e5bc3bda2fa49baa19d69ccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6232381e5bc3bda2fa49baa19d69ccc">&#9670;&#160;</a></span>getLightByName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_light.html">Light</a> * FauxmoESP::getLightByName </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a light by its name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the light </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Light* The light object or nullptr if the light could not be found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00409">409</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+
+</div>
+</div>
+<a id="add9fcb1e468f87eb953e5e4d783a1b7a" name="add9fcb1e468f87eb953e5e4d783a1b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add9fcb1e468f87eb953e5e4d783a1b7a">&#9670;&#160;</a></span>processRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FauxmoESP::processRequest </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>url</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>body</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>method</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String &amp;&#160;</td>
+          <td class="paramname"><em>response</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>resultCode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process a request, only used when the web server is disabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">url</td><td>The full URL of the request </td></tr>
+    <tr><td class="paramname">body</td><td>The body of the request </td></tr>
+    <tr><td class="paramname">method</td><td>The method of the request </td></tr>
+    <tr><td class="paramname">response</td><td>Returns the response </td></tr>
+    <tr><td class="paramname">resultCode</td><td>Returns the result code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00034">34</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afa0fbbbb6840e7a02cebec88f5b7ec6f" name="afa0fbbbb6840e7a02cebec88f5b7ec6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa0fbbbb6840e7a02cebec88f5b7ec6f">&#9670;&#160;</a></span>removeLight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FauxmoESP::removeLight </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>deviceId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a light from the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deviceId</td><td>The device id of the light </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00392">392</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c2f636ee92d62151a11b614c0129bcc" name="a1c2f636ee92d62151a11b614c0129bcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c2f636ee92d62151a11b614c0129bcc">&#9670;&#160;</a></span>setCheckUsername()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -326,10 +448,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void FauxmoESP::onSetState </td>
+          <td class="memname">void FauxmoESP::setCheckUsername </td>
           <td>(</td>
-          <td class="paramtype">TSetStateCallback&#160;</td>
-          <td class="paramname"><em>fn</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>checkUsername</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -340,372 +462,90 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set the callback function to be called when a device state is changed. </p>
+<p>Set whether the username should be checked or not If a request is made with a username that does not match the known one, the request will be denied. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fn</td><td>The callback function </td></tr>
+    <tr><td class="paramname">checkUsername</td><td>Whether the username should be checked or not </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00207">207</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00120">120</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
 
 </div>
 </div>
-<a id="aca2bc7a219f07f8df0c35c1ea2606386" name="aca2bc7a219f07f8df0c35c1ea2606386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca2bc7a219f07f8df0c35c1ea2606386">&#9670;&#160;</a></span>process()</h2>
+<a id="adfeb7e5b85b050a62b3f11b07cb16781" name="adfeb7e5b85b050a62b3f11b07cb16781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfeb7e5b85b050a62b3f11b07cb16781">&#9670;&#160;</a></span>setup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool FauxmoESP::process </td>
+          <td class="memname">void FauxmoESP::setup </td>
           <td>(</td>
-          <td class="paramtype">AsyncClient *&#160;</td>
-          <td class="paramname"><em>client</em>, </td>
+          <td class="paramtype">OnStateChangeCallback&#160;</td>
+          <td class="paramname"><em>onStateChangeCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>isGet</em>, </td>
+          <td class="paramtype">OnGetStateCallback&#160;</td>
+          <td class="paramname"><em>onGetStateCallback</em>&#160;</td>
         </tr>
         <tr>
-          <td class="paramkey"></td>
           <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setup the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">onStateChangeCallback</td><td>Callback to be called when a device state changes </td></tr>
+    <tr><td class="paramname">onGetStateCallback</td><td>Callback to be called when a device state is requested </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00021">21</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8fb5b671be78575e06b83464a241538" name="ac8fb5b671be78575e06b83464a241538"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8fb5b671be78575e06b83464a241538">&#9670;&#160;</a></span>setUsername()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FauxmoESP::setUsername </td>
+          <td>(</td>
           <td class="paramtype">const String &amp;&#160;</td>
-          <td class="paramname"><em>url</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const String &amp;&#160;</td>
-          <td class="paramname"><em>body</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Process a TCP request. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">client</td><td>TCP client </td></tr>
-    <tr><td class="paramname">isGet</td><td>True if the request is a GET </td></tr>
-    <tr><td class="paramname">url</td><td>URL of the request </td></tr>
-    <tr><td class="paramname">body</td><td>Body of the request </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the request was processed </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00633">633</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af0b5a8f26b1e840f1309030b690b476b" name="af0b5a8f26b1e840f1309030b690b476b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0b5a8f26b1e840f1309030b690b476b">&#9670;&#160;</a></span>removeDevice() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool FauxmoESP::removeDevice </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>deviceName</em></td><td>)</td>
+          <td class="paramname"><em>username</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Remove a device from the list of devices that can be controlled, by name. </p>
+<p>Set the username. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">deviceName</td><td>The name of the device to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the device was removed, false if the device was not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00594">594</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9e16916b890d8d417e06af94858c42a2" name="a9e16916b890d8d417e06af94858c42a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e16916b890d8d417e06af94858c42a2">&#9670;&#160;</a></span>removeDevice() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool FauxmoESP::removeDevice </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Remove a device from the list of devices that can be controlled, by ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The ID of the device to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the device was removed, false if the device was not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00580">580</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab9dd94d43129cfd449be98a1b7d756b2" name="ab9dd94d43129cfd449be98a1b7d756b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9dd94d43129cfd449be98a1b7d756b2">&#9670;&#160;</a></span>renameDevice() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool FauxmoESP::renameDevice </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>oldDeviceName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>newDeviceName</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Rename a device by name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">oldDeviceName</td><td>The name of the device to rename. </td></tr>
-    <tr><td class="paramname">newDeviceName</td><td>The new name of the device </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the device was renamed, false if the device was not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00574">574</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a600d2d7e0e63339d1162226c3c44027a" name="a600d2d7e0e63339d1162226c3c44027a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a600d2d7e0e63339d1162226c3c44027a">&#9670;&#160;</a></span>renameDevice() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool FauxmoESP::renameDevice </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const String &amp;&#160;</td>
-          <td class="paramname"><em>newDeviceName</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Rename a device by ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The ID of the device to rename </td></tr>
-    <tr><td class="paramname">newDeviceName</td><td>The new name of the device </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the device was renamed, false if the device was not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00558">558</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6fe1510da9a10b254946ddd3f2d36556" name="a6fe1510da9a10b254946ddd3f2d36556"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fe1510da9a10b254946ddd3f2d36556">&#9670;&#160;</a></span>setDeviceUniqueId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FauxmoESP::setDeviceUniqueId </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>uniqueId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the unique identifier of the device with the given ID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The ID of the device </td></tr>
-    <tr><td class="paramname">uniqueId</td><td>The unique identifier to set the device to </td></tr>
+    <tr><td class="paramname">username</td><td>The username </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00515">515</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8ff2e99d6bda27f35fc2187dfced0fa5" name="a8ff2e99d6bda27f35fc2187dfced0fa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ff2e99d6bda27f35fc2187dfced0fa5">&#9670;&#160;</a></span>setState() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool FauxmoESP::setState </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>deviceName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>hue</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>sat</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the state of a device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">deviceName</td><td>The name of the device </td></tr>
-    <tr><td class="paramname">state</td><td>The state of the device </td></tr>
-    <tr><td class="paramname">value</td><td>The value of the device </td></tr>
-    <tr><td class="paramname">hue</td><td>The hue of the device </td></tr>
-    <tr><td class="paramname">sat</td><td>The saturation of the device </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true The device was found and the state was returned </dd>
-<dd>
-false The device was not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00627">627</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a58fcb5700fbee819104357d7d25de313" name="a58fcb5700fbee819104357d7d25de313"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58fcb5700fbee819104357d7d25de313">&#9670;&#160;</a></span>setState() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool FauxmoESP::setState </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>hue</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>sat</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the state of a device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The id of the device </td></tr>
-    <tr><td class="paramname">state</td><td>The state of the device </td></tr>
-    <tr><td class="paramname">value</td><td>The value of the device </td></tr>
-    <tr><td class="paramname">hue</td><td>The hue of the device </td></tr>
-    <tr><td class="paramname">sat</td><td>The saturation of the device </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true The device was found and the state was returned </dd>
-<dd>
-false The device was not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00611">611</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00146">146</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
 
 </div>
 </div>
@@ -733,20 +573,20 @@ false The device was not found </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Set whether the integrated web server is enabled or not. </p>
-<p>If not enabled you must handle the requests yourself and call handleHttpRequest in your function. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Set whether the web server is enabled or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">enabled</td><td>True to enable, false to disable </td></tr>
+    <tr><td class="paramname">enabled</td><td>Whether the web server is enabled or not </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00214">214</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00109">109</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
 
 </div>
 </div>
-<a id="a6324fac2f4a49729c4d26a4c1c677a8a" name="a6324fac2f4a49729c4d26a4c1c677a8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6324fac2f4a49729c4d26a4c1c677a8a">&#9670;&#160;</a></span>setWebServerPort()</h2>
+<a id="a6d1c45a6dd7cddbeb84aa5d414df8a99" name="a6d1c45a6dd7cddbeb84aa5d414df8a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d1c45a6dd7cddbeb84aa5d414df8a99">&#9670;&#160;</a></span>setWebServerPort()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -757,8 +597,8 @@ false The device was not found </dd></dl>
         <tr>
           <td class="memname">void FauxmoESP::setWebServerPort </td>
           <td>(</td>
-          <td class="paramtype">unsigned long&#160;</td>
-          <td class="paramname"><em>tcp_port</em></td><td>)</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>port</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -769,49 +609,57 @@ false The device was not found </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Set the TCP port for the integrated web server. </p>
-<p>Default is 80. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Set the web server port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tcp_port</td><td></td></tr>
+    <tr><td class="paramname">port</td><td>The web server port </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00220">220</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00155">155</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
 
 </div>
 </div>
-<a id="ad1d8c728bedda6215f0e221d44f1e77a" name="ad1d8c728bedda6215f0e221d44f1e77a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1d8c728bedda6215f0e221d44f1e77a">&#9670;&#160;</a></span>setWebServerRedirect()</h2>
+<a id="a87cb0e74b6c3c75e29f7ad408c47129b" name="a87cb0e74b6c3c75e29f7ad408c47129b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87cb0e74b6c3c75e29f7ad408c47129b">&#9670;&#160;</a></span>teardown()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void FauxmoESP::setWebServerRedirect </td>
+          <td class="memname">void FauxmoESP::teardown </td>
           <td>(</td>
-          <td class="paramtype">unsigned long&#160;</td>
-          <td class="paramname"><em>redirect_port</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">redirect_port</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8h_source.html#l00226">226</a> of file <a class="el" href="_fauxmo_e_s_p_8h_source.html">FauxmoESP.h</a>.</p>
+<p>Teardown the <a class="el" href="class_fauxmo_e_s_p.html" title="Main class for FauxmoESP.">FauxmoESP</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00113">113</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5073d4c433a7b318210a39ad4f155655" name="a5073d4c433a7b318210a39ad4f155655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5073d4c433a7b318210a39ad4f155655">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FauxmoESP::update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the SSDP and web server. </p>
+
+<p class="definition">Definition at line <a class="el" href="_fauxmo_e_s_p_8cpp_source.html#l00232">232</a> of file <a class="el" href="_fauxmo_e_s_p_8cpp_source.html">FauxmoESP.cpp</a>.</p>
 
 </div>
 </div>
@@ -826,7 +674,7 @@ false The device was not found </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
         <li class="navelem"><a class="el" href="class_fauxmo_e_s_p.html">FauxmoESP</a></li>
-        <li class="footer">Generated on Fri Feb 24 2023 22:27:32 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+        <li class="footer">Generated on Sat Feb 25 2023 21:34:44 for FauxmoESP by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
     </ul>
 </div>
 <!-- ... -->
