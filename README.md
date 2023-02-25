@@ -53,71 +53,59 @@ or
 
 ## 🚀 **Usage**
 
-The library is very easy to use, basically instantiate an object, connect to the Wifi, add one or more virtual devices and bind the callback to get the messages. An schematic example could be:
+The library is very easy to use, basically instantiate an object, connect to the Wifi, add one or more virtual
+devices and bind the callback to get the messages.
 
-```
-#include <FauxmoESP.h>
+See the [examples](https://github.com/subtixx/fauxmoESP/tree/main/examples) for more details.
 
-FauxmoESP fauxmo;
+### 🖥️ **Add light to Alexa**
 
-void setup() {
+To add a light to Alexa, you need to use the Alexa app on your phone.
 
-    Serial.begin(115200);
+### 1. Click on the plus button
 
-    ... connect to wifi ...
+### 2. Click add device
 
-    fauxmo.addLight("light one");
-    fauxmo.addLight("light two");
-    fauxmo.addLight("light three");
-    fauxmo.addLight("light four");
+<a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step1.png">
+    <img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step1.png" width="64px">
+</a>
 
-    fauxmo.setWebServerPort(80); // required for gen3 devices
-    fauxmo.setWebServerEnabled(true);
+### 3. Click on the light bulb
 
-    fauxmo.setup([](Light* light) {
-        Serial.printf("Device %s state: %s\n", light->name.c_str(), light->state ? "ON" : "OFF");
-    }, [](Light* light) {
-    });
+<a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step2.png">
+    <img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step2.png" width="64px">
+</a>
 
-}
+### 4. Search for "**Philips Hue Lamp**"
 
-void loop() {
-    fauxmo.handle();
-}
+Only select the "**Philips Hue Lamp**" and not "Philips Hue Remote", 
+"Philips Hue Hub", "Philips Hue Lamp 929002487114", or "Philips Hue Switch"
 
-```
+### 5. Click on "**Philips Hue Lamp**"
 
-(Check the examples folder)
+### 6. Click on "Discover Devices"
 
-## To use with ESP-IDF
+<a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step3.png">
+    <img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step3.png" width="64px">
+</a>
 
-Add `#include "Arduino.h"`
+### 7. Wait for the device to be discovered
 
----
+<a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step4.png">
+    <img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step4.png" width="64px">
+</a>
 
-## 🌲 **Project tree**
+### 8. Select the device to add
 
-<!-- ... [SHOW YOUR PROJECT TREE HERE IF USEFUL] -->
+<a href="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step5.png">
+    <img src="https://github.com/subtixx/fauxmoESP/raw/main/docs/img/step5.png" width="64px">
+</a>
 
----
+That's it! Now you can control your device with Alexa!
 
-## 📝 **Additional notes**
+## 📚 **Documentation**
 
-Besides the libraries already included with the Arduino Core for ESP8266 or ESP32, 
-these libraries are also required to use fauxmoESP:
-
-ESP8266:
-
-* This library uses [ESPAsyncTCP][3] library by [ottowinter][5]
-
-ESP32:
-
-* This library uses [AsyncTCP][4] library by [esphome][6]
-
-Raspberry Pi Pico
-
-* This library uses [AsyncTCP_RP2040W][8] library by [khoih-prog][9]
-
+The documentation is available at [https://subtixx.github.io/fauxmoESP](https://subtixx.github.io/fauxmoESP)
 
 ---
 
