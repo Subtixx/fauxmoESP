@@ -1,5 +1,4 @@
 name: build
-id: build
 
 on:
   workflow_dispatch:
