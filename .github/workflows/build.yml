@@ -18,20 +18,14 @@ jobs:
       contents: read
       security-events: write
 
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'cpp' ]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      # Initializes the CodeQL tools for scanning.
+        
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
-          languages: ${{ matrix.language }}
+          languages: 'cpp'
 
       - name: Make scripts executable
         run: |
@@ -52,8 +46,8 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          category: "/language:${{matrix.language}}"
-    
+          category: "/language:cpp"
+
   build:
     runs-on: ubuntu-latest
     steps:
