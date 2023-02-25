@@ -22,12 +22,13 @@ jobs:
           extra-args: -std=c++14 -Wall
           tidy-checks: -*,cert-*,clang-analyzer-*,cppcoreguidelines-*,google-*,hicpp-*,llvm-*,misc-*,modernize-*,performance-*,readability-*,zircon-*
 
-      - name: cppcheck
-        uses: deep5050/cppcheck-action@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          platform: 'avr8'
-          other_options: '--enable=all --std=c++17 --suppress=*:*/.pio/* --suppress=*:*/lib/* --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=missingInclude --suppress=unusedFunction'
+# TODO: Create own action for this.
+#      - name: cppcheck
+#        uses: deep5050/cppcheck-action@main
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN}}
+#          platform: 'avr8'
+#          other_options: '--enable=all --std=c++17 --suppress=*:*/.pio/* --suppress=*:*/lib/* --suppress=missingIncludeSystem --suppress=unmatchedSuppression --suppress=missingInclude --suppress=unusedFunction'
 
       - name: publish report
         uses: mikeal/publish-to-github-action@master
