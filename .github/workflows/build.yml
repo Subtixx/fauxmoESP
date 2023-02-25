@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
@@ -78,3 +78,10 @@ jobs:
           style: file
           extra-args: -std=c++14 -Wall
           tidy-checks: -*,cert-*,clang-analyzer-*,cppcoreguidelines-*,google-*,hicpp-*,llvm-*,misc-*,modernize-*,performance-*,readability-*,zircon-*
+
+      - name: Annotate
+        uses: yuzutech/annotations-action@v0.4.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          title: 'Build Result'
+          input: './annotations.json'
