@@ -53,8 +53,10 @@ jobs:
 
       - name: Annotate
         uses: yuzutech/annotations-action@v0.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Build Result'
           input: './annotations.json'
 
