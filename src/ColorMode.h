@@ -21,7 +21,7 @@ enum ColorMode
     COLOR_MODE_CT
 };
 
-static String ColorModeToString(ColorMode colorMode)
+static const char* ColorModeToString(ColorMode colorMode)
 {
     switch (colorMode)
     {

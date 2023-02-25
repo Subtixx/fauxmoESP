@@ -2,15 +2,14 @@ import re
 import sys
 
 inputFile = open(sys.argv[1], "r")
-lines = inputFile.readlines()
+fileContents = inputFile.read()
 inputFile.close()
 
 resultMessages = []
 
-for line in lines:
-    match = re.search(
-        r"^(?P<File>.*?\.(?P<Extension>cpp|h|c)):(?P<LineNumber>\d+):(?P<ColNumber>\d+): (?P<Type>warning|error): ("
-        r"?P<Message>.*?) \[(?P<Note>.*?)]$", line)
+for match in re.finditer(
+        r"^In file included (from .*:[0-9]+[,:])(?s:.)+?\n(?P<File>.*?\.(?P<Extension>cpp|h|c)):(?P<LineNumber>\d+):(?P<ColNumber>\d+): (?P<Type>warning|error): (?P<Message>.*?)\[(?P<Note>.*?)]\n(?s:.+?)\n(?s:.+?)$",
+        fileContents, re.MULTILINE):
     if match:
         file = match.group("File")
         line_number = match.group("LineNumber")
@@ -20,7 +19,8 @@ for line in lines:
             message_type = "failure"
         message = match.group("Message")
         note = match.group("Note")
-        raw_details = line.replace('"', '\\"').replace("\n", "")
+        # Get line from match
+        raw_details = match.group(0).replace('"', '\\"').replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t").replace("    ", "\\t")
         resultMessages.append(
             '{"file": "%s", "line": %s, "start_column": %s, "end_column": %s, "annotation_level": "%s", '
             '"title": "%s", "message": "%s", "raw_details": "%s"}' % (
