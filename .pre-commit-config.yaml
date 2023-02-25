@@ -1,0 +1,37 @@
+repos:
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.4.0
+    hooks:
+      - id: commitlint
+        stages: [ commit-msg ]
+        additional_dependencies: [ '@commitlint/config-conventional' ]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+        args: [ "--maxkb=512" ]
+        stages: [ commit ]
+      - id: detect-private-key
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks: []
+      #- id: clang-tidy
+      #  args: [
+      #    "--checks=-*,cert-*,clang-analyzer-*",
+      #    "--fix",
+      #    "--header-filter=src/*",
+      #    "-p=./build/esp32/compile_commands.json"
+      #  ]
+      #  files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx)$
+      #  stages: [ commit ]
+      #- id: cppcheck
+      #  args: [ "--enable=all","--std=c++17","--suppress=*:*/.pio/*","--suppress=*:*/lib/*","--suppress=missingIncludeSystem","--suppress=unmatchedSuppression","--suppress=missingInclude","--suppress=unusedFunction" ]
+      #  stages: [ commit ]
+      #- id: include-what-you-use
+      #  args: []
+      #  files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx)$
+      #  stages: [ commit ]
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.4.2
+    hooks:
+      - id: remove-crlf

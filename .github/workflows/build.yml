@@ -1,3 +1,5 @@
+name: build
+
 on:
   workflow_dispatch:
   push:
@@ -8,13 +10,12 @@ on:
       - main
 
 name: build
-permissions:
-  contents: read
+permissions: write-all
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@c8454efe5d0bdefd25384362fe217428ca277d57 # v2.2.0
@@ -23,19 +24,54 @@ jobs:
 
       - name: checkout code
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        
+      - name: Create pip cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Create PlatformIO Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-platformio-${{ hashFiles('**/platformio.ini') }}
+          restore-keys: |
+            ${{ runner.os }}-platformio-
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: 'cpp'
 
       - name: Make scripts executable
         run: |
           chmod +x ./ci/ci-compile.sh
 
-      - name: install python
+      - name: Install Python
         uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4.5.0
         with:
           python-version: '3.10'
 
-      - name: install platformio
+      - name: Install PlatformIO
         run: |
-          pip install platformio==6.1.4
+          pip install platformio==6.1.4 --use-pep517
 
-      - name: build examples
+      - name: Run CI Compile
         run: ./ci/ci-compile.sh
+
+      - name: Annotate Build Result
+        uses: yuzutech/annotations-action@v0.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          title: 'Build Result'
+          input: './annotations.json'
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:cpp"

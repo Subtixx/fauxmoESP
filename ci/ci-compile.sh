@@ -22,19 +22,51 @@ EXAMPLES=${EXAMPLES:-"Basic External_Server"}
 # list of boards to compile for by default
 BOARDS=${BOARDS:-"esp32dev esp01"}
 
-LIBS=${LIBS:-"ottowinter/ESPAsyncTCP-esphome esphome/AsyncTCP-esphome ottowinter/ESPAsyncWebServer-esphome"}
+LIBS=${LIBS:-"ottowinter/ESPAsyncTCP-esphome esphome/AsyncTCP-esphome ottowinter/ESPAsyncWebServer-esphome luc-github/ESP32SSDP bblanchon/ArduinoJson"}
+
+PROJECT_OPTIONS=${PROJECT_OPTIONS:-"build_unflags=-std=gnu++11 build_flags=-std=gnu++14 build_flags=-Wall build_flags=-Wno-unused-function"}
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BOARD_OPTS=$(for b in $BOARDS; do echo -n "--board $b "; done)
 
 LIB_DEPS=$(for l in $LIBS; do echo -n "-l=$l "; done)
 
+PROJECT_OPTS=$(for l in $PROJECT_OPTIONS; do echo -n "--project-option=$l "; done)
+
 cd "$DIR/.."
 
-export PLATFORMIO_EXTRA_SCRIPTS="pre:lib/ci/ci-flags.py"
+rm -f messages.txt
+
+echo "*** generating compile_commands.json ***"
+pio run -t compiledb > /dev/null 2>> messages.txt
+
+if [ $? -ne 0 ]; then
+  echo "Failed to generate compile_commands.json"
+fi
 
 for d in $EXAMPLES ; do
+  echo "*** installing dependencies for $d ***"
+  pio pkg install --global --no-save $LIB_DEPS > /dev/null 2>> messages.txt
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to install dependencies for $d"
+  fi
+
   echo "*** building example $d for $BOARDS ***"
-  pio pkg install --global --no-save $LIB_DEPS
-  pio ci $BOARD_OPTS --lib="ci" --lib="src" "examples/$d/$d.ino"
+  pio ci $BOARD_OPTS $PROJECT_OPTS --lib="ci" --lib="src" "examples/$d/$d.ino" > /dev/null 2>> messages.txt
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to build example $d for $BOARDS"
+  fi
+
+  echo "*** building example $d for $BOARDS with ArduinoJson ***"
+  pio ci $BOARD_OPTS $PROJECT_OPTS --project-option="build_flags=-DUSE_ARDUINO_JSON" --lib="ci" --lib="src" "examples/$d/$d.ino" > /dev/null 2>> messages.txt
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to build example $d for $BOARDS with ArduinoJson"
+  fi
 done
+
+# Run extract_messages.py
+echo "*** running extract_messages.py ***"
+python3 scripts/extract_messages.py messages.txt annotations.json

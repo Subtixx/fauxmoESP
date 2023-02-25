@@ -1,0 +1,981 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Philips Hue API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api": {
+      "post": {
+        "summary": "Create User",
+        "description": "Creates a new user. The link button on the bridge must be pressed and this command executed within 30 seconds.\n\nOnce a new user has been created, the user key is added to a ‘whitelist’, allowing access to API commands that require a whitelisted user. At present, all other API commands require a whitelisted user.\n\nWe ask that published apps use the name of their app as the devicetype.\n\nNote:The link button on the bridge must have been recently pressed for the command to execute successfully. If the link button has not been pressed a 101 error will be returned.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "devicetype": {
+                    "type": "string",
+                    "description": "<application_name>#<devicename>\n\napplication_name string 0..20, devicename string 0..19\n\n(Example: my_hue_app#iphone peter )",
+                    "example": "my_hue_app#iphone peter"
+                  },
+                  "generateclientkey": {
+                    "type": "boolean",
+                    "description": "When set to true, a random 16 byte clientkey is generated and returned in the response. This key is encoded as ASCII hex string of length 32.",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default error sample response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "object",
+                      "properties": {
+                        "username": {
+                          "type": "string",
+                          "description": "Contains a list with a single item that details whether the user was added successfully along with the username parameter.  If successful the username should be stored for future API calls.",
+                          "example": "83b7780291a6ceffbe0bd049104df"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/config": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "config"
+        ],
+        "summary": "Returns list of all configuration elements in the bridge. Note all times are stored in UTC.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "Example": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "zigbeechannel": {
+                      "type": "integer"
+                    },
+                    "mac": {
+                      "type": "string"
+                    },
+                    "dhcp": {
+                      "type": "boolean"
+                    },
+                    "ipaddress": {
+                      "type": "string"
+                    },
+                    "netmask": {
+                      "type": "string"
+                    },
+                    "gateway": {
+                      "type": "string"
+                    },
+                    "proxyaddress": {
+                      "type": "string"
+                    },
+                    "proxyport": {
+                      "type": "integer"
+                    },
+                    "UTC": {
+                      "type": "string"
+                    },
+                    "localtime": {
+                      "type": "string"
+                    },
+                    "timezone": {
+                      "type": "string"
+                    },
+                    "whitelist": {
+                      "type": "object",
+                      "properties": {
+                        "ffffffffe0341b1b376a2389376a2389": {
+                          "type": "object",
+                          "properties": {
+                            "last use date": {
+                              "type": "string"
+                            },
+                            "create date": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "last use date",
+                            "create date",
+                            "name"
+                          ]
+                        },
+                        "pAtwdCV8NZId25Gk": {
+                          "type": "object",
+                          "properties": {
+                            "last use date": {
+                              "type": "string"
+                            },
+                            "create date": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "last use date",
+                            "create date",
+                            "name"
+                          ]
+                        },
+                        "gDN3IaPYSYNPWa2H": {
+                          "type": "object",
+                          "properties": {
+                            "last use date": {
+                              "type": "string"
+                            },
+                            "create date": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "last use date",
+                            "create date",
+                            "name"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "ffffffffe0341b1b376a2389376a2389",
+                        "pAtwdCV8NZId25Gk",
+                        "gDN3IaPYSYNPWa2H"
+                      ]
+                    },
+                    "swversion": {
+                      "type": "string"
+                    },
+                    "apiversion": {
+                      "type": "string"
+                    },
+                    "swupdate": {
+                      "deprecated": true,
+                      "type": "object",
+                      "properties": {
+                        "updatestate": {
+                          "type": "integer"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "notify": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "updatestate",
+                        "url",
+                        "text",
+                        "notify"
+                      ]
+                    },
+                    "swupdate2": {
+                      "type": "object",
+                      "properties": {
+                        "checkforupdate": {
+                          "type": "boolean"
+                        },
+                        "lastchange": {
+                          "type": "string"
+                        },
+                        "bridge": {
+                          "type": "object",
+                          "properties": {
+                            "state": {
+                              "type": "string"
+                            },
+                            "lastinstall": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "autoinstall": {
+                          "type": "object",
+                          "properties": {
+                            "updatetime": {
+                              "type": "string"
+                            },
+                            "on": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "internetservices": {
+                      "type": "object",
+                      "properties": {
+                        "internet": {
+                          "type": "string"
+                        },
+                        "remoteaccess": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "swupdate": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "factorynew": {
+                      "type": "boolean"
+                    },
+                    "replacesbridgeid": {
+                      "type": "string",
+                      "format": "nullable"
+                    },
+                    "backup": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        },
+                        "errorcode": {
+                          "type": "integer",
+                          "format": "int32"
+                        }
+                      }
+                    },
+                    "linkbutton": {
+                      "type": "boolean"
+                    },
+                    "portalservices": {
+                      "type": "boolean"
+                    },
+                    "portalconnection": {
+                      "type": "string"
+                    },
+                    "portalstate": {
+                      "type": "object",
+                      "properties": {
+                        "signedon": {
+                          "type": "boolean"
+                        },
+                        "incoming": {
+                          "type": "boolean"
+                        },
+                        "outgoing": {
+                          "type": "boolean"
+                        },
+                        "communication": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "signedon",
+                        "incoming",
+                        "outgoing",
+                        "communication"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "zigbeechannel",
+                    "mac",
+                    "dhcp",
+                    "ipaddress",
+                    "netmask",
+                    "gateway",
+                    "proxyaddress",
+                    "proxyport",
+                    "UTC",
+                    "localtime",
+                    "timezone",
+                    "whitelist",
+                    "swversion",
+                    "apiversion",
+                    "swupdate",
+                    "linkbutton",
+                    "portalservices",
+                    "portalconnection",
+                    "portalstate"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "config"
+        ],
+        "summary": "Allows the user to set some configuration values.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "proxyport": {
+                    "description": "Port of the proxy being used by the bridge. If set to 0 then a proxy is not being used.",
+                    "type": "integer",
+                    "format": "int16"
+                  },
+                  "name": {
+                    "description": "Name of the bridge. This is also its uPnP name, so will reflect the actual uPnP name after any conflicts have been resolved.",
+                    "type": "string",
+                    "minLength": 4,
+                    "maxLength": 16
+                  },
+                  "swupdate": {
+                    "description": "Contains information related to software updates.",
+                    "type": "object"
+                  },
+                  "proxyaddress": {
+                    "description": "IP Address of the proxy server being used. A value of “none” indicates no proxy.",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 40
+                  },
+                  "linkbutton": {
+                    "description": "Indicates whether the link button has been pressed within the last 30 seconds. Starting 1.31, Writing is only allowed for Portal access via cloud application_key.",
+                    "type": "boolean"
+                  },
+                  "ipaddress": {
+                    "description": "IP address of the bridge.",
+                    "type": "string"
+                  },
+                  "netmask": {
+                    "description": "Network mask of the bridge.",
+                    "type": "string"
+                  },
+                  "gateway": {
+                    "description": "Gateway IP address of the bridge.",
+                    "type": "string"
+                  },
+                  "dhcp": {
+                    "description": "Whether the IP address of the bridge is obtained with DHCP.",
+                    "type": "boolean"
+                  },
+                  "UTC": {
+                    "description": "Current time in UTC. Only modifiable when no internet connection is available to the bridge.",
+                    "type": "string"
+                  },
+                  "timezone": {
+                    "description": "The bridge timezone.",
+                    "type": "string"
+                  },
+                  "touchlink": {
+                    "description": "Perform a touchlink action if set to true, setting to false is ignored. When set to true a touchlink procedure starts which adds the closest lamp (within range) to the ZigBee network. You can then search for new lights and lamp will show up in the bridge. This field is Write-Only so it is not visible when retrieving the bridge Config JSON.",
+                    "type": "boolean"
+                  },
+                  "zigbeechannel": {
+                    "description": "The wireless frequency channel used by the bridge. It can take values of 11, 15, 20 or 25.",
+                    "type": "integer",
+                    "format": "int8"
+                  }
+                }
+              },
+              "example": {
+                "name": "My bridge",
+                "swupdate": {
+                  "updatestate": 0,
+                  "checkforupdate": false,
+                  "devicetypes": {
+                    "bridge": false,
+                    "lights": [
+                      "LCT001",
+                      "LCT002",
+                      "LCT003",
+                      "LCT007"
+                    ],
+                    "sensors": []
+                  },
+                  "url": "",
+                  "text": "",
+                  "notify": false
+                },
+                "proxyaddress": "none",
+                "proxyport": 0,
+                "linkbutton": false,
+                "ipaddress": "192.168.1.200",
+                "netmask": "255.255.255.0",
+                "gateway": "192.168.1.1",
+                "dhcp": true,
+                "UTC": "2012-10-29T12:00:00",
+                "timezone": "Europe/Amsterdam",
+                "touchlink": false,
+                "zigbeechannel": 11
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ]
+                },
+                "example": [
+                  {
+                    "success": {
+                      "/config/name": "My bridge"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/config/swupdate2": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "config"
+        ],
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bridge": {
+                      "type": "object",
+                      "properties": {
+                        "checkforupdate": {
+                          "type": "boolean",
+                          "description": "Setting this flag true lets the bridge search for software update at the portal. After the search attempt, this flag is reset to false. Requires portal connection to update software.\n\nIf software update server cannot be reached /config/ internetservices/swupdate will be “disconnected”."
+                        },
+                        "state": {
+                          "description": "State of software update for the system",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "autoinstall": {
+                      "type": "object",
+                      "properties": {
+                        "on": {
+                          "type": "boolean",
+                          "description": "Enable automatic installation of software updates."
+                        },
+                        "updatetime": {
+                          "type": "string",
+                          "description": "Time of day when automatic installation of software updates is performed."
+                        }
+                      }
+                    },
+                    "lastchange": {
+                      "type": "string",
+                      "description": "Timestamp of last change in system configuration\n\n    last software configuration update requires additional software to be transferred (noupdates -> transferring)\n    last successful transfer of a software image to a device\n\nlast successful installation of a software image on a device"
+                    },
+                    "lastinstall": {
+                      "type": "string",
+                      "description": "Time of last software update."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/config/swupdate2/autoinstall": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "config"
+        ],
+        "description": "Returns the autoinstall configuration of the bridge.",
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "on": {
+                      "type": "boolean"
+                    },
+                    "updatetime": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "on": false,
+                  "updatetime": "T14:00:00"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/config/internetservices": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "As of 1.20 /config/internetservices returned the values below.\nAs of 1.54 /config/internetservices support has been dropped and all fields return fixed value ‘connected’.",
+      "get": {
+        "tags": [
+          "config"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "internet": {
+                      "description": "Connected \tBridge has a connection to Internet.\n\t\tDisconnected \tBridge cannot reach the Internet.",
+                      "type": "string"
+                    },
+                    "remoteaccess": {
+                      "description": "Connected \tIf remote CLIP is available.\n\t\tDisconnected \tIf remoteaccess is unavailable, reasons can be portalservices are false or no remote connection is available.",
+                      "type": "string"
+                    },
+                    "time": {
+                      "description": "Connected \tBridge has a connection to Internet.\n\t\tDisconnected \tBridge cannot reach the Internet.",
+                      "type": "string"
+                    },
+                    "swupdate": {
+                      "description": "Connected \tswupdate server is available.\n\t\tDisconnected \tswupdate server was not reachable in the last 24 hrs.",
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "internet": "connected",
+                  "remoteaccess": "connected",
+                  "time": "connected",
+                  "swupdate": "connected"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/config/backup": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "config"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "dle \tR \tNo backup/restore ongoing.\nstartmigration \tR, W \tCan be written in “idle”. Creates a backup file which can be retrieved via the backup interface and puts the bridge in “fileready_disabled” state. Indicates that a backup file for migration is being created. CLIP is not available for some time after this command.\nfileready_disabled \tR \tIndicates that a backup file is available and that this bridge has been disabled due to a migration procedure. The bridge can be activated again by a factory reset or power cycle.\nprepare_restore \tR \tIndicates that the a backup file has been sent to the bridge and the bridge is in the process of preparing it for restoring.\nrestoring \tR \tIndicates that the bridge is in the process of restoring the backup file."
+                    },
+                    "errorcode": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "0 \tNone\n1 \tExport failed\n2 \tImport failed"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                },
+                "example": {
+                  "status": "idle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/lights": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "",
+        "description": "Gets a list of all lights that have been discovered by the bridge.",
+        "operationId": "getAllLights",
+        "tags": [
+          "lights"
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Example of Response": {
+                    "value": "{\n\"1\": {\n        \"state\": {\n            \"on\": false,\n            \"bri\": 1,\n            \"hue\": 33761,\n            \"sat\": 254,\n            \"effect\": \"none\",\n            \"xy\": [\n                0.3171,\n                0.3366\n            ],\n            \"ct\": 159,\n            \"alert\": \"none\",\n            \"colormode\": \"xy\",\n            \"mode\": \"homeautomation\",\n            \"reachable\": true\n        },\n        \"swupdate\": {\n            \"state\": \"noupdates\",\n            \"lastinstall\": \"2018-01-02T19:24:20\"\n        },\n        \"type\": \"Extended color light\",\n        \"name\": \"Hue color lamp 7\",\n        \"modelid\": \"LCT007\",\n        \"manufacturername\": \"Philips\",\n        \"productname\": \"Hue color lamp\",\n        \"capabilities\": {\n            \"certified\": true,\n            \"control\": {\n                \"mindimlevel\": 5000,\n                \"maxlumen\": 600,\n                \"colorgamuttype\": \"B\",\n                \"colorgamut\": [\n                    [\n                        0.675,\n                        0.322\n                    ],\n                    [\n                        0.409,\n                        0.518\n                    ],\n                    [\n                        0.167,\n                        0.04\n                    ]\n                ],\n                \"ct\": {\n                    \"min\": 153,\n                    \"max\": 500\n                }\n            },\n            \"streaming\": {\n                \"renderer\": true,\n                \"proxy\": false\n            }\n        },\n        \"config\": {\n            \"archetype\": \"sultanbulb\",\n            \"function\": \"mixed\",\n            \"direction\": \"omnidirectional\"\n        },\n        \"uniqueid\": \"00:17:88:01:00:bd:c7:b9-0b\",\n        \"swversion\": \"5.105.0.21169\"\n    }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "",
+        "description": "Starts searching for new lights.  The bridge will open the network for 40s. The overall search might take longer since the configuration of (multiple) new devices can take longer. If many devices are found the command will have to be issued a second time after discovery time has elapsed. If the command is received again during search the search will continue for at least an additional 40s.  When the search has finished, new lights will be available using the get new lights command. In addition, the new lights will now be available by calling get all lights or by calling get group attributes on group 0. Group 0 is a special group that cannot be deleted and will always contain all lights known by the bridge.",
+        "operationId": "searchLight",
+        "tags": [
+          "lights"
+        ],
+        "requestBody": {
+          "description": "**Note**: The maxiumum number of serial numbers in any request is 10.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "example": [
+                  "45AF34",
+                  "543636",
+                  "34AFBE"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Default error sample response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Example Response": {
+                    "value": "[ { \"success\": { \"/lights\": \"Searching for new devices\" }}]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/lights/new": {
+      "get": {
+        "summary": "",
+        "description": "Gets a list of lights that were discovered the last time a search for new lights was performed. The list of new lights is always deleted when a new search is started.",
+        "operationId": "getNewLights",
+        "tags": [
+          "lights"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Example Response": {
+                    "value": "{\n    \"7\": {\"name\": \"Hue Lamp 7\"},\n    \"8\": {\"name\": \"Hue Lamp 8\"},\n    \"lastscan\": \"2012-10-29T12:00:00\"\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{username}/lights/{id}": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Gets the attributes and state of a given light.",
+        "description": "Gets the attributes and state of a given light.",
+        "operationId": "getLightAttributes",
+        "tags": [
+          "lights"
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Example Response": {
+                    "value": "{\n    \"state\": {\n        \"hue\": 50000,\n        \"on\": true,\n        \"effect\": \"none\",\n        \"alert\": \"none\",\n        \"bri\": 200,\n        \"sat\": 200,\n        \"ct\": 500,\n        \"xy\": [0.5, 0.5],\n        \"reachable\": true,\n        \"colormode\": \"hs\"\n    },\n    \"type\": \"Living Colors\",\n    \"name\": \"LC 1\",\n    \"modelid\": \"LC0015\",\n    \"swversion\": \"1.0.3\"\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Used to rename lights. A light can have its name changed when in any state, including when it is unreachable or off.",
+        "description": "",
+        "operationId": "renameLight",
+        "tags": [
+          "lights"
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Example Response": {
+                    "value": "[{\"success\":{\"/lights/1/name\":\"Bedroom Light\"}}]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a light from the bridge.",
+        "description": "",
+        "operationId": "deleteLight",
+        "tags": [
+          "lights"
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        }
+      }
+    },
+    "/api/{username}/lights/{id}/state": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "description": "The name that needs to be fetched. Use user1 for testing. ",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "summary": "Allows the user to turn the light on and off, modify the hue and effects.",
+        "description": "A light cannot have its hue, saturation, brightness, effect, ct or xy modified when it is turned off. Doing so will return 201 error. There are 3 methods available to set the color of the light – hue and saturation (hs), xy or color temperature (ct). If multiple methods are used then a priority is used: xy > ct > hs. All included parameters will be updated but the ‘colormode’ will be set using the priority system.",
+        "operationId": "setLightState",
+        "tags": [
+          "lights"
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "hue": {
+                    "type": "string"
+                  },
+                  "on": {
+                    "type": "boolean"
+                  },
+                  "bri": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Default error sample response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Example Response": {
+                    "value": "[\n    {\"success\":{\"/lights/1/state/bri\":200}},\n    {\"success\":{\"/lights/1/state/on\":true}},\n    {\"success\":{\"/lights/1/state/hue\":50000}}\n]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "lights"
+    },
+    {
+      "name": "groups"
+    },
+    {
+      "name": "config"
+    },
+    {
+      "name": "schedules"
+    },
+    {
+      "name": "scenes"
+    },
+    {
+      "name": "sensors"
+    },
+    {
+      "name": "rules"
+    },
+    {
+      "name": "resourcelinks"
+    }
+  ]
+}
