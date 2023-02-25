@@ -65,22 +65,7 @@ jobs:
           title: 'Build Result'
           input: './annotations.json'
 
-      - name: Run CPP-Linter
-        uses: cpp-linter/cpp-linter-action@v2
-        id: linter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          style: file
-          extra-args: -std=c++14 -Wall
-          tidy-checks: -*,cert-*,clang-analyzer-*,cppcoreguidelines-*,google-*,hicpp-*,llvm-*,misc-*,modernize-*,performance-*,readability-*,zircon-*
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
           category: "/language:cpp"
-
-      - name: Upload CodeQL Results
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: codeql-results.sarif
