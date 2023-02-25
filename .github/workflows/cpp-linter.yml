@@ -1,5 +1,4 @@
 name: cpp-linter
-id: cpp-linter
 
 on:
   pull_request:

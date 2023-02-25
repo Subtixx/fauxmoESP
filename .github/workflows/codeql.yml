@@ -1,5 +1,4 @@
 name: "CodeQL"
-id: codeql
 
 on:
   push:
