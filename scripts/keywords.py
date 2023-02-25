@@ -6,7 +6,7 @@ keywords.txt with a uniform indentation
 @author: aster94
 """
 # Settings
-newline = '\n' # compatibility between unix, windows, mac?
+newline = '\n'  # compatibility between unix, windows, mac?
 distance = 8
 
 template_KEYWORD1 = """\
@@ -34,22 +34,27 @@ template_LITERAL1 = """\
 # Modules
 import click, re, os, shutil, sys
 
+
 ############################################################
 ######                   Utilities                   #######
 ############################################################
 def file_exist(file_path):
     return os.path.isfile(file_path)
 
+
 def file_read(file_path):
     with open(file_path, 'r') as file:
         return file.read()
+
 
 def file_write(file_path, content):
     with open(file_path, 'w') as file:
         file.write(content)
 
+
 def file_copy(source, destination):
     shutil.copy(source, destination)
+
 
 def file_create(file_path):
     with open(file_path, 'w+'): pass
@@ -59,42 +64,41 @@ def file_create(file_path):
 ######                   Functions                   #######
 ############################################################
 def read_header(file_path, verbose, force):
-
     block_comment = False
     polished = ""
     key = {'KEYWORD1': list(), 'KEYWORD2': list(), 'LITERAL1': list()}
 
-    raw = file_read (file_path)
+    raw = file_read(file_path)
 
     # Integrity checks
     multiline_comment_start = raw.count('/*')
     multiline_comment_end = raw.count('*/')
-    if (multiline_comment_start == 0 and multiline_comment_end == 0):
+    if multiline_comment_start == 0 and multiline_comment_end == 0:
         pass
-    elif (multiline_comment_start - multiline_comment_end != 0):
+    elif multiline_comment_start - multiline_comment_end != 0:
         print('check source file: multiline comment block problem')
         if not force: raise NameError('MultilineBlockUndefinied')
 
     # Clean
     for line in raw.splitlines():
         line = line.strip()
-        if (block_comment):
+        if block_comment:
             # We are inside a multiline block comment
-            if (line.find('*/') == -1):
+            if line.find('*/') == -1:
                 continue
             else:
                 block_comment = False
-                line = line[line.find('*/')+2:]
+                line = line[line.find('*/') + 2:]
 
-        if (line.find('/*') != -1):
+        if line.find('/*') != -1:
             # It is the start of a block comment
             block_comment = True
             line = line[:line.find('/*')]
 
-        if (line.find('//') != -1):
+        if line.find('//') != -1:
             line = line[:line.find('//')]
 
-        if (line.find('#') != -1):
+        if line.find('#') != -1:
             continue
 
         polished += line + '\n'
@@ -102,19 +106,19 @@ def read_header(file_path, verbose, force):
     # Removing empty lines
     polished = re.sub(r'\n\s*\n', '\n', polished.strip())
 
-    if ('public:' in polished):
+    if 'public:' in polished:
         start = polished.find('public:') + 8
     else:
         start = polished.find('{') + 2
 
-    if ('private:' in polished):
+    if 'private:' in polished:
         end = polished.find('private:')
-    elif ('protected:' in polished):
+    elif 'protected:' in polished:
         end = polished.find('protected:')
     else:
         end = polished.find('}')
 
-    if (start > end):
+    if start > end:
         print('Unexpected error')
         raise NameError('Unexpected error')
 
@@ -127,26 +131,26 @@ def read_header(file_path, verbose, force):
         end = line.find('(')
 
         # Add them to list
-        if (start > end):
+        if start > end:
             to_add = line[:end]
-            if (not to_add in key['KEYWORD1']): key['KEYWORD1'].append(to_add)
+            if not to_add in key['KEYWORD1']: key['KEYWORD1'].append(to_add)
         else:
             to_add = line[start:end]
-            if (not to_add in key['KEYWORD2']): key['KEYWORD2'].append(to_add)
+            if not to_add in key['KEYWORD2']: key['KEYWORD2'].append(to_add)
 
     return key
 
-def read_keywords(file_path, verbose, force):
 
+def read_keywords(file_path, verbose, force):
     key = {'KEYWORD1': list(), 'KEYWORD2': list(), 'LITERAL1': list()}
     raw = file_read(file_path)
     value = ''
 
     for line in raw.splitlines():
         line = line.strip()
-        if ('# ' in line):
-            value = line[line.find('(')+1:line.find(')')]
-        elif ('#' in line or not line):
+        if '# ' in line:
+            value = line[line.find('(') + 1:line.find(')')]
+        elif '#' in line or not line:
             continue
         else:
             try:
@@ -155,6 +159,7 @@ def read_keywords(file_path, verbose, force):
                 last = len(line)
             key[value].append(line[:last])
     return key
+
 
 def write_keywords(key_dict, file_path, verbose, soft):
     max_len = 0
@@ -171,31 +176,34 @@ def write_keywords(key_dict, file_path, verbose, soft):
     '''
     output = template_KEYWORD1
     for n in key_dict['KEYWORD1']:
-        #pos = max_len - len(n)
+        # pos = max_len - len(n)
         output += '{}\t{}\n'.format(n, 'KEYWORD1')
 
     output += '\n\n' + template_KEYWORD2
     for n in key_dict['KEYWORD2']:
-        #pos = max_len - len(n)
+        # pos = max_len - len(n)
         output += '{}\t{}\n'.format(n, 'KEYWORD2')
 
     output += '\n\n' + template_LITERAL1
     for n in key_dict['LITERAL1']:
-        #pos = max_len - len(n)
+        # pos = max_len - len(n)
         output += '{}\t{}\n'.format(n, 'LITERAL1')
 
     if verbose: print('{} printed/wrote'.format(file_path))
-    if soft: print(output.strip())
-    else: file_write(file_path, output.strip())
+    if soft:
+        print(output.strip())
+    else:
+        file_write(file_path, output.strip())
 
 
 @click.command()
 @click.argument('file_path')
-@click.option('--backup' , '-b', is_flag=True, help='Create a backup with the original keywords.txt file.')
-@click.option('--verbose' , '-v', is_flag=True, help='Verbose output.')
-@click.option('--force' , '-f', is_flag=True, help='Overwrite existing files.')
-@click.option('--soft' , '-s', is_flag=True, help='Don\'t write files, print them in the console.')
-@click.option('--preserve' , '-p', is_flag=True, default=True, help='Don\'t preserve LITERAL1 even if keywords.txt already exists.')
+@click.option('--backup', '-b', is_flag=True, help='Create a backup with the original keywords.txt file.')
+@click.option('--verbose', '-v', is_flag=True, help='Verbose output.')
+@click.option('--force', '-f', is_flag=True, help='Overwrite existing files.')
+@click.option('--soft', '-s', is_flag=True, help='Don\'t write files, print them in the console.')
+@click.option('--preserve', '-p', is_flag=True, default=True,
+              help='Don\'t preserve LITERAL1 even if keywords.txt already exists.')
 def keywords(file_path, backup, verbose, force, soft, preserve):
     """
     Automatically generate the keywords.txt from a header file or make an existing
@@ -203,8 +211,8 @@ def keywords(file_path, backup, verbose, force, soft, preserve):
     """
 
     if verbose: print('Arguments\nfile_path: {}\nbackup: {}\nverbose: {}\
-                      \nforce: {}\nsoft: {}\npreserve: {}\n'.format(\
-                      file_path, backup, verbose, force, soft, preserve))
+                      \nforce: {}\nsoft: {}\npreserve: {}\n'.format( \
+        file_path, backup, verbose, force, soft, preserve))
 
     if not file_exist(file_path):
         print('File not found')
@@ -213,9 +221,9 @@ def keywords(file_path, backup, verbose, force, soft, preserve):
     key_dict = dict()
     extension = os.path.splitext(file_path)[1]
 
-    if (extension == '.h'):
+    if extension == '.h':
         key_dict = read_header(file_path, verbose, force)
-        keywords_path = os.path.dirname(file_path)+'\keywords.txt'
+        keywords_path = os.path.dirname(file_path) + '\keywords.txt'
         if preserve:
             if file_exist(keywords_path):
                 if verbose: print('Copying LITERAL1 from {}'.format(keywords_path))
@@ -223,7 +231,7 @@ def keywords(file_path, backup, verbose, force, soft, preserve):
                 key_dict['LITERAL1'] = key_dict_old['LITERAL1']
             else:
                 if verbose: print('Can\'t copy LITERAL1, no keywords.txt found')
-    elif (extension == '.txt'):
+    elif extension == '.txt':
         key_dict = read_keywords(file_path, verbose, force)
         keywords_path = file_path
     else:
@@ -231,13 +239,13 @@ def keywords(file_path, backup, verbose, force, soft, preserve):
         raise NameError('FileNotAccepted')
 
     # Check if keywords.txt exist
-    if(file_exist(keywords_path)):
+    if file_exist(keywords_path):
         if force:
             if verbose: print('{} already exist, overwritten'.format(keywords_path))
         else:
             if verbose: print('{} already exist, not overwritten'.format(keywords_path))
             sys.exit(0)
-        if (backup):
+        if backup:
             backup_path = keywords_path + '.old'
             if file_exist(backup_path):
                 if force:
@@ -254,8 +262,10 @@ def keywords(file_path, backup, verbose, force, soft, preserve):
 
     write_keywords(key_dict, keywords_path, verbose, soft)
 
+
 def main():
     keywords()
+
 
 if __name__ == '__main__':
     main()
