@@ -1,50 +1,23 @@
 #pragma once
-/*
-on 	bool 	On/Off state of the light. On=true, Off=false 	Optional
-bri 	uint8 	The brightness value to set the light to.Brightness is a scale from 1 (the minimum the light is capable of) to 254 (the maximum).
-
-Note: a brightness of 1 is not off.
-
-e.g. “brightness”: 60 will set the light to a specific brightness
-	Optional
-hue 	uint16 	The hue value to set light to.The hue value is a wrapping value between 0 and 65535. Both 0 and 65535 are red, 25500 is green and 46920 is blue.
-
-e.g. “hue”: 50000 will set the light to a specific hue.
-	Optional
-sat 	uint8 	Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white). 	Optional
-xy 	list 2..2 of float 4 	The x and y coordinates of a color in CIE color space.The first entry is the x coordinate and the second entry is the y coordinate. Both x and y must be between 0 and 1.
-If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen. 	Optional
-ct 	uint16 	The Mired color temperature of the light. 2012 connected lights are capable of 153 (6500K) to 500 (2000K). 	Optional
-alert 	string 	The alert effect,is a temporary change to the bulb’s state, and has one of the following values:
-“none” – The light is not performing an alert effect.
-“select” – The light is performing one breathe cycle.
-“lselect” – The light is performing breathe cycles for 15 seconds or until an "alert": "none" command is received.Note that this contains the last alert sent to the light and not its current state. i.e. After the breathe cycle has finished the bridge does not reset the alert to “none“. 	Optional
-effect 	string 	The dynamic effect of the light. Currently “none” and “colorloop” are supported. Other values will generate an error of type 7.Setting the effect to colorloop will cycle through all hues using the current brightness and saturation settings. 	Optional
-transitiontime 	uint16 	The duration of the transition from the light’s current state to the new state. This is given as a multiple of 100ms and defaults to 4 (400ms). For example, setting transitiontime:10 will make the transition last 1 second. 	Optional
-bri_inc 	-254 to 254 	Increments or decrements the value of the brightness.  bri_inc is ignored if the bri attribute is provided. Any ongoing bri transition is stopped. Setting a value of 0 also stops any ongoing transition. The bridge will return the bri value after the increment is performed. 	 Optional
-sat_inc 	-254 to 254 	Increments or decrements the value of the sat.  sat_inc is ignored if the sat attribute is provided. Any ongoing sat transition is stopped. Setting a value of 0 also stops any ongoing transition. The bridge will return the sat value after the increment is performed. 	Optional
-hue_inc 	-65534 to 65534 	Increments or decrements the value of the hue.   hue_inc is ignored if the hue attribute is provided. Any ongoing color transition is stopped. Setting a value of 0 also stops any ongoing transition. The bridge will return the hue value after the increment is performed.Note if the resulting values are < 0 or > 65535 the result is wrapped. For example:
-
-{"hue_inc":  1}
-
-on a hue value of 65535 results in a hue of 0.
-{"hue_inc":  -2}
-
-on a hue value of 0 results in a hue of 65534.
-	Optional
- ct_inc 	 -65534 to 65534 	Increments or decrements the value of the ct. ct_inc is ignored if the ct attribute is provided. Any ongoing color transition is stopped. Setting a value of 0 also stops any ongoing transition. The bridge will return the ct value after the increment is performed. 	 Optional
- xy_inc 	 list 2..2 of float 4 	Increments or decrements the value of the xy.  xy_inc is ignored if the xy attribute is provided. Any ongoing color transition is stopped. Setting a value of 0 also stops any ongoing transition. Will stop at it’s gamut boundaries. The bridge will return the xy value after the increment is performed. Max value [0.5, 0.5]. 	Optional
- */
-
 #include <Arduino.h>
 #include "AlertEffect.h"
 #include "LightEffect.h"
 #include "XYPoint.h"
 
+/**
+ * @brief Represents a state change of a light device.
+ */
 struct LightStateChange
 {
 public:
+    /**
+     * @brief Creates a new light state change from a json string.
+     */
     explicit LightStateChange(const String& jsonString);
+
+    /**
+     * @brief Returns all changes as a json string.
+     */
     String getChanges(int lightId);
 private:
     /**
@@ -146,73 +119,297 @@ private:
     bool _xyPointIncrementSuccessfullySet = false;
 
 public:
+    /**
+     * @brief Returns whether the light should be turned on or off.
+     * @return true if the light should be turned on, false if the light should be turned off.
+     */
     [[nodiscard]] bool getIsOn() const;
+    /**
+     * @brief Returns whether the on state was set.
+     * @return true if the on state was set, false otherwise.
+     */
     [[nodiscard]] bool isOnSet() const;
+    /**
+     * @brief Returns whether the on state was successfully set.
+     * @return true if the on state was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isOnSuccessfullySet() const;
+    /**
+     * @brief Sets whether the on state was successfully set.
+     * @param success true if the on state was successfully set, false otherwise.
+     */
     void setOnSuccess(bool success);
 
+    /**
+     * @brief Returns the new brightness of the light.
+     * @return the brightness of the light.
+     */
     [[nodiscard]] uint8_t getBrightness() const;
+    /**
+     * @brief Returns whether the brightness was set.
+     * @return true if the brightness was set, false otherwise.
+     */
     [[nodiscard]] bool isBrightnessSet() const;
+    /**
+     * @brief Returns whether the brightness was successfully set.
+     * @return true if the brightness was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isBrightnessSuccessfullySet() const;
+    /**
+     * @brief Sets whether the brightness was successfully set.
+     * @param success true if the brightness was successfully set, false otherwise.
+     */
     void setBrightnessSuccess(bool success);
 
+    /**
+     * @brief Returns the new hue of the light.
+     * @return the hue of the light.
+     */
     [[nodiscard]] uint16_t getHue() const;
+    /**
+     * @brief Returns whether the hue was set.
+     * @return true if the hue was set, false otherwise.
+     */
     [[nodiscard]] bool isHueSet() const;
+    /**
+     * @brief Returns whether the hue was successfully set.
+     * @return true if the hue was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isHueSuccessfullySet() const;
+    /**
+     * @brief Sets whether the hue was successfully set.
+     * @param success true if the hue was successfully set, false otherwise.
+     */
     void setHueSuccess(bool success);
 
+    /**
+     * @brief Returns the new saturation of the light.
+     * @return the saturation of the light.
+     */
     [[nodiscard]] uint8_t getSaturation() const;
+    /**
+     * @brief Returns whether the saturation was set.
+     * @return true if the saturation was set, false otherwise.
+     */
     [[nodiscard]] bool isSaturationSet() const;
+    /**
+     * @brief Returns whether the saturation was successfully set.
+     * @return true if the saturation was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isSaturationSuccessfullySet() const;
+    /**
+     * @brief Sets whether the saturation was successfully set.
+     * @param success true if the saturation was successfully set, false otherwise.
+     */
     void setSaturationSuccess(bool success);
 
+    /**
+     * @brief Returns the new xy point of the light.
+     * @return the xy point of the light.
+     */
     [[nodiscard]] const XYPoint& getXyPoint() const;
+    /**
+     * @brief Returns whether the xy point was set.
+     * @return true if the xy point was set, false otherwise.
+     */
     [[nodiscard]] bool isXyPointSet() const;
+    /**
+     * @brief Returns whether the xy point was successfully set.
+     * @return true if the xy point was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isXyPointSuccessfullySet() const;
+    /**
+     * @brief Sets whether the xy point was successfully set.
+     * @param success true if the xy point was successfully set, false otherwise.
+     */
     void setXyPointSuccess(bool success);
 
+    /**
+     * @brief Returns the new color temperature of the light.
+     * @return the color temperature of the light.
+     */
     [[nodiscard]] uint16_t getColorTemperature() const;
+    /**
+     * @brief Returns whether the color temperature was set.
+     * @return true if the color temperature was set, false otherwise.
+     */
     [[nodiscard]] bool isColorTemperatureSet() const;
+    /**
+     * @brief Returns whether the color temperature was successfully set.
+     * @return true if the color temperature was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isColorTemperatureSuccessfullySet() const;
+    /**
+     * @brief Sets whether the color temperature was successfully set.
+     * @param success true if the color temperature was successfully set, false otherwise.
+     */
     void setColorTemperatureSuccess(bool success);
 
+    /**
+     * @brief Returns the new alert effect of the light.
+     * @return the alert effect of the light.
+     */
     [[nodiscard]] AlertEffect getAlertEffect() const;
+    /**
+     * @brief Returns whether the alert effect was set.
+     * @return true if the alert effect was set, false otherwise.
+     */
     [[nodiscard]] bool isAlertEffectSet() const;
+    /**
+     * @brief Returns whether the alert effect was successfully set.
+     * @return true if the alert effect was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isAlertEffectSuccessfullySet() const;
+    /**
+     * @brief Sets whether the alert effect was successfully set.
+     * @param success true if the alert effect was successfully set, false otherwise.
+     */
     void setAlertEffectSuccess(bool success);
 
+    /**
+     * @brief Returns the new effect of the light.
+     * @return the effect of the light.
+     */
     [[nodiscard]] LightEffect getLightEffect() const;
+    /**
+     * @brief Returns whether the effect was set.
+     * @return true if the effect was set, false otherwise.
+     */
     [[nodiscard]] bool isLightEffectSet() const;
+    /**
+     * @brief Returns whether the effect was successfully set.
+     * @return true if the effect was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isLightEffectSuccessfullySet() const;
+    /**
+     * @brief Sets whether the effect was successfully set.
+     * @param success true if the effect was successfully set, false otherwise.
+     */
     void setLightEffectSuccess(bool success);
 
+    /**
+     * @brief Returns the new transition time of the light.
+     * @return the transition time of the light.
+     */
     [[nodiscard]] uint16_t getTransitionTime() const;
+    /**
+     * @brief Returns whether the transition time was set.
+     * @return true if the transition time was set, false otherwise.
+     */
     [[nodiscard]] bool isTransitionTimeSet() const;
+    /**
+     * @brief Returns whether the transition time was successfully set.
+     * @return true if the transition time was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isTransitionTimeSuccessfullySet() const;
+    /**
+     * @brief Sets whether the transition time was successfully set.
+     * @param success true if the transition time was successfully set, false otherwise.
+     */
     void setTransitionTimeSuccess(bool success);
 
+    /**
+     * @brief Returns the new brightness increment of the light.
+     * @return the brightness increment of the light.
+     */
     [[nodiscard]] int16_t getBrightnessIncrement() const;
+    /**
+     * @brief Returns whether the brightness increment was set.
+     * @return true if the brightness increment was set, false otherwise.
+     */
     [[nodiscard]] bool isBrightnessIncrementSet() const;
+    /**
+     * @brief Returns whether the brightness increment was successfully set.
+     * @return true if the brightness increment was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isBrightnessIncrementSuccessfullySet() const;
+    /**
+     * @brief Sets whether the brightness increment was successfully set.
+     * @param success true if the brightness increment was successfully set, false otherwise.
+     */
     void setBrightnessIncrementSuccess(bool success);
 
+    /**
+     * @brief Returns the new saturation increment of the light.
+     * @return the saturation increment of the light.
+     */
     [[nodiscard]] int16_t getSaturationIncrement() const;
+    /**
+     * @brief Returns whether the saturation increment was set.
+     * @return true if the saturation increment was set, false otherwise.
+     */
     [[nodiscard]] bool isSaturationIncrementSet() const;
+    /**
+     * @brief Returns whether the saturation increment was successfully set.
+     * @return true if the saturation increment was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isSaturationIncrementSuccessfullySet() const;
+    /**
+     * @brief Sets whether the saturation increment was successfully set.
+     * @param success true if the saturation increment was successfully set, false otherwise.
+     */
     void setSaturationIncrementSuccess(bool success);
 
+    /**
+     * @brief Returns the new hue increment of the light.
+     * @return the hue increment of the light.
+     */
     [[nodiscard]] int32_t getHueIncrement() const;
+    /**
+     * @brief Returns whether the hue increment was set.
+     * @return true if the hue increment was set, false otherwise.
+     */
     [[nodiscard]] bool isHueIncrementSet() const;
+    /**
+     * @brief Returns whether the hue increment was successfully set.
+     * @return true if the hue increment was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isHueIncrementSuccessfullySet() const;
+    /**
+     * @brief Sets whether the hue increment was successfully set.
+     * @param success true if the hue increment was successfully set, false otherwise.
+     */
     void setHueIncrementSuccess(bool success);
 
+    /**
+     * @brief Returns the new color temperature increment of the light.
+     * @return the color temperature increment of the light.
+     */
     [[nodiscard]] int32_t getColorTemperatureIncrement() const;
+    /**
+     * @brief Returns whether the color temperature increment was set.
+     * @return true if the color temperature increment was set, false otherwise.
+     */
     [[nodiscard]] bool isColorTemperatureIncrementSet() const;
+    /**
+     * @brief Returns whether the color temperature increment was successfully set.
+     * @return true if the color temperature increment was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isColorTemperatureIncrementSuccessfullySet() const;
+    /**
+     * @brief Sets whether the color temperature increment was successfully set.
+     * @param success true if the color temperature increment was successfully set, false otherwise.
+     */
     void setColorTemperatureIncrementSuccess(bool success);
 
+    /**
+     * @brief Returns the new xy point of the light.
+     * @return the xy point of the light.
+     */
     [[nodiscard]] const XYPoint& getXyPointIncrement() const;
+    /**
+     * @brief Returns whether the xy point was set.
+     * @return true if the xy point was set, false otherwise.
+     */
     [[nodiscard]] bool isXyPointIncrementSet() const;
+    /**
+     * @brief Returns whether the xy point was successfully set.
+     * @return true if the xy point was successfully set, false otherwise.
+     */
     [[nodiscard]] bool isXyPointIncrementSuccessfullySet() const;
+    /**
+     * @brief Sets whether the xy point was successfully set.
+     * @param success true if the xy point was successfully set, false otherwise.
+     */
     void setXyPointIncrementSuccess(bool success);
 };

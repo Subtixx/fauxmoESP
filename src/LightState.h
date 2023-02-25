@@ -10,10 +10,31 @@
 #include <ArduinoJson.h>
 #endif
 
+/**
+ * This class represents the state of a light.
+ */
 struct LightState
 {
+    /**
+     * Creates a new light state with default values.
+     * @note Default sets isLightReachable to false.
+     *       This means no functions will be able to change the state of the light until isLightReachable is set to true.
+     */
     LightState();
 
+    /**
+     * Creates a new light state with the given values.
+     * @param state The on/off state of the light.
+     * @param brightness The current brightness of the light.
+     * @param hue The current hue of the light.
+     * @param saturation The current saturation of the light.
+     * @param xy The current xy color of the light.
+     * @param colorTemperature The current color temperature of the light.
+     * @param alertEffect The current alert effect of the light.
+     * @param dynamicLightEffect The current dynamic light effect of the light.
+     * @param colorMode The current color mode of the light.
+     * @param isLightReachable The current reachability of the light.
+     */
     explicit LightState(bool state, uint8_t brightness = 254, uint16_t hue = 41462, uint8_t saturation = 77,
             const XYPoint& xy = XYPoint(),
             uint16_t colorTemperature = 155, AlertEffect alertEffect = ALERT_EFFECT_NONE,
@@ -122,17 +143,28 @@ struct LightState
     /**
      * Returns the current state of the light as a JSON string.
      */
-
 #if USE_ARDUINO_JSON
     [[nodiscard]] StaticJsonDocument<256> toJson() const;
 #else
     [[nodiscard]] String toJson() const;
 #endif
 
+    /**
+     * Return the current color mode as a string.
+     * @return The current color mode as a string.
+     */
     [[nodiscard]] String getColorModeString() const;
 
+    /**
+     * Return the current dynamic light effect as a string.
+     * @return The current dynamic light effect as a string.
+     */
     [[nodiscard]] String getDynamicLightEffectString() const;
 
+    /**
+     * Return the current alert effect as a string.
+     * @return The current alert effect as a string.
+     */
     [[nodiscard]] String getAlertEffectString() const;
 
     bool operator==(const LightState& other) const;

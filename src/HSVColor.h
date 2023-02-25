@@ -1,5 +1,8 @@
 #pragma once
 
+#include <algorithm>
+#include "RGBColor.h"
+
 struct HSVColor
 {
     explicit HSVColor(const RGBColor& color)

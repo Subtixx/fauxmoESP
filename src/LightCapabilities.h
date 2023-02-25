@@ -7,9 +7,26 @@
 #include <ArduinoJson.h>
 #endif
 
+/**
+ * The light capabilities.
+ * This is the capabilities of the light, not the current state.
+ */
 struct LightCapabilities
 {
+    /**
+     * Default constructor.
+     * This will set the default values for the light capabilities.
+     */
     LightCapabilities();
+
+    /**
+     * Constructor.
+     * This will set the values for the light capabilities.
+     * @param minDimLevel The minimum value that the bri attribute can be set to.
+     * @param maxLumen The maximum value that the bri attribute can be set to.
+     * @param minColorTemperature The minimum value that the ct attribute can be set to.
+     * @param maxColorTemperature The maximum value that the ct attribute can be set to.
+     */
     LightCapabilities(uint16_t minDimLevel, uint16_t maxLumen,
             uint16_t minColorTemperature, uint16_t maxColorTemperature);
 
@@ -73,10 +90,24 @@ struct LightCapabilities
      */
     uint16_t maxColorTemperature;
 
+    /**
+     * Whether the light is "certified" by Philips.
+     */
     bool certified = false;
+
+    /**
+     * Whether the light supports streaming renderer.
+     */
     bool streamingRenderer = true;
+
+    /**
+     * Whether the light supports streaming proxy.
+     */
     bool streamingProxy = false;
 
+    /**
+     * Convert the light capabilities to a JSON string.
+     */
 #if USE_ARDUINO_JSON
     [[nodiscard]] StaticJsonDocument<384> toJson() const;
 #else
