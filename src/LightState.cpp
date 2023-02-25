@@ -61,44 +61,17 @@ String LightState::toJson() const
 
 String LightState::getColorModeString() const
 {
-    switch (colorMode)
-    {
-    default:
-    case COLOR_MODE_HS:
-        return "hs";
-    case COLOR_MODE_XY:
-        return "xy";
-    case COLOR_MODE_CT:
-        return "ct";
-    }
+    return ColorModeToString(colorMode);
 }
 
 String LightState::getDynamicLightEffectString() const
 {
-    switch (dynamicLightEffect)
-    {
-    case LIGHT_EFFECT_NONE:
-        return "none";
-    case LIGHT_EFFECT_COLORLOOP:
-        return "colorloop";
-    default:
-        return "none";
-    }
+    return LightEffectToString(dynamicLightEffect);
 }
 
 String LightState::getAlertEffectString() const
 {
-    switch (alertEffect)
-    {
-    case ALERT_EFFECT_NONE:
-        return "none";
-    case ALERT_EFFECT_SELECT:
-        return "select";
-    case ALERT_EFFECT_LSELECT:
-        return "lselect";
-    default:
-        return "none";
-    }
+    return AlertEffectToString(alertEffect);
 }
 
 bool LightState::operator==(const LightState& other) const
