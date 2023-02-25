@@ -20,3 +20,17 @@ enum ColorMode
      */
     COLOR_MODE_CT
 };
+
+static String ColorModeToString(ColorMode colorMode)
+{
+    switch (colorMode)
+    {
+    default:
+    case COLOR_MODE_HS:
+        return "hs";
+    case COLOR_MODE_XY:
+        return "xy";
+    case COLOR_MODE_CT:
+        return "ct";
+    }
+}
