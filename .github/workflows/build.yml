@@ -9,16 +9,30 @@ on:
     branches:
       - main
 
+permissions: write-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
 
     steps:
-      - name: checkout code
+      - name: Create pip cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Create PlatformIO Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-platformio-${{ hashFiles('**/platformio.ini') }}
+          restore-keys: |
+            ${{ runner.os }}-platformio-
+
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Initialize CodeQL
@@ -30,28 +44,19 @@ jobs:
         run: |
           chmod +x ./ci/ci-compile.sh
 
-      - name: install python
+      - name: Install Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: install platformio
+      - name: Install PlatformIO
         run: |
-          pip install platformio==6.1.4
+          pip install platformio==6.1.4 --use-pep517
 
-      - name: build examples
+      - name: Run CI Compile
         run: ./ci/ci-compile.sh
 
-      - uses: cpp-linter/cpp-linter-action@v2
-        id: linter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          style: file
-          extra-args: -std=c++14 -Wall
-          tidy-checks: -*,cert-*,clang-analyzer-*,cppcoreguidelines-*,google-*,hicpp-*,llvm-*,misc-*,modernize-*,performance-*,readability-*,zircon-*
-
-      - name: Annotate
+      - name: Annotate Build Result
         uses: yuzutech/annotations-action@v0.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,7 +65,22 @@ jobs:
           title: 'Build Result'
           input: './annotations.json'
 
+      - name: Run CPP-Linter
+        uses: cpp-linter/cpp-linter-action@v2
+        id: linter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          style: file
+          extra-args: -std=c++14 -Wall
+          tidy-checks: -*,cert-*,clang-analyzer-*,cppcoreguidelines-*,google-*,hicpp-*,llvm-*,misc-*,modernize-*,performance-*,readability-*,zircon-*
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
           category: "/language:cpp"
+
+      - name: Upload CodeQL Results
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: codeql-results.sarif
